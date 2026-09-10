@@ -47,11 +47,41 @@ TEAM_SEASON_MANAGERS = {
     (2025, 17): ["ed_carolyn_b"], (2025, 18): ["timmy_k"],
 }
 
+POSITION_NAMES = {0: "QB", 2: "RB", 3: "RB/WR", 4: "WR", 5: "WR/TE", 6: "TE", 16: "D/ST", 17: "K", 20: "Bench", 21: "IR", 23: "Flex"}
+
 
 def read_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(f"Required source file not found: {path}. Run scripts/discover_espn_history.py first.")
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def player_catalog(data_root: Path, season: int) -> dict[int, dict[str, Any]]:
+    """Collect ESPN player metadata from every preserved roster and box-score response."""
+    catalog: dict[int, dict[str, Any]] = {}
+
+    def visit(value: Any) -> None:
+        if isinstance(value, dict):
+            player_id, full_name = value.get("id"), value.get("fullName")
+            if isinstance(player_id, int) and isinstance(full_name, str) and full_name.strip():
+                catalog[player_id] = {
+                    "player_name": full_name.strip(),
+                    "default_position_id": value.get("defaultPositionId"),
+                    "pro_team_id": value.get("proTeamId"),
+                }
+            for child in value.values():
+                visit(child)
+        elif isinstance(value, list):
+            for child in value:
+                visit(child)
+
+    season_root = data_root / "raw" / str(season)
+    candidates = list((season_root / "league").glob("mRoster.json"))
+    candidates.extend((season_root / "weeks").glob("**/mRoster.json"))
+    candidates.extend((season_root / "weeks").glob("**/mBoxscore.json"))
+    for path in candidates:
+        visit(read_json(path))
+    return catalog
 
 
 def normalized_name(value: str) -> str:
@@ -95,6 +125,7 @@ def normalize_season(data_root: Path, season: int) -> dict[str, Any]:
     teams_payload = read_json(league / "mTeam.json")
     matchup_payload = read_json(league / "mMatchupScore.json")
     draft_payload = read_json(league / "mDraftDetail.json")
+    players = player_catalog(data_root, season)
     schedule_settings = settings_payload["settings"]["scheduleSettings"]
     regular_periods = int(schedule_settings["matchupPeriodCount"])
 
@@ -167,11 +198,16 @@ def normalize_season(data_root: Path, season: int) -> dict[str, Any]:
     picks = []
     for pick in draft_payload.get("draftDetail", {}).get("picks", []):
         team_id = int(pick["teamId"])
+        player_id = int(pick["playerId"])
+        player = players.get(player_id, {})
         picks.append({
             "season": season, "overall_pick": int(pick["overallPickNumber"]), "round": int(pick["roundId"]),
             "round_pick": int(pick["roundPickNumber"]), "team_id": team_id,
             "team_name": team_lookup[team_id]["team_name"], "manager_ids": team_lookup[team_id]["manager_ids"],
-            "manager_names": team_lookup[team_id]["manager_names"], "player_id": int(pick["playerId"]),
+            "manager_names": team_lookup[team_id]["manager_names"], "player_id": player_id,
+            "player_name": player.get("player_name"),
+            "position": POSITION_NAMES.get(player.get("default_position_id")),
+            "pro_team_id": player.get("pro_team_id"), "player_resolved": bool(player.get("player_name")),
             "lineup_slot_id": pick.get("lineupSlotId"), "keeper": bool(pick.get("keeper", False)),
             "auto_draft_type_id": pick.get("autoDraftTypeId"), "source": f"data/raw/{season}/league/mDraftDetail.json",
         })
