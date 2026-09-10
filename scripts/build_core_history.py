@@ -320,12 +320,12 @@ def main() -> int:
     destination = processed / "core_history.json"
     serialized = json.dumps(output, indent=2)
     destination.write_text(serialized, encoding="utf-8")
-    public_destination = Path("public") / "data" / "core_history.json"
-    public_destination.parent.mkdir(parents=True, exist_ok=True)
-    public_destination.write_text(serialized, encoding="utf-8")
+    website_destination = Path("app") / "data" / "core_history.json"
+    website_destination.parent.mkdir(parents=True, exist_ok=True)
+    website_destination.write_text(serialized, encoding="utf-8")
     c = output["records"]["counts"]
     print(f"Wrote {destination}")
-    print(f"Updated website data at {public_destination}")
+    print(f"Updated website data at {website_destination}")
     print(f"{c['seasons']} seasons, {c['team_seasons']} team-seasons, {c['regular_season_matchups']} regular-season matchups, {c['championship_playoff_series']} championship-playoff series, {c['draft_picks']} draft picks.")
     return 0
 
