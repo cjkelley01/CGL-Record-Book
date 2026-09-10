@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Crown, History, Shield, Swords, Trophy } from "lucide-react";
-import data from "@/public/data/core_history.json";
+import data from "@/app/data/core_history.json";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
