@@ -9,9 +9,9 @@ The official historical record for **CGL — Charley’s Gonna Lose**, a 14-team
 - ESPN league ID: `1877457250`
 - This project is independent from Fantasy Football Edge.
 
-## Current milestone: preserve the source data
+## Current milestone: browsable record book
 
-Before building leaderboards, records, and season stories, this project downloads and preserves every historical ESPN view that is still available for 2024 and 2025. Raw responses remain unchanged so later calculations can be audited.
+The project preserves ESPN history, builds a public-safe normalized dataset, and presents it in a local web record book. Raw responses remain unchanged so every calculation can be audited.
 
 ## Quick start
 
@@ -20,6 +20,7 @@ py -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 python scripts\discover_espn_history.py
+python scripts\build_core_history.py
 ```
 
 On macOS or Linux, activate with `source .venv/bin/activate` and use forward slashes.
@@ -33,13 +34,25 @@ The discovery script writes:
 
 Raw downloads are intentionally excluded from Git because ESPN responses can be large. The generated report is also local until reviewed for personal information.
 
+## Run the website locally
+
+Install Node.js 22 or newer, then run:
+
+```powershell
+corepack enable
+pnpm install
+pnpm dev
+```
+
+Open the local address shown in the terminal. Re-running `build_core_history.py` updates both the private processed file and the public-safe website data.
+
 ## Roadmap
 
 1. Historical ESPN discovery and preservation
 2. Normalized managers, franchises, seasons, matchups, standings, rosters, drafts, and transactions
 3. Verified regular-season and playoff calculations
 4. All-time records, head-to-head history, streaks, awards, and season recaps
-5. A browsable CGL record-book website
+5. A browsable CGL record-book website — initial version complete
 
 ## Data caution
 
