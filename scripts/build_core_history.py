@@ -208,7 +208,7 @@ def build_manager_history(seasons: list[dict[str, Any]]) -> dict[str, Any]:
         row["points_for"], row["points_against"] = round(row["points_for"], 2), round(row["points_against"], 2)
         row["team_names"] = aliases[mid]
     active = [row for row in stats.values() if row["seasons"]]
-    return {"standings": sorted(active, key=lambda r: (-r["championships"], -r["winning_percentage"], -r["wins"], r["manager_name"])),
+    return {"standings": sorted(active, key=lambda r: (-r["winning_percentage"], -r["wins"], -r["points_for"], r["manager_name"])),
             "team_name_history": {mid: aliases[mid] for mid in aliases}}
 
 
@@ -265,7 +265,9 @@ def build_records(seasons: list[dict[str, Any]]) -> dict[str, Any]:
     playoff_series = [m for m in playoffs if m["is_multiweek_series"]]
     weekly = [w for s in seasons for w in s["weekly_scores"]]
     regular_weekly = [w for w in weekly if w["stage"] == "regular_season"]
-    playoff_weekly = [w for w in weekly if w["stage"] == "championship_playoffs"]
+    # ESPN retains scores for teams on playoff byes. They have no opponent and
+    # are not games, so exclude them from playoff-game records.
+    playoff_weekly = [w for w in weekly if w["stage"] == "championship_playoffs" and w["opponent_team_id"] is not None]
 
     def score_extreme(rows: list[dict[str, Any]], maximum: bool) -> dict[str, Any] | None:
         return (max if maximum else min)(rows, key=lambda r: r["points"], default=None)
