@@ -44,7 +44,7 @@ pnpm install
 pnpm dev
 ```
 
-Open the local address shown in the terminal. Re-running `build_core_history.py` updates both the private processed file and the public-safe website data.
+Open the local address shown in the terminal. Re-running `build_core_history.py` updates both the private processed file and the website's local data.
 
 ## Roadmap
 
