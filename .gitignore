@@ -14,6 +14,7 @@ data/reports/
 # Locally generated record-book data may contain league identities.
 data/processed/
 public/data/core_history.json
+app/data/core_history.json
 
 # Website build and local tooling
 /node_modules/
