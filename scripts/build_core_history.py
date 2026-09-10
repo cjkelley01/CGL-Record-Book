@@ -9,6 +9,8 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+import requests
+
 
 MANAGERS = {
     "charley_k": "Charley K.", "quy_h": "Quy H.", "mike_k": "Mike K.",
@@ -47,7 +49,22 @@ TEAM_SEASON_MANAGERS = {
     (2025, 17): ["ed_carolyn_b"], (2025, 18): ["timmy_k"],
 }
 
-POSITION_NAMES = {0: "QB", 2: "RB", 3: "RB/WR", 4: "WR", 5: "WR/TE", 6: "TE", 16: "D/ST", 17: "K", 20: "Bench", 21: "IR", 23: "Flex"}
+# ESPN's defaultPositionId values are player positions, not lineup-slot IDs.
+POSITION_NAMES = {1: "QB", 2: "RB", 3: "WR", 4: "TE", 5: "K", 16: "D/ST"}
+
+DEFENSE_NAMES = {
+    -16001: "Atlanta Falcons D/ST", -16002: "Buffalo Bills D/ST", -16003: "Chicago Bears D/ST",
+    -16004: "Cincinnati Bengals D/ST", -16005: "Cleveland Browns D/ST", -16006: "Dallas Cowboys D/ST",
+    -16007: "Denver Broncos D/ST", -16008: "Detroit Lions D/ST", -16009: "Green Bay Packers D/ST",
+    -16010: "Tennessee Titans D/ST", -16011: "Indianapolis Colts D/ST", -16012: "Kansas City Chiefs D/ST",
+    -16013: "Las Vegas Raiders D/ST", -16014: "Los Angeles Rams D/ST", -16015: "Miami Dolphins D/ST",
+    -16016: "Minnesota Vikings D/ST", -16017: "New England Patriots D/ST", -16018: "New Orleans Saints D/ST",
+    -16019: "New York Giants D/ST", -16020: "New York Jets D/ST", -16021: "Philadelphia Eagles D/ST",
+    -16022: "Arizona Cardinals D/ST", -16023: "Pittsburgh Steelers D/ST", -16024: "Los Angeles Chargers D/ST",
+    -16025: "San Francisco 49ers D/ST", -16026: "Seattle Seahawks D/ST", -16027: "Tampa Bay Buccaneers D/ST",
+    -16028: "Washington Commanders D/ST", -16029: "Carolina Panthers D/ST", -16030: "Jacksonville Jaguars D/ST",
+    -16033: "Baltimore Ravens D/ST", -16034: "Houston Texans D/ST",
+}
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -82,6 +99,55 @@ def player_catalog(data_root: Path, season: int) -> dict[int, dict[str, Any]]:
     for path in candidates:
         visit(read_json(path))
     return catalog
+
+
+def resolve_draft_players(data_root: Path, season: int, catalog: dict[int, dict[str, Any]], player_ids: set[int]) -> None:
+    """Fill gaps left by archived rosters using defense IDs and ESPN's public athlete record."""
+    cache_path = data_root / "processed" / "espn_player_catalog.json"
+    cache: dict[str, dict[str, Any]] = {}
+    if cache_path.exists():
+        cache = json.loads(cache_path.read_text(encoding="utf-8"))
+
+    for player_id in player_ids:
+        if player_id in catalog:
+            continue
+        if player_id in DEFENSE_NAMES:
+            catalog[player_id] = {"player_name": DEFENSE_NAMES[player_id], "position": "D/ST", "pro_team_id": None}
+        elif str(player_id) in cache:
+            catalog[player_id] = cache[str(player_id)]
+
+    session = requests.Session()
+    session.headers.update({"User-Agent": "CGL-Record-Book/1.0"})
+    for player_id in sorted(player_ids):
+        if player_id <= 0 or player_id in catalog:
+            continue
+        endpoints = [
+            f"https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/{player_id}",
+            f"https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/{season}/athletes/{player_id}",
+        ]
+        for url in endpoints:
+            try:
+                response = session.get(url, timeout=10)
+                response.raise_for_status()
+                payload = response.json()
+            except (requests.RequestException, ValueError):
+                continue
+            athlete = payload.get("athlete", payload)
+            player_name = athlete.get("displayName") or athlete.get("fullName")
+            position_data = athlete.get("position") or {}
+            position = position_data.get("abbreviation") if isinstance(position_data, dict) else None
+            if player_name:
+                catalog[player_id] = {
+                    "player_name": player_name,
+                    "position": position,
+                    "default_position_id": athlete.get("defaultPositionId"),
+                    "pro_team_id": athlete.get("proTeamId"),
+                }
+                cache[str(player_id)] = catalog[player_id]
+                break
+
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    cache_path.write_text(json.dumps(cache, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def normalized_name(value: str) -> str:
@@ -126,6 +192,8 @@ def normalize_season(data_root: Path, season: int) -> dict[str, Any]:
     matchup_payload = read_json(league / "mMatchupScore.json")
     draft_payload = read_json(league / "mDraftDetail.json")
     players = player_catalog(data_root, season)
+    draft_player_ids = {int(pick["playerId"]) for pick in draft_payload.get("draftDetail", {}).get("picks", [])}
+    resolve_draft_players(data_root, season, players, draft_player_ids)
     schedule_settings = settings_payload["settings"]["scheduleSettings"]
     regular_periods = int(schedule_settings["matchupPeriodCount"])
 
@@ -206,7 +274,7 @@ def normalize_season(data_root: Path, season: int) -> dict[str, Any]:
             "team_name": team_lookup[team_id]["team_name"], "manager_ids": team_lookup[team_id]["manager_ids"],
             "manager_names": team_lookup[team_id]["manager_names"], "player_id": player_id,
             "player_name": player.get("player_name"),
-            "position": POSITION_NAMES.get(player.get("default_position_id")),
+            "position": POSITION_NAMES.get(player.get("default_position_id")) or player.get("position"),
             "pro_team_id": player.get("pro_team_id"), "player_resolved": bool(player.get("player_name")),
             "lineup_slot_id": pick.get("lineupSlotId"), "keeper": bool(pick.get("keeper", False)),
             "auto_draft_type_id": pick.get("autoDraftTypeId"), "source": f"data/raw/{season}/league/mDraftDetail.json",
@@ -418,6 +486,11 @@ def main() -> int:
     print(f"Wrote {destination}")
     print(f"Updated website data at {website_destination}")
     print(f"{c['seasons']} seasons, {c['team_seasons']} team-seasons, {c['regular_season_matchups']} regular-season matchups, {c['championship_playoff_series']} championship-playoff series, {c['draft_picks']} draft picks.")
+    draft_picks = [pick for season in seasons for pick in season["draft_picks"]]
+    unresolved_ids = sorted({pick["player_id"] for pick in draft_picks if not pick["player_resolved"]})
+    print(f"Resolved player names for {len(draft_picks) - sum(not pick['player_resolved'] for pick in draft_picks)}/{len(draft_picks)} draft selections.")
+    if unresolved_ids:
+        print("Unresolved ESPN player IDs: " + ", ".join(map(str, unresolved_ids)))
     return 0
 
 
