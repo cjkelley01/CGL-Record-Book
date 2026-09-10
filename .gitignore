@@ -10,3 +10,6 @@ data/raw/
 data/reports/
 !data/raw/.gitkeep
 !data/reports/.gitkeep
+
+# Locally generated record-book data may contain league identities.
+data/processed/
