@@ -106,6 +106,19 @@ def fetch(
         )
 
 
+def load_env_file(path: Path) -> None:
+    """Load simple KEY=value entries without another dependency."""
+    if not path.exists():
+        return
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        value = value.strip().strip('"').strip("'")
+        os.environ.setdefault(key.strip(), value)
+
+
 def build_session() -> requests.Session:
     session = requests.Session()
     session.headers.update({
@@ -113,7 +126,7 @@ def build_session() -> requests.Session:
         "Accept": "application/json",
     })
     espn_s2 = os.getenv("ESPN_S2")
-    swid = os.getenv("SWID")
+    swid = os.getenv("ESPN_SWID") or os.getenv("SWID")
     if espn_s2 and swid:
         session.cookies.update({"espn_s2": espn_s2, "SWID": swid})
     return session
@@ -148,6 +161,7 @@ def markdown_report(report: dict[str, Any]) -> str:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--league-id", type=int, default=DEFAULT_LEAGUE_ID)
+    parser.add_argument("--env-file", type=Path, default=Path(".env"))
     parser.add_argument("--seasons", type=int, nargs="+", default=list(DEFAULT_SEASONS))
     parser.add_argument("--start-week", type=int, default=1)
     parser.add_argument("--end-week", type=int, default=18)
@@ -161,7 +175,14 @@ def main() -> int:
     if args.start_week < 1 or args.end_week < args.start_week:
         raise SystemExit("Invalid week range.")
 
+    load_env_file(args.env_file)
     session = build_session()
+    if not (os.getenv("ESPN_S2") and (os.getenv("ESPN_SWID") or os.getenv("SWID"))):
+        print(
+            "Warning: ESPN credentials were not found. "
+            "Public leagues may work; private leagues will fail.",
+            file=sys.stderr,
+        )
     results: list[Result] = []
 
     for season in args.seasons:
@@ -170,7 +191,8 @@ def main() -> int:
             path = args.output / "raw" / str(season) / "league" / f"{view}.json"
             result = fetch(session, url, view, path, season, "league")
             results.append(result)
-            print(f"{season} league {view}: {'OK' if result.ok else 'FAILED'}")
+            detail = "" if result.ok else f" ({result.status_code or 'error'}: {result.error})"
+            print(f"{season} league {view}: {'OK' if result.ok else 'FAILED'}{detail}")
             time.sleep(args.delay)
 
         for week in range(args.start_week, args.end_week + 1):
@@ -187,6 +209,7 @@ def main() -> int:
                 print(
                     f"{season} week {week:02d} {view}: "
                     f"{'OK' if result.ok else 'FAILED'}"
+                    f"{'' if result.ok else ' (' + str(result.status_code or 'error') + ': ' + str(result.error) + ')'}"
                 )
                 time.sleep(args.delay)
 
