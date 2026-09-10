@@ -16,7 +16,7 @@ from typing import Any
 import requests
 
 DEFAULT_LEAGUE_ID = 1877457250
-DEFAULT_SEASONS = (2024, 2025)
+DEFAULT_SEASONS = (2024, 2025, 2026)
 DEFAULT_WEEKS = range(1, 19)
 BASE_URL = "https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl"
 

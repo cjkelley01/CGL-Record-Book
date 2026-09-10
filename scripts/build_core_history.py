@@ -16,7 +16,18 @@ MANAGERS = {
     "tony_r": "Tony R.", "kelley_h": "Kelley H.", "susan_h": "Susan H.",
     "charley_b": "Charley B.", "ed_b": "Ed B.", "carolyn_b": "Carolyn B.",
     "timmy_k": "Timmy K.", "aaron_t": "Aaron T.", "emma_t": "Emma T.",
-    "joseph_e": "Joseph E.",
+    "joseph_e": "Joseph E.", "airel_g": "Airel G.",
+    "kaitlyn_k": "Kaitlyn K.", "burke_k": "Burke K.",
+}
+
+CURRENT_TEAM_NAME_MANAGERS = {
+    "charley s angels": ["charley_k"], "kinda mid": ["aaron_t"],
+    "mike s magic": ["mike_k"], "all the way to the em zone": ["emma_t"],
+    "no refills": ["jj_k"], "flux capacitors": ["tony_r"],
+    "big joe": ["joseph_e"], "sos": ["susan_h"],
+    "cb s bulls": ["charley_b"], "ed s plus 1 team": ["ed_b", "carolyn_b"],
+    "timberwolves": ["timmy_k"], "cardiac": ["airel_g"],
+    "kaitlyn": ["kaitlyn_k"], "bk": ["burke_k"],
 }
 
 # Team IDs can be reused when league membership changes, so identity is mapped
@@ -43,11 +54,20 @@ def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def manager_ids(season: int, team_id: int) -> list[str]:
-    try:
-        return TEAM_SEASON_MANAGERS[(season, team_id)]
-    except KeyError as exc:
-        raise ValueError(f"No manager mapping for {season} team {team_id}") from exc
+def normalized_name(value: str) -> str:
+    return " ".join("".join(char.lower() if char.isalnum() else " " for char in value).split())
+
+
+def manager_ids(season: int, team_id: int, team_name: str) -> list[str]:
+    mapped = TEAM_SEASON_MANAGERS.get((season, team_id))
+    if mapped:
+        return mapped
+    if season >= 2026:
+        normalized = normalized_name(team_name)
+        for fragment, ids in CURRENT_TEAM_NAME_MANAGERS.items():
+            if normalized == fragment or normalized.startswith(f"{fragment} ") or (len(fragment) > 3 and fragment in normalized):
+                return ids
+    raise ValueError(f"No manager mapping for {season} team {team_id}: {team_name!r}")
 
 
 def manager_names(ids: list[str]) -> list[str]:
@@ -81,11 +101,12 @@ def normalize_season(data_root: Path, season: int) -> dict[str, Any]:
     teams, team_lookup = [], {}
     for team in teams_payload.get("teams", []):
         team_id = int(team["id"])
-        ids = manager_ids(season, team_id)
+        team_name = (team.get("name") or team.get("abbrev") or f"Team {team_id}").strip()
+        ids = manager_ids(season, team_id, team_name)
         overall = team.get("record", {}).get("overall", {})
         normalized = {
             "season": season, "team_id": team_id, "team_season_id": f"{season}:{team_id}",
-            "team_name": (team.get("name") or team.get("abbrev") or f"Team {team_id}").strip(),
+            "team_name": team_name,
             "abbreviation": team.get("abbrev"), "manager_ids": ids,
             "manager_names": manager_names(ids), "logo": team.get("logo"),
             "regular_season": {key: value for key, value in {
@@ -116,12 +137,12 @@ def normalize_season(data_root: Path, season: int) -> dict[str, Any]:
             "is_multiweek_series": len(scoring_periods) > 1, "stage": stage, "playoff_tier": tier,
             "playoff_round": period - regular_periods if period > regular_periods else None,
             "home_team_id": home_id, "home_team_name": team_lookup.get(home_id, {}).get("team_name"),
-            "home_manager_ids": manager_ids(season, home_id) if home_id else [],
-            "home_manager_names": manager_names(manager_ids(season, home_id)) if home_id else [],
+            "home_manager_ids": team_lookup.get(home_id, {}).get("manager_ids", []),
+            "home_manager_names": team_lookup.get(home_id, {}).get("manager_names", []),
             "home_score": home_score, "away_team_id": away_id,
             "away_team_name": team_lookup.get(away_id, {}).get("team_name"),
-            "away_manager_ids": manager_ids(season, away_id) if away_id else [],
-            "away_manager_names": manager_names(manager_ids(season, away_id)) if away_id else [],
+            "away_manager_ids": team_lookup.get(away_id, {}).get("manager_ids", []),
+            "away_manager_names": team_lookup.get(away_id, {}).get("manager_names", []),
             "away_score": away_score, "winner": matchup.get("winner"), "decided": decided,
             "margin": round(abs(home_score-away_score), 2) if decided and home_score is not None and away_score is not None else None,
             "combined_score": round(home_score+away_score, 2) if home_score is not None and away_score is not None else None,
@@ -138,7 +159,7 @@ def normalize_season(data_root: Path, season: int) -> dict[str, Any]:
                     "season": season, "scoring_period": int(scoring_period), "matchup_period": period,
                     "stage": stage, "playoff_tier": tier, "matchup_id": int(matchup["id"]),
                     "team_id": team_id, "team_name": team_lookup[team_id]["team_name"],
-                    "manager_ids": manager_ids(season, team_id), "manager_names": manager_names(manager_ids(season, team_id)),
+                    "manager_ids": team_lookup[team_id]["manager_ids"], "manager_names": team_lookup[team_id]["manager_names"],
                     "opponent_team_id": opponent_id, "opponent_team_name": team_lookup.get(opponent_id, {}).get("team_name"),
                     "points": float(points), "source": f"data/raw/{season}/league/mMatchupScore.json",
                 })
@@ -149,14 +170,18 @@ def normalize_season(data_root: Path, season: int) -> dict[str, Any]:
         picks.append({
             "season": season, "overall_pick": int(pick["overallPickNumber"]), "round": int(pick["roundId"]),
             "round_pick": int(pick["roundPickNumber"]), "team_id": team_id,
-            "team_name": team_lookup[team_id]["team_name"], "manager_ids": manager_ids(season, team_id),
-            "manager_names": manager_names(manager_ids(season, team_id)), "player_id": int(pick["playerId"]),
+            "team_name": team_lookup[team_id]["team_name"], "manager_ids": team_lookup[team_id]["manager_ids"],
+            "manager_names": team_lookup[team_id]["manager_names"], "player_id": int(pick["playerId"]),
             "lineup_slot_id": pick.get("lineupSlotId"), "keeper": bool(pick.get("keeper", False)),
             "auto_draft_type_id": pick.get("autoDraftTypeId"), "source": f"data/raw/{season}/league/mDraftDetail.json",
         })
 
+    season_complete = any(completed(matchup) and matchup["stage"] == "championship_playoffs" and matchup["is_multiweek_series"] for matchup in matchups)
+    decided_periods = [period for matchup in matchups if completed(matchup) for period in matchup["scoring_periods"]]
     return {
         "season": season, "league_id": settings_payload["id"],
+        "is_complete": season_complete,
+        "through_week": max(decided_periods, default=0),
         "settings": {"team_count": len(teams), "regular_season_matchup_periods": regular_periods,
                      "playoff_team_count": schedule_settings.get("playoffTeamCount"),
                      "playoff_round_lengths": schedule_settings.get("playoffMatchupPeriodLengthByRound", {}),
@@ -198,9 +223,10 @@ def build_manager_history(seasons: list[dict[str, Any]]) -> dict[str, Any]:
                 row, record = stats[mid], team["regular_season"]
                 row["seasons"] += 1
                 for key in ("wins", "losses", "ties", "points_for", "points_against"): row[key] += record[key]
-                row["playoff_appearances"] += int(team["playoff_seed"] is not None and team["playoff_seed"] <= playoff_count)
-                row["championships"] += int(team["final_rank"] == 1)
-                row["runner_up_finishes"] += int(team["final_rank"] == 2)
+                if season["is_complete"]:
+                    row["playoff_appearances"] += int(team["playoff_seed"] is not None and team["playoff_seed"] <= playoff_count)
+                    row["championships"] += int(team["final_rank"] == 1)
+                    row["runner_up_finishes"] += int(team["final_rank"] == 2)
                 aliases[mid].append({"season": season["season"], "team_id": team["team_id"], "team_name": team["team_name"]})
     for mid, row in stats.items():
         games = row["wins"] + row["losses"] + row["ties"]
@@ -264,7 +290,8 @@ def build_records(seasons: list[dict[str, Any]]) -> dict[str, Any]:
     playoffs = [m for m in matchups if m["stage"] == "championship_playoffs"]
     playoff_series = [m for m in playoffs if m["is_multiweek_series"]]
     weekly = [w for s in seasons for w in s["weekly_scores"]]
-    regular_weekly = [w for w in weekly if w["stage"] == "regular_season"]
+    completed_keys = {(m["season"], m["matchup_id"]) for m in matchups}
+    regular_weekly = [w for w in weekly if w["stage"] == "regular_season" and (w["season"], w["matchup_id"]) in completed_keys]
     # ESPN retains scores for teams on playoff byes. They have no opponent and
     # are not games, so exclude them from playoff-game records.
     playoff_weekly = [w for w in weekly if w["stage"] == "championship_playoffs" and w["opponent_team_id"] is not None]
@@ -275,7 +302,7 @@ def build_records(seasons: list[dict[str, Any]]) -> dict[str, Any]:
     champions = []
     for s in seasons:
         for team in s["teams"]:
-            if team["final_rank"] == 1:
+            if s["is_complete"] and team["final_rank"] == 1:
                 champions.append({"season": s["season"], "team_id": team["team_id"], "team_name": team["team_name"],
                                   "manager_ids": team["manager_ids"], "manager_names": team["manager_names"]})
     return {
@@ -298,7 +325,7 @@ def build_records(seasons: list[dict[str, Any]]) -> dict[str, Any]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--seasons", type=int, nargs="+", default=[2024, 2025])
+    parser.add_argument("--seasons", type=int, nargs="+", default=[2024, 2025, 2026])
     parser.add_argument("--data-root", type=Path, default=Path("data"))
     return parser.parse_args()
 
@@ -313,6 +340,8 @@ def main() -> int:
         "head_to_head": build_head_to_head(seasons), "streaks": build_streaks(seasons),
         "notes": ["Ed B. and Carolyn B. receive joint credit for Ed's Plus 1 Team.",
                   "Kelley H. receives sole credit for Pandamonium despite ESPN's misleading 2024 owner listing.",
+                  "Airel G., Kaitlyn K., and Burke K. joined for the 2026 expansion to 14 teams.",
+                  "Current-season games enter career totals and records only after ESPN marks them decided.",
                   "Consolation games are preserved but excluded from official records.",
                   "Detailed transaction history was not present in the sampled mTransactions2 response."]}
     processed = args.data_root / "processed"
