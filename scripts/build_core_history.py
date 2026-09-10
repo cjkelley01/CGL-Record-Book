@@ -303,6 +303,103 @@ def completed(matchup: dict[str, Any]) -> bool:
                 and matchup["home_score"] is not None and matchup["away_score"] is not None)
 
 
+def add_season_archives(seasons: list[dict[str, Any]]) -> None:
+    """Attach annual awards and concise, data-supported season narratives."""
+    previous_teams: dict[str, str] = {}
+    previous_team_count: int | None = None
+    for season in seasons:
+        regular_games = [m for m in season["matchups"] if m["stage"] == "regular_season" and completed(m)]
+        completed_ids = {m["matchup_id"] for m in regular_games}
+        regular_scores = [s for s in season["weekly_scores"] if s["stage"] == "regular_season" and s["matchup_id"] in completed_ids]
+        team_results = []
+        for matchup in regular_games:
+            for side, opponent in (("home", "away"), ("away", "home")):
+                team_results.append({
+                    "team_name": matchup[f"{side}_team_name"], "manager_names": matchup[f"{side}_manager_names"],
+                    "points": matchup[f"{side}_score"], "opponent_team_name": matchup[f"{opponent}_team_name"],
+                    "opponent_points": matchup[f"{opponent}_score"], "week": matchup["scoring_periods"][0],
+                    "result": result_for(matchup, side),
+                })
+
+        seeded = sorted(season["teams"], key=lambda t: (t["playoff_seed"] or 999))
+        points_leader = max(season["teams"], key=lambda t: t["regular_season"]["points_for"], default=None)
+        champion = next((t for t in season["teams"] if season["is_complete"] and t["final_rank"] == 1), None)
+        runner_up = next((t for t in season["teams"] if season["is_complete"] and t["final_rank"] == 2), None)
+        championship = next((m for m in season["matchups"] if m["stage"] == "championship_playoffs" and m["is_multiweek_series"] and completed(m)), None)
+        highest = max(regular_scores, key=lambda s: s["points"], default=None)
+        lowest = min(regular_scores, key=lambda s: s["points"], default=None)
+        largest = max(regular_games, key=lambda m: m["margin"], default=None)
+        closest = min(regular_games, key=lambda m: m["margin"], default=None)
+        high_loss = max((r for r in team_results if r["result"] == "L"), key=lambda r: r["points"], default=None)
+        low_win = min((r for r in team_results if r["result"] == "W"), key=lambda r: r["points"], default=None)
+
+        awards = []
+        def award(key: str, title: str, row: dict[str, Any] | None, value: str, detail: str) -> None:
+            if row:
+                awards.append({"key": key, "title": title, "team_name": row.get("team_name"),
+                               "manager_names": row.get("manager_names", []), "value": value, "detail": detail})
+
+        award("champion", "Champion", champion, "CGL Champion", f"#{champion['playoff_seed']} seed" if champion else "")
+        award("runner_up", "Runner-up", runner_up, "League finalist", f"#{runner_up['playoff_seed']} seed" if runner_up else "")
+        if seeded:
+            award("regular_winner", "Regular-season winner", seeded[0], f"{seeded[0]['regular_season']['wins']}–{seeded[0]['regular_season']['losses']}", "#1 seed")
+        if points_leader:
+            award("points_leader", "Points leader", points_leader, f"{points_leader['regular_season']['points_for']:.2f}", "regular-season points")
+        award("highest_score", "Highest weekly score", highest, f"{highest['points']:.2f}" if highest else "", f"Week {highest['scoring_period']}" if highest else "")
+        award("lowest_score", "Lowest weekly score", lowest, f"{lowest['points']:.2f}" if lowest else "", f"Week {lowest['scoring_period']}" if lowest else "")
+        if largest:
+            winner_side = "home" if largest["winner"] == "HOME" else "away"
+            award("biggest_blowout", "Biggest blowout", {"team_name": largest[f"{winner_side}_team_name"], "manager_names": largest[f"{winner_side}_manager_names"]}, f"{largest['margin']:.2f}", f"over {largest['away_team_name'] if winner_side == 'home' else largest['home_team_name']} · Week {largest['matchup_period']}")
+        if closest:
+            winner_side = "home" if closest["winner"] == "HOME" else "away"
+            award("closest_game", "Closest game", {"team_name": closest[f"{winner_side}_team_name"], "manager_names": closest[f"{winner_side}_manager_names"]}, f"{closest['margin']:.2f}", f"over {closest['away_team_name'] if winner_side == 'home' else closest['home_team_name']} · Week {closest['matchup_period']}")
+        award("highest_loss", "Highest score in a loss", high_loss, f"{high_loss['points']:.2f}" if high_loss else "", f"vs. {high_loss['opponent_team_name']} · Week {high_loss['week']}" if high_loss else "")
+        award("lowest_win", "Lowest score in a win", low_win, f"{low_win['points']:.2f}" if low_win else "", f"vs. {low_win['opponent_team_name']} · Week {low_win['week']}" if low_win else "")
+        season["awards"] = awards
+
+        stories = []
+        if champion and runner_up and championship:
+            champion_score = championship["home_score"] if championship["home_team_id"] == champion["team_id"] else championship["away_score"]
+            runner_score = championship["away_score"] if championship["home_team_id"] == champion["team_id"] else championship["home_score"]
+            stories.append({"label": "Championship path", "title": f"{champion['team_name']} finishes the climb",
+                            "text": f"The #{champion['playoff_seed']} seed went {champion['regular_season']['wins']}–{champion['regular_season']['losses']} before defeating {runner_up['team_name']} {champion_score:.2f}–{runner_score:.2f} in the two-week final."})
+            if champion["playoff_seed"] >= 4:
+                stories.append({"label": "Cinderella champion", "title": f"A #{champion['playoff_seed']} seed takes the title",
+                                "text": f"{champion['team_name']} won the championship from outside the regular season's top three."})
+        if seeded and points_leader:
+            if seeded[0]["team_id"] == points_leader["team_id"]:
+                stories.append({"label": "Regular-season force", "title": f"{seeded[0]['team_name']} sets the pace",
+                                "text": f"The #1 seed also led the league with {points_leader['regular_season']['points_for']:.2f} regular-season points."})
+            else:
+                stories.append({"label": "Split supremacy", "title": "Two teams owned the regular season",
+                                "text": f"{seeded[0]['team_name']} earned the #1 seed, while {points_leader['team_name']} led scoring with {points_leader['regular_season']['points_for']:.2f} points."})
+        if high_loss:
+            stories.append({"label": "Heartbreaker", "title": f"{high_loss['team_name']} scores {high_loss['points']:.2f} and still loses",
+                            "text": f"{high_loss['opponent_team_name']} survived the season's highest losing score in Week {high_loss['week']}."})
+        if closest:
+            stories.append({"label": "Photo finish", "title": f"Decided by {closest['margin']:.2f} points",
+                            "text": f"{closest['home_team_name']} and {closest['away_team_name']} produced the season's closest game in Week {closest['matchup_period']}."})
+        if largest:
+            stories.append({"label": "Statement win", "title": f"A {largest['margin']:.2f}-point rout",
+                            "text": f"{largest['home_team_name']} and {largest['away_team_name']} played the season's largest blowout in Week {largest['matchup_period']}."})
+        current_count = len(season["teams"])
+        if previous_team_count is not None and current_count > previous_team_count:
+            newcomers = [t["team_name"] for t in season["teams"] if all(mid not in previous_teams for mid in t["manager_ids"])]
+            stories.insert(0, {"label": "Expansion", "title": f"CGL grows to {current_count} teams",
+                               "text": f"{', '.join(newcomers)} joined the league for {season['season']}."})
+        changed = []
+        for team in season["teams"]:
+            for manager_id in team["manager_ids"]:
+                old_name = previous_teams.get(manager_id)
+                if old_name and old_name != team["team_name"]:
+                    changed.append(f"{old_name} became {team['team_name']}")
+                previous_teams[manager_id] = team["team_name"]
+        if changed:
+            stories.append({"label": "New identities", "title": "Team names changed", "text": "; ".join(changed) + "."})
+        season["storylines"] = stories
+        previous_team_count = current_count
+
+
 def result_for(matchup: dict[str, Any], side: str) -> str:
     if matchup["winner"] == "TIE": return "T"
     return "W" if matchup["winner"] == side.upper() else "L"
@@ -463,6 +560,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     seasons = [normalize_season(args.data_root, season) for season in args.seasons]
+    add_season_archives(seasons)
     output = {"schema_version": 2, "league_id": seasons[0]["league_id"],
         "manager_display_policy": "First name and last initial; achievements follow managers across team-name changes.",
         "managers": [{"manager_id": mid, "manager_name": name} for mid, name in MANAGERS.items()],
