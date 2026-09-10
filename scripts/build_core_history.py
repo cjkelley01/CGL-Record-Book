@@ -234,7 +234,13 @@ def build_manager_history(seasons: list[dict[str, Any]]) -> dict[str, Any]:
         row["points_for"], row["points_against"] = round(row["points_for"], 2), round(row["points_against"], 2)
         row["team_names"] = aliases[mid]
     active = [row for row in stats.values() if row["seasons"]]
-    return {"standings": sorted(active, key=lambda r: (-r["winning_percentage"], -r["wins"], -r["points_for"], r["manager_name"])),
+    return {"standings": sorted(active, key=lambda r: (
+                r["winning_percentage"] is None,
+                -(r["winning_percentage"] or 0),
+                -r["wins"],
+                -r["points_for"],
+                r["manager_name"],
+            )),
             "team_name_history": {mid: aliases[mid] for mid in aliases}}
 
 
