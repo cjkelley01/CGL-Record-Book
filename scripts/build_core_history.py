@@ -14,7 +14,7 @@ MANAGERS = {
     "charley_k": "Charley K.", "quy_h": "Quy H.", "mike_k": "Mike K.",
     "robin_h": "Robin H.", "jj_k": "JJ K.", "alex_h": "Alex H.",
     "tony_r": "Tony R.", "kelley_h": "Kelley H.", "susan_h": "Susan H.",
-    "charley_b": "Charley B.", "ed_b": "Ed B.", "carolyn_b": "Carolyn B.",
+    "charley_b": "Charley B.", "ed_carolyn_b": "Ed B. & Carolyn B.",
     "timmy_k": "Timmy K.", "aaron_t": "Aaron T.", "emma_t": "Emma T.",
     "joseph_e": "Joseph E.", "airel_g": "Airel G.",
     "kaitlyn_k": "Kaitlyn K.", "burke_k": "Burke K.",
@@ -25,7 +25,7 @@ CURRENT_TEAM_NAME_MANAGERS = {
     "mike s magic": ["mike_k"], "all the way to the em zone": ["emma_t"],
     "no refills": ["jj_k"], "flux capacitors": ["tony_r"],
     "big joe": ["joseph_e"], "sos": ["susan_h"],
-    "cb s bulls": ["charley_b"], "ed s plus 1 team": ["ed_b", "carolyn_b"],
+    "cb s bulls": ["charley_b"], "ed s plus 1 team": ["ed_carolyn_b"],
     "timberwolves": ["timmy_k"], "cardiac": ["airel_g"],
     "kaitlyn": ["kaitlyn_k"], "bk": ["burke_k"],
 }
@@ -38,13 +38,13 @@ TEAM_SEASON_MANAGERS = {
     (2024, 5): ["jj_k"], (2024, 8): ["alex_h"],
     (2024, 9): ["tony_r"], (2024, 10): ["kelley_h"],
     (2024, 13): ["susan_h"], (2024, 14): ["charley_b"],
-    (2024, 17): ["ed_b", "carolyn_b"], (2024, 18): ["timmy_k"],
+    (2024, 17): ["ed_carolyn_b"], (2024, 18): ["timmy_k"],
     (2025, 1): ["charley_k"], (2025, 2): ["aaron_t"],
     (2025, 3): ["mike_k"], (2025, 4): ["emma_t"],
     (2025, 5): ["jj_k"], (2025, 8): ["alex_h"],
     (2025, 9): ["tony_r"], (2025, 10): ["joseph_e"],
     (2025, 13): ["susan_h"], (2025, 14): ["charley_b"],
-    (2025, 17): ["ed_b", "carolyn_b"], (2025, 18): ["timmy_k"],
+    (2025, 17): ["ed_carolyn_b"], (2025, 18): ["timmy_k"],
 }
 
 
@@ -302,6 +302,24 @@ def build_records(seasons: list[dict[str, Any]]) -> dict[str, Any]:
     # are not games, so exclude them from playoff-game records.
     playoff_weekly = [w for w in weekly if w["stage"] == "championship_playoffs" and w["opponent_team_id"] is not None]
 
+    regular_team_results = []
+    for matchup in regular:
+        for side, opponent in (("home", "away"), ("away", "home")):
+            regular_team_results.append({
+                "season": matchup["season"],
+                "scoring_period": matchup["scoring_periods"][0],
+                "matchup_period": matchup["matchup_period"],
+                "team_id": matchup[f"{side}_team_id"],
+                "team_name": matchup[f"{side}_team_name"],
+                "manager_ids": matchup[f"{side}_manager_ids"],
+                "manager_names": matchup[f"{side}_manager_names"],
+                "opponent_team_id": matchup[f"{opponent}_team_id"],
+                "opponent_team_name": matchup[f"{opponent}_team_name"],
+                "points": matchup[f"{side}_score"],
+                "opponent_points": matchup[f"{opponent}_score"],
+                "result": result_for(matchup, side),
+            })
+
     def score_extreme(rows: list[dict[str, Any]], maximum: bool) -> dict[str, Any] | None:
         return (max if maximum else min)(rows, key=lambda r: r["points"], default=None)
 
@@ -315,7 +333,9 @@ def build_records(seasons: list[dict[str, Any]]) -> dict[str, Any]:
         "champions": champions,
         "regular_season": {"highest_weekly_score": score_extreme(regular_weekly, True),
             "lowest_weekly_score": score_extreme(regular_weekly, False), "largest_margin": extreme(regular, "margin"),
-            "closest_game": extreme(regular, "margin", False), "highest_combined_score": extreme(regular, "combined_score")},
+            "closest_game": extreme(regular, "margin", False), "highest_combined_score": extreme(regular, "combined_score"),
+            "highest_score_in_loss": max((row for row in regular_team_results if row["result"] == "L"), key=lambda row: row["points"], default=None),
+            "lowest_score_in_win": min((row for row in regular_team_results if row["result"] == "W"), key=lambda row: row["points"], default=None)},
         "championship_playoffs": {"highest_weekly_score": score_extreme(playoff_weekly, True),
             "lowest_weekly_score": score_extreme(playoff_weekly, False),
             "largest_single_week_or_round_margin": extreme([m for m in playoffs if not m["is_multiweek_series"]], "margin"),
@@ -344,7 +364,7 @@ def main() -> int:
         "managers": [{"manager_id": mid, "manager_name": name} for mid, name in MANAGERS.items()],
         "seasons": seasons, "records": build_records(seasons), "manager_history": build_manager_history(seasons),
         "head_to_head": build_head_to_head(seasons), "streaks": build_streaks(seasons),
-        "notes": ["Ed B. and Carolyn B. receive joint credit for Ed's Plus 1 Team.",
+        "notes": ["Ed B. & Carolyn B. are one permanent joint ownership unit for Ed's Plus 1 Team.",
                   "Kelley H. receives sole credit for Pandamonium despite ESPN's misleading 2024 owner listing.",
                   "Airel G., Kaitlyn K., and Burke K. joined for the 2026 expansion to 14 teams.",
                   "Current-season games enter career totals and records only after ESPN marks them decided.",
