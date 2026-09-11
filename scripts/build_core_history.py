@@ -487,8 +487,24 @@ def build_streaks(seasons: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def build_leaderboards(seasons: list[dict[str, Any]], manager_history: dict[str, Any], streaks: list[dict[str, Any]]) -> dict[str, Any]:
-    """Create stable top-five career, season, and streak leaderboards."""
+    """Create top-five leaderboards while retaining every tie at the cutoff."""
     managers = manager_history["standings"]
+
+    def include_cutoff_ties(rows: list[dict[str, Any]], field: str = "value", limit: int = 5) -> list[dict[str, Any]]:
+        if len(rows) <= limit:
+            return rows
+        cutoff = rows[limit - 1][field]
+        return [row for index, row in enumerate(rows) if index < limit or row[field] == cutoff]
+
+    def add_competition_ranks(rows: list[dict[str, Any]], field: str = "value") -> list[dict[str, Any]]:
+        previous: Any = object()
+        rank = 0
+        for index, row in enumerate(rows):
+            if row[field] != previous:
+                rank = index + 1
+                previous = row[field]
+            row["rank"] = rank
+        return rows
 
     def current_team(row: dict[str, Any]) -> str:
         return max(row["team_names"], key=lambda alias: alias["season"])["team_name"]
@@ -496,10 +512,12 @@ def build_leaderboards(seasons: list[dict[str, Any]], manager_history: dict[str,
     def career_rows(field: str, minimum_games: int = 0, positive_only: bool = False) -> list[dict[str, Any]]:
         eligible = [row for row in managers if row["wins"] + row["losses"] + row["ties"] >= minimum_games
                     and (not positive_only or (row[field] or 0) > 0)]
-        ranked = sorted(eligible, key=lambda row: (-(row[field] or 0), -row["wins"], -row["points_for"], row["manager_name"]))[:5]
-        return [{"rank": index + 1, "manager_id": row["manager_id"], "manager_name": row["manager_name"],
+        ranked = sorted(eligible, key=lambda row: (-(row[field] or 0), -row["wins"], -row["points_for"], row["manager_name"]))
+        ranked = include_cutoff_ties(ranked, field)
+        output = [{"manager_id": row["manager_id"], "manager_name": row["manager_name"],
                  "team_name": current_team(row), "value": row[field], "games": row["wins"] + row["losses"] + row["ties"]}
-                for index, row in enumerate(ranked)]
+                for row in ranked]
+        return add_competition_ranks(output)
 
     completed_team_seasons = [(season, team) for season in seasons if season["is_complete"] for team in season["teams"]]
 
@@ -513,9 +531,8 @@ def build_leaderboards(seasons: list[dict[str, Any]], manager_history: dict[str,
             rows.append({"season": season["season"], "team_name": team["team_name"], "manager_names": team["manager_names"],
                          "value": round(value, 4 if field == "winning_percentage" else 2), "games": games,
                          "record": f"{record['wins']}–{record['losses']}" + (f"–{record['ties']}" if record["ties"] else "")})
-        ranked = sorted(rows, key=lambda row: ((-1 if reverse else 1) * row["value"], row["season"], row["team_name"]))[:5]
-        for index, row in enumerate(ranked): row["rank"] = index + 1
-        return ranked
+        ranked = sorted(rows, key=lambda row: ((-1 if reverse else 1) * row["value"], row["season"], row["team_name"]))
+        return add_competition_ranks(include_cutoff_ties(ranked))
 
     streak_lookup = {row["manager_id"]: row for row in streaks}
     streak_rows = []
@@ -525,8 +542,9 @@ def build_leaderboards(seasons: list[dict[str, Any]], manager_history: dict[str,
                             "winning": streak.get("longest_winning_streak", 0), "losing": streak.get("longest_losing_streak", 0)})
 
     def rank_streak(field: str) -> list[dict[str, Any]]:
-        ranked = sorted((row for row in streak_rows if row[field] > 0), key=lambda row: (-row[field], row["team_name"], row["manager_name"]))[:5]
-        return [{**row, "rank": index + 1, "value": row[field]} for index, row in enumerate(ranked)]
+        ranked = sorted((row for row in streak_rows if row[field] > 0), key=lambda row: (-row[field], row["team_name"], row["manager_name"]))
+        output = [{**row, "value": row[field]} for row in ranked]
+        return add_competition_ranks(include_cutoff_ties(output))
 
     return {
         "minimum_games_for_percentage": 10,
