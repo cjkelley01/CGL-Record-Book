@@ -20,6 +20,7 @@ public/data/core_history.json
 /.next/
 /.vinext/
 /dist/
+/dist-pages/
 /.wrangler/
 /.sites-runtime/
 .npmrc
