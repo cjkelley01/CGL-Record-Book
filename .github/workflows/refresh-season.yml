@@ -1,0 +1,70 @@
+name: Refresh 2026 Season
+
+on:
+  schedule:
+    - cron: "0 8 * * 2"
+      timezone: "America/New_York"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  refresh-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+      - name: Download complete ESPN archive
+        run: python scripts/discover_espn_history.py --seasons 2024 2025 2026
+      - name: Rebuild record book data
+        run: python scripts/build_core_history.py
+      - name: Save updated data
+        run: |
+          if git diff --quiet -- app/data/core_history.json; then
+            echo "ESPN data produced no website changes."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add app/data/core_history.json
+            git commit -m "Update 2026 results"
+            git push
+          fi
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install website dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build static site
+        run: pnpm exec vite build --config vite.pages.config.ts
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist-pages
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
