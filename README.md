@@ -60,7 +60,16 @@ The updater stops if any ESPN request fails, so incomplete downloads cannot sile
 corepack pnpm dev
 ```
 
-The generated `app/data/core_history.json` is public-safe website data and should be committed after a successful update. Pushing it preserves the latest record book in GitHub; the ChatGPT Sites copy must then be redeployed separately.
+The generated `app/data/core_history.json` is public-safe website data and should be committed after a successful update. GitHub Pages automatically rebuilds and publishes the site whenever `main` receives a push.
+
+```powershell
+.\update-record-book.cmd
+git add app\data\core_history.json
+git commit -m "Update 2026 results"
+git push
+```
+
+GitHub Actions handles the website build and deployment after the push.
 
 ## Roadmap
 
