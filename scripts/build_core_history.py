@@ -486,6 +486,64 @@ def build_streaks(seasons: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return sorted(output, key=lambda r: r["manager_name"])
 
 
+def build_leaderboards(seasons: list[dict[str, Any]], manager_history: dict[str, Any], streaks: list[dict[str, Any]]) -> dict[str, Any]:
+    """Create stable top-five career, season, and streak leaderboards."""
+    managers = manager_history["standings"]
+
+    def current_team(row: dict[str, Any]) -> str:
+        return max(row["team_names"], key=lambda alias: alias["season"])["team_name"]
+
+    def career_rows(field: str, minimum_games: int = 0, positive_only: bool = False) -> list[dict[str, Any]]:
+        eligible = [row for row in managers if row["wins"] + row["losses"] + row["ties"] >= minimum_games
+                    and (not positive_only or (row[field] or 0) > 0)]
+        ranked = sorted(eligible, key=lambda row: (-(row[field] or 0), -row["wins"], -row["points_for"], row["manager_name"]))[:5]
+        return [{"rank": index + 1, "manager_id": row["manager_id"], "manager_name": row["manager_name"],
+                 "team_name": current_team(row), "value": row[field], "games": row["wins"] + row["losses"] + row["ties"]}
+                for index, row in enumerate(ranked)]
+
+    completed_team_seasons = [(season, team) for season in seasons if season["is_complete"] for team in season["teams"]]
+
+    def season_rows(field: str, reverse: bool = True) -> list[dict[str, Any]]:
+        rows = []
+        for season, team in completed_team_seasons:
+            record = team["regular_season"]
+            games = record["wins"] + record["losses"] + record["ties"]
+            value = (record["wins"] + .5 * record["ties"]) / games if field == "winning_percentage" and games else (
+                record["points_for"] / games if field == "average_points" and games else record[field])
+            rows.append({"season": season["season"], "team_name": team["team_name"], "manager_names": team["manager_names"],
+                         "value": round(value, 4 if field == "winning_percentage" else 2), "games": games,
+                         "record": f"{record['wins']}–{record['losses']}" + (f"–{record['ties']}" if record["ties"] else "")})
+        ranked = sorted(rows, key=lambda row: ((-1 if reverse else 1) * row["value"], row["season"], row["team_name"]))[:5]
+        for index, row in enumerate(ranked): row["rank"] = index + 1
+        return ranked
+
+    streak_lookup = {row["manager_id"]: row for row in streaks}
+    streak_rows = []
+    for row in managers:
+        streak = streak_lookup.get(row["manager_id"], {})
+        streak_rows.append({"manager_id": row["manager_id"], "manager_name": row["manager_name"], "team_name": current_team(row),
+                            "winning": streak.get("longest_winning_streak", 0), "losing": streak.get("longest_losing_streak", 0)})
+
+    def rank_streak(field: str) -> list[dict[str, Any]]:
+        ranked = sorted((row for row in streak_rows if row[field] > 0), key=lambda row: (-row[field], row["team_name"], row["manager_name"]))[:5]
+        return [{**row, "rank": index + 1, "value": row[field]} for index, row in enumerate(ranked)]
+
+    return {
+        "minimum_games_for_percentage": 10,
+        "career": {
+            "wins": career_rows("wins"), "winning_percentage": career_rows("winning_percentage", 10),
+            "points_for": career_rows("points_for"), "championships": career_rows("championships", positive_only=True),
+            "playoff_appearances": career_rows("playoff_appearances", positive_only=True), "points_against": career_rows("points_against"),
+        },
+        "single_season": {
+            "wins": season_rows("wins"), "winning_percentage": season_rows("winning_percentage"),
+            "points_for": season_rows("points_for"), "average_points": season_rows("average_points"),
+            "points_against": season_rows("points_against"), "lowest_winning_percentage": season_rows("winning_percentage", False),
+        },
+        "streaks": {"winning": rank_streak("winning"), "losing": rank_streak("losing")},
+    }
+
+
 def extreme(rows: list[dict[str, Any]], key: str, maximum: bool = True) -> dict[str, Any] | None:
     if not rows: return None
     return matchup_label((max if maximum else min)(rows, key=lambda r: r[key]))
@@ -561,11 +619,15 @@ def main() -> int:
     args = parse_args()
     seasons = [normalize_season(args.data_root, season) for season in args.seasons]
     add_season_archives(seasons)
+    manager_history = build_manager_history(seasons)
+    streaks = build_streaks(seasons)
+    records = build_records(seasons)
+    records["leaderboards"] = build_leaderboards(seasons, manager_history, streaks)
     output = {"schema_version": 2, "league_id": seasons[0]["league_id"],
         "manager_display_policy": "First name and last initial; achievements follow managers across team-name changes.",
         "managers": [{"manager_id": mid, "manager_name": name} for mid, name in MANAGERS.items()],
-        "seasons": seasons, "records": build_records(seasons), "manager_history": build_manager_history(seasons),
-        "head_to_head": build_head_to_head(seasons), "streaks": build_streaks(seasons),
+        "seasons": seasons, "records": records, "manager_history": manager_history,
+        "head_to_head": build_head_to_head(seasons), "streaks": streaks,
         "notes": ["Ed B. & Carolyn B. are one permanent joint ownership unit for Ed's Plus 1 Team.",
                   "Kelley H. receives sole credit for Pandamonium despite ESPN's misleading 2024 owner listing.",
                   "Airel G., Kaitlyn K., and Burke K. joined for the 2026 expansion to 14 teams.",
