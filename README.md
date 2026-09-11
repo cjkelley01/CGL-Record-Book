@@ -46,6 +46,20 @@ pnpm dev
 
 Open the local address shown in the terminal. Re-running `build_core_history.py` updates both the private processed file and the website's local data.
 
+## Update the current season
+
+From PowerShell, refresh ESPN results and rebuild the entire record book with one command:
+
+```powershell
+.\update-record-book.ps1
+```
+
+The updater stops if any ESPN request fails, so incomplete downloads cannot silently replace the site data. When it finishes, it reports the latest completed week. Starting the website remains a separate command:
+
+```powershell
+corepack pnpm dev
+```
+
 ## Roadmap
 
 1. Historical ESPN discovery and preservation
