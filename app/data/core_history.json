@@ -26432,7 +26432,7 @@
           "manager_names": [
             "Charley K."
           ],
-          "logo": "https://i.postimg.cc/LsPR8Gx8/Option1.jpg",
+          "logo": "https://mystique-api.fantasy.espn.com/apis/v1/domains/lm/images/96801e40-ade9-11f1-a12f-2b44c2a1875d",
           "regular_season": {
             "wins": 0,
             "losses": 0,
@@ -30291,7 +30291,7 @@
           ],
           "opponent_team_id": 19,
           "opponent_team_name": "Cardiac Comebacks",
-          "points": 39.2,
+          "points": 64.2,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -30351,7 +30351,7 @@
           ],
           "opponent_team_id": 5,
           "opponent_team_name": "No Refills",
-          "points": 0.0,
+          "points": 1.0,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -30371,7 +30371,7 @@
           ],
           "opponent_team_id": 4,
           "opponent_team_name": "All the way to the Em-zone",
-          "points": 1.4,
+          "points": 12.4,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -30451,7 +30451,7 @@
           ],
           "opponent_team_id": 20,
           "opponent_team_name": "BK Have It Your Way",
-          "points": 32.22,
+          "points": 47.4,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -30511,7 +30511,7 @@
           ],
           "opponent_team_id": 17,
           "opponent_team_name": "Ed's Plus 1 Team",
-          "points": 3.0,
+          "points": 10.0,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -30551,7 +30551,7 @@
           ],
           "opponent_team_id": 13,
           "opponent_team_name": "SOS (Susan, Only Serendipity)",
-          "points": 8.0,
+          "points": 7.6,
           "source": "data/raw/2026/league/mMatchupScore.json"
         }
       ],
