@@ -232,7 +232,7 @@ def main() -> int:
     successes = sum(result.ok for result in results)
     print(f"Completed: {successes}/{len(results)} requests returned JSON.")
     print(f"Report: {reports / 'espn_history_discovery.md'}")
-    return 0 if successes else 1
+    return 0 if successes == len(results) else 1
 
 
 if __name__ == "__main__":
