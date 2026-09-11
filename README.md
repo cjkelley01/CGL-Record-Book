@@ -71,6 +71,8 @@ git push
 
 GitHub Actions handles the website build and deployment after the push.
 
+The `Refresh 2026 Season` workflow also runs automatically every Tuesday at 8:00 AM Eastern. It downloads a fresh copy of all three official seasons, rebuilds the data, commits any changes, and deploys the site. It can be started manually from the repository's Actions tab at any time.
+
 ## Roadmap
 
 1. Historical ESPN discovery and preservation
