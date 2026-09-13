@@ -137,6 +137,9 @@ body {
 .tabs {
   gap: 0 !important;
 }
+.mobile-navigation {
+  display: none;
+}
 .tabs > nav {
   position: sticky;
   top: 0;
@@ -543,6 +546,18 @@ body {
   grid-template-columns: 280px 1fr;
   gap: 30px;
   align-items: start;
+}
+.season-grid > * {
+  min-width: 0;
+}
+.season-standings-cards {
+  display: none;
+}
+/* Keep wide tables inside their own scroll area, including grid children. */
+.page,
+.page > *,
+.record-group > * {
+  min-width: 0;
 }
 .season-card {
   position: relative;
@@ -1943,5 +1958,164 @@ footer > svg {
     align-items: flex-start;
     flex-direction: column;
     gap: 4px;
+  }
+}
+
+@media (max-width: 650px) {
+  .season-standings-table {
+    display: none;
+  }
+  .tabs > nav [data-slot="tabs-list"] {
+    display: none;
+  }
+  .mobile-navigation {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 14px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .mobile-navigation select {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .mobile-navigation select:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+  .season-standings-cards {
+    display: grid;
+    gap: 12px;
+  }
+  .season-standings-cards article {
+    padding: 16px;
+    background: var(--white);
+    border: 1px solid var(--line);
+  }
+  .season-standings-cards header {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 10px;
+  }
+  .season-standings-cards h3 {
+    margin: 0;
+    font: 700 1.1rem/1.25 Georgia, serif;
+    overflow-wrap: anywhere;
+  }
+  .season-standings-cards p {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  .season-standings-cards dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 16px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .season-standings-cards dt {
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+  .season-standings-cards dd {
+    margin: 4px 0 0;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .h2h-games article > section {
+    grid-template-columns: minmax(0, 1fr) 28px auto;
+    gap: 10px;
+    padding: 12px 16px;
+  }
+  .h2h-games article > section > em {
+    display: none;
+  }
+  .h2h-games article > section > div:last-child {
+    grid-area: 2 / 1;
+    text-align: left;
+  }
+  .h2h-games article > section > i:nth-last-child(2) {
+    grid-area: 2 / 2;
+  }
+  .h2h-games article > section > strong:nth-last-child(3) {
+    grid-area: 2 / 3;
+  }
+  .h2h-games article > section b {
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+  }
+  .h2h-games article > section small {
+    font-size: 0.75rem;
+  }
+  .h2h-games article > section > strong {
+    text-align: right;
+  }
+  .h2h-stats strong {
+    font-size: clamp(1.35rem, 5vw, 1.75rem);
+    overflow-wrap: anywhere;
+  }
+  [data-slot="select-trigger"] {
+    min-height: 44px;
+    max-width: 100%;
+  }
+  [data-slot="select-value"] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  [data-slot="select-item"] {
+    min-height: 44px;
+  }
+  .h2h-picker label,
+  .draft-head label {
+    min-width: 0;
+  }
+  .live-banner,
+  .draft-head,
+  .h2h-picker {
+    padding: 26px 20px;
+    gap: 24px;
+  }
+  .score-side > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .score-side strong {
+    flex-shrink: 0;
+  }
+  .score-side small {
+    display: block;
+    margin-top: 4px;
+  }
+  .season-card {
+    padding: 24px;
+  }
+  .season-card dl div {
+    gap: 16px;
+  }
+  .season-card dd {
+    max-width: 60%;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  .section-title {
+    gap: 16px;
+  }
+  .table-shell [data-slot="table-container"] {
+    overscroll-behavior-x: contain;
   }
 }
