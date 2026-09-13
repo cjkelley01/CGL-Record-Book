@@ -1,200 +1,375 @@
 "use client";
 
-import { useState } from "react";
-import { Crown, History, Shield, Swords, Trophy } from "lucide-react";
-import data from "@/app/data/core_history.json";
+import { CurrentSeason } from "@/components/record-book/current-season";
+import { DraftHistory } from "@/components/record-book/draft-history";
+import { HeadToHead } from "@/components/record-book/head-to-head";
+import { ManagerProfile } from "@/components/record-book/manager-profile";
+import { PageHead } from "@/components/record-book/page-head";
+import { RecordCard } from "@/components/record-book/record-card";
+import { RecordGroup } from "@/components/record-book/record-group";
+import { RecordsLeaderboards } from "@/components/record-book/records-leaderboards";
+import { SeasonArchive } from "@/components/record-book/season-archive";
+import { Standings } from "@/components/record-book/standings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-type Standing = (typeof data.manager_history.standings)[number];
-type Season = (typeof data.seasons)[number];
-type DraftPick = {season:number;overall_pick:number;round:number;round_pick:number;team_id:number;team_name:string;manager_ids:string[];manager_names:string[];player_id:number;player_name?:string|null;position?:string|null;keeper:boolean;player_resolved?:boolean};
-type RecordEntry = { season:number; matchup_period?:number; scoring_period?:number; team_name?:string; manager_names?:string[]; points?:number; result?:string; home_team_name?:string|null; home_manager_names?:string[]; home_score?:number|null; away_team_name?:string|null; away_manager_names?:string[]; away_score?:number|null; margin?:number|null; combined_score?:number|null };
-type SeasonAward = {key:string;title:string;team_name?:string|null;manager_names:string[];value:string;detail:string};
-type Storyline = {label:string;title:string;text:string};
-type EnrichedSeason = Season & {awards?:SeasonAward[];storylines?:Storyline[]};
-type LeaderRow = {rank:number;team_name:string;manager_name?:string;manager_names?:string[];value:number;games:number;season?:number;record?:string};
-type RecordLeaderboards = {minimum_games_for_percentage:number;career:Record<string,LeaderRow[]>;single_season:Record<string,LeaderRow[]>;streaks:Record<string,LeaderRow[]>};
-const fmt = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
-const names = (x?: string[]) => x?.join(" & ") ?? "—";
-
-function Standings({ rows }: { rows: Standing[] }) {
-  return <div className="table-shell"><Table><TableHeader><TableRow><TableHead>#</TableHead><TableHead>Current team</TableHead><TableHead>Seasons</TableHead><TableHead>Record</TableHead><TableHead>Win %</TableHead><TableHead>Points</TableHead><TableHead>Playoffs</TableHead><TableHead>Finals</TableHead><TableHead>Titles</TableHead></TableRow></TableHeader><TableBody>
-    {rows.map((m,i)=>{const currentTeam=[...m.team_names].sort((a,b)=>b.season-a.season)[0]?.team_name??"—";return <TableRow key={m.manager_id}><TableCell className="rank">{i+1}</TableCell><TableCell><strong>{currentTeam}</strong><small>{m.manager_name}</small></TableCell><TableCell>{m.seasons}</TableCell><TableCell>{m.wins}–{m.losses}</TableCell><TableCell><strong>{((m.winning_percentage??0)*100).toFixed(1)}%</strong></TableCell><TableCell>{fmt.format(m.points_for)}</TableCell><TableCell>{m.playoff_appearances}</TableCell><TableCell>{m.runner_up_finishes+m.championships}</TableCell><TableCell className="titles">{m.championships||"—"}</TableCell></TableRow>})}
-  </TableBody></Table></div>;
-}
-
-function RecordCard({ label, title, record, value }: {label:string;title:string;record:RecordEntry;value:string}) {
-  const matchup=record.points===undefined&&record.home_team_name&&record.away_team_name;
-  const homeResult=(record.home_score??0)===(record.away_score??0)?"T":(record.home_score??0)>(record.away_score??0)?"W":"L";
-  const awayResult=homeResult==="T"?"T":homeResult==="W"?"L":"W";
-  return <article className="record-card"><p className="eyebrow">{label}</p><div className="record-value">{value}</div>{matchup?<div className="record-matchup"><div><b>{record.home_team_name}</b><i className={`result-${homeResult.toLowerCase()}`}>{homeResult}</i><small>{names(record.home_manager_names)}</small></div><span>vs.</span><div><b>{record.away_team_name}</b><i className={`result-${awayResult.toLowerCase()}`}>{awayResult}</i><small>{names(record.away_manager_names)}</small></div></div>:<><h3>{title}{record.result&&<i className={`result-${record.result.toLowerCase()}`}>{record.result}</i>}</h3><p>{names(record.manager_names)}</p></>}<small>{record.season} · Week {record.scoring_period??record.matchup_period}</small></article>;
-}
-
-function SeasonArchive({ season }: {season:Season}) {
-  const archive=season as EnrichedSeason;
-  const [week,setWeek]=useState("1");
-  const teams=[...season.teams].sort((a,b)=>(a.playoff_seed??99)-(b.playoff_seed??99));
-  const champ=season.teams.find(t=>t.final_rank===1); const runner=season.teams.find(t=>t.final_rank===2);
-  const periods=[...new Set(season.weekly_scores.filter(s=>s.opponent_team_id!==null).map(s=>s.scoring_period))].sort((a,b)=>a-b);
-  const selected=Number(week); const scoreRows=season.weekly_scores.filter(s=>s.scoring_period===selected&&s.opponent_team_id!==null);
-  const scoreMap=new Map(scoreRows.map(s=>[s.team_id,s]));
-  const games=scoreRows.filter(s=>s.team_id<(s.opponent_team_id??0)).map(s=>({a:s,b:scoreMap.get(s.opponent_team_id!)})).filter(g=>g.b);
-  const championship=season.matchups.find(m=>m.stage==="championship_playoffs"&&m.is_multiweek_series&&m.decided);
-  return <><div className="season-grid"><aside className="season-card"><span className="watermark">{season.season}</span><Trophy/><p className="eyebrow">League champion</p><h3>{champ?.team_name}</h3><p>{names(champ?.manager_names)}</p><dl><div><dt>Regular-season record</dt><dd>{champ?.regular_season.wins}–{champ?.regular_season.losses}</dd></div><div><dt>Regular-season seed</dt><dd>#{champ?.playoff_seed}</dd></div><div><dt>Runner-up</dt><dd><b>{runner?.team_name}</b><small>{names(runner?.manager_names)}</small></dd></div></dl></aside>
-  <div><p className="eyebrow">Regular-season standings</p><div className="table-shell no-top"><Table><TableHeader><TableRow><TableHead>Seed</TableHead><TableHead>Team</TableHead><TableHead>Record</TableHead><TableHead>PF</TableHead><TableHead>PA</TableHead><TableHead>Final finish</TableHead></TableRow></TableHeader><TableBody>{teams.map(t=><TableRow key={t.team_season_id}><TableCell className="rank">#{t.playoff_seed}</TableCell><TableCell><strong>{t.team_name}</strong><small>{names(t.manager_names)}</small></TableCell><TableCell>{t.regular_season.wins}–{t.regular_season.losses}</TableCell><TableCell>{fmt.format(t.regular_season.points_for)}</TableCell><TableCell>{fmt.format(t.regular_season.points_against)}</TableCell><TableCell>{t.final_rank===1?"Champion":t.final_rank===2?"Runner-up":`#${t.final_rank}`}</TableCell></TableRow>)}</TableBody></Table></div></div></div>
-  {championship&&<section className="championship-recap"><div><p className="eyebrow">Championship recap</p><h2>{championship.home_team_name} vs. {championship.away_team_name}</h2><p>Two-week championship series · {season.season}</p></div><div className={(championship.winner==="HOME"?"winner ":"")+"score-side"}><span><b>{championship.home_team_name}</b><small>{names(championship.home_manager_names)}</small></span><strong>{fmt.format(championship.home_score??0)}</strong></div><div className={(championship.winner==="AWAY"?"winner ":"")+"score-side"}><span><b>{championship.away_team_name}</b><small>{names(championship.away_manager_names)}</small></span><strong>{fmt.format(championship.away_score??0)}</strong></div></section>}
-  <div className="section-title compact"><div><p className="eyebrow">Season honors</p><h2>{season.season} awards</h2></div><p>Championship results plus regular-season achievements.</p></div><section className="award-board">{archive.awards?.map(award=><article key={award.key} className={award.key==="champion"?"major-award":""}><p className="eyebrow">{award.title}</p><strong>{award.value}</strong><h3>{award.team_name}</h3><span>{names(award.manager_names)}</span><small>{award.detail}</small></article>)}</section>
-  {archive.storylines?.length?<><div className="section-title compact"><div><p className="eyebrow">The year in review</p><h2>{season.season} storylines</h2></div><p>Generated only from official league results and changes.</p></div><section className="story-grid">{archive.storylines.map((story,index)=><article key={`${story.label}:${index}`}><span>{String(index+1).padStart(2,"0")}</span><div><p className="eyebrow">{story.label}</p><h3>{story.title}</h3><p>{story.text}</p></div></article>)}</section></>:null}
-  <PlayoffBracket season={season}/>
-  <section className="weekly-results"><div className="section-title compact"><div><p className="eyebrow">Full scoreboard</p><h2>Weekly results</h2></div><Select value={week} onValueChange={setWeek}><SelectTrigger aria-label="Select scoring week"><SelectValue/></SelectTrigger><SelectContent>{periods.map(p=><SelectItem key={p} value={String(p)}>Week {p}</SelectItem>)}</SelectContent></Select></div><div className="score-grid">{games.map(({a,b})=><article key={`${selected}:${a.matchup_id}:${a.team_id}`}><div className={(a.points>(b?.points??0)?"winner ":"")+"score-side"}><span><b>{a.team_name}</b><small>{names(a.manager_names)}</small></span><strong>{fmt.format(a.points)}</strong></div><div className={((b?.points??0)>a.points?"winner ":"")+"score-side"}><span><b>{b?.team_name}</b><small>{names(b?.manager_names)}</small></span><strong>{fmt.format(b?.points??0)}</strong></div></article>)}</div></section></>;
-}
-
-function PlayoffBracket({season}:{season:Season}) {
-  const rounds=season.matchups.filter(m=>m.stage==="championship_playoffs"&&m.home_team_id!==null&&m.away_team_id!==null);
-  const labels:Record<number,string>={1:"Quarterfinals",2:"Semifinals",3:"Championship"};
-  return <section className="bracket-wrap"><div className="section-title compact"><div><p className="eyebrow">Championship playoffs</p><h2>Playoff bracket</h2></div><p>Final series totals are combined across both championship weeks.</p></div><div className="bracket">{[1,2,3].map(round=><div className="bracket-round" key={round}><h3>{labels[round]}</h3>{rounds.filter(m=>m.playoff_round===round).map(m=><article key={m.matchup_key}><div className={m.winner==="HOME"?"winner":""}><span><b>{m.home_team_name}</b><small>{names(m.home_manager_names)}</small></span><strong>{fmt.format(m.home_score??0)}</strong></div><div className={m.winner==="AWAY"?"winner":""}><span><b>{m.away_team_name}</b><small>{names(m.away_manager_names)}</small></span><strong>{fmt.format(m.away_score??0)}</strong></div>{m.is_multiweek_series&&<small>Two-week total</small>}</article>)}</div>)}</div></section>;
-}
-
-function ManagerProfile({managerId,setManagerId}:{managerId:string;setManagerId:(id:string)=>void}) {
-  const managers=data.manager_history.standings;
-  const manager=managers.find(m=>m.manager_id===managerId)??managers[0];
-  const currentTeam=[...manager.team_names].sort((a,b)=>b.season-a.season)[0]?.team_name??"—";
-  const seasonRows=data.seasons.flatMap(season=>season.teams.filter(team=>team.manager_ids.includes(manager.manager_id)).map(team=>({season,team})));
-  const completedIds=new Set(data.seasons.flatMap(season=>season.matchups.filter(m=>m.stage==="regular_season"&&m.decided).map(m=>`${season.season}:${m.matchup_id}`)));
-  const scores=data.seasons.flatMap(season=>season.weekly_scores.filter(score=>score.manager_ids.includes(manager.manager_id)&&score.stage==="regular_season"&&completedIds.has(`${season.season}:${score.matchup_id}`)));
-  const high=scores.length?[...scores].sort((a,b)=>b.points-a.points)[0]:undefined;
-  const low=scores.length?[...scores].sort((a,b)=>a.points-b.points)[0]:undefined;
-  const streak=data.streaks.find(s=>s.manager_id===manager.manager_id);
-  const opponentRows=data.head_to_head.filter(h=>h.manager_1_id===manager.manager_id||h.manager_2_id===manager.manager_id).map(h=>{
-    const isFirst=h.manager_1_id===manager.manager_id;
-    const opponentId=isFirst?h.manager_2_id:h.manager_1_id;
-    const opponent=managers.find(m=>m.manager_id===opponentId);
-    const opponentTeam=opponent?[...opponent.team_names].sort((a,b)=>b.season-a.season)[0]?.team_name:"—";
-    return {opponentId,opponentName:isFirst?h.manager_2_name:h.manager_1_name,opponentTeam,wins:isFirst?h.manager_1_wins:h.manager_2_wins,losses:isFirst?h.manager_2_wins:h.manager_1_wins,ties:h.ties,games:h.games};
-  }).sort((a,b)=>b.games-a.games||b.wins-a.wins||a.opponentName.localeCompare(b.opponentName));
-  const finish=(rank:number|null,complete:boolean)=>!complete?"In progress":rank===1?"Champion":rank===2?"Runner-up":rank?`#${rank}`:"—";
-  return <><section className="manager-hero"><div><p className="eyebrow">Manager profile</p><h2>{currentTeam}</h2><p>{manager.manager_name}</p></div><Select value={manager.manager_id} onValueChange={setManagerId}><SelectTrigger aria-label="Select manager"><SelectValue/></SelectTrigger><SelectContent>{managers.map(m=>{const team=[...m.team_names].sort((a,b)=>b.season-a.season)[0]?.team_name;return <SelectItem key={m.manager_id} value={m.manager_id}>{team} · {m.manager_name}</SelectItem>})}</SelectContent></Select></section>
-  <section className="profile-stats"><article><span>Career record</span><strong>{manager.wins}–{manager.losses}{manager.ties?`–${manager.ties}`:""}</strong><small>{((manager.winning_percentage??0)*100).toFixed(1)}% winning percentage</small></article><article><span>Postseason</span><strong>{manager.championships}</strong><small>{manager.championships===1?"championship":"championships"} · {manager.playoff_appearances} playoff appearances</small></article><article><span>Career points</span><strong>{fmt.format(manager.points_for)}</strong><small>{fmt.format(manager.points_against)} points allowed</small></article><article><span>Best week</span><strong>{high?fmt.format(high.points):"—"}</strong><small>{high?`${high.team_name} · ${high.season} Week ${high.scoring_period}`:"No completed games"}</small></article><article><span>Lowest week</span><strong>{low?fmt.format(low.points):"—"}</strong><small>{low?`${low.team_name} · ${low.season} Week ${low.scoring_period}`:"No completed games"}</small></article><article><span>Streaks</span><strong>{streak?.longest_winning_streak??0}W / {streak?.longest_losing_streak??0}L</strong><small>Longest winning / losing streak</small></article></section>
-  <div className="section-title compact"><div><p className="eyebrow">Year by year</p><h2>Season history</h2></div></div><div className="table-shell"><Table><TableHeader><TableRow><TableHead>Season</TableHead><TableHead>Team</TableHead><TableHead>Record</TableHead><TableHead>PF</TableHead><TableHead>Regular finish</TableHead><TableHead>Final finish</TableHead></TableRow></TableHeader><TableBody>{seasonRows.sort((a,b)=>b.season.season-a.season.season).map(({season,team})=><TableRow key={team.team_season_id}><TableCell className="rank">{season.season}</TableCell><TableCell><strong>{team.team_name}</strong></TableCell><TableCell>{team.regular_season.wins}–{team.regular_season.losses}</TableCell><TableCell>{fmt.format(team.regular_season.points_for)}</TableCell><TableCell>#{team.playoff_seed}</TableCell><TableCell>{finish(team.final_rank,season.is_complete)}</TableCell></TableRow>)}</TableBody></Table></div>
-  <div className="section-title compact"><div><p className="eyebrow">Regular season</p><h2>Record by opponent</h2></div><p>Postseason meetings are excluded from career head-to-head records.</p></div><div className="table-shell"><Table><TableHeader><TableRow><TableHead>Opponent team</TableHead><TableHead>Manager</TableHead><TableHead>Series</TableHead><TableHead>Record</TableHead><TableHead>Games</TableHead><TableHead>Win %</TableHead></TableRow></TableHeader><TableBody>{opponentRows.map(row=>{const series=row.wins===row.losses?"T":row.wins>row.losses?"W":"L";return <TableRow key={row.opponentId}><TableCell><strong>{row.opponentTeam}</strong></TableCell><TableCell>{row.opponentName}</TableCell><TableCell><i className={`result-${series.toLowerCase()}`}>{series}</i></TableCell><TableCell>{row.wins}–{row.losses}{row.ties?`–${row.ties}`:""}</TableCell><TableCell>{row.games}</TableCell><TableCell><strong>{(((row.wins+.5*row.ties)/row.games)*100).toFixed(1)}%</strong></TableCell></TableRow>})}</TableBody></Table></div></>;
-}
-
-function HeadToHead({managerAId,managerBId,setManagerAId,setManagerBId}:{managerAId:string;managerBId:string;setManagerAId:(id:string)=>void;setManagerBId:(id:string)=>void}) {
-  const managers=data.manager_history.standings;
-  const managerA=managers.find(m=>m.manager_id===managerAId)!; const managerB=managers.find(m=>m.manager_id===managerBId)!;
-  const currentTeam=(manager:Standing)=>[...manager.team_names].sort((a,b)=>b.season-a.season)[0]?.team_name??"—";
-  const hasManager=(ids:readonly string[],id:string)=>ids.includes(id);
-  const meetings=data.seasons.flatMap(season=>season.matchups.filter(m=>m.decided&&["regular_season","championship_playoffs"].includes(m.stage)&&((hasManager(m.home_manager_ids,managerAId)&&hasManager(m.away_manager_ids,managerBId))||(hasManager(m.home_manager_ids,managerBId)&&hasManager(m.away_manager_ids,managerAId)))).map(m=>{
-    const aHome=hasManager(m.home_manager_ids,managerAId); const aScore=(aHome?m.home_score:m.away_score)??0; const bScore=(aHome?m.away_score:m.home_score)??0;
-    return {...m,aScore,bScore,aTeam:aHome?m.home_team_name:m.away_team_name,bTeam:aHome?m.away_team_name:m.home_team_name,aManagers:aHome?m.home_manager_names:m.away_manager_names,bManagers:aHome?m.away_manager_names:m.home_manager_names,aResult:aScore===bScore?"T":aScore>bScore?"W":"L",bResult:aScore===bScore?"T":bScore>aScore?"W":"L"};
-  })).sort((a,b)=>b.season-a.season||b.matchup_period-a.matchup_period);
-  const regular=meetings.filter(m=>m.stage==="regular_season"); const playoffs=meetings.filter(m=>m.stage==="championship_playoffs");
-  const aWins=regular.filter(m=>m.aResult==="W").length; const bWins=regular.filter(m=>m.bResult==="W").length; const ties=regular.filter(m=>m.aResult==="T").length;
-  const aPoints=regular.reduce((sum,m)=>sum+m.aScore,0); const bPoints=regular.reduce((sum,m)=>sum+m.bScore,0);
-  const decided=regular.filter(m=>m.aResult!=="T"); const largest=decided.length?[...decided].sort((a,b)=>b.margin!-a.margin!)[0]:undefined; const closest=decided.length?[...decided].sort((a,b)=>a.margin!-b.margin!)[0]:undefined;
-  const selector=(value:string,other:string,onChange:(id:string)=>void,label:string)=><Select value={value} onValueChange={onChange}><SelectTrigger aria-label={label}><SelectValue/></SelectTrigger><SelectContent>{managers.filter(m=>m.manager_id!==other).map(m=><SelectItem key={m.manager_id} value={m.manager_id}>{currentTeam(m)} · {m.manager_name}</SelectItem>)}</SelectContent></Select>;
-  const meetingRows=(rows:typeof meetings)=><div className="h2h-games">{rows.map(m=><article key={m.matchup_key}><div><span>{m.season} · {m.stage==="regular_season"?`Week ${m.matchup_period}`:`Playoff round ${m.playoff_round}`}</span>{m.is_multiweek_series&&<small>Two-week series</small>}</div><section><div><b>{m.aTeam}</b><small>{names(m.aManagers)}</small></div><i className={`result-${m.aResult.toLowerCase()}`}>{m.aResult}</i><strong>{fmt.format(m.aScore)}</strong><em>–</em><strong>{fmt.format(m.bScore)}</strong><i className={`result-${m.bResult.toLowerCase()}`}>{m.bResult}</i><div><b>{m.bTeam}</b><small>{names(m.bManagers)}</small></div></section></article>)}</div>;
-  return <><section className="h2h-picker"><div><p className="eyebrow">Head-to-head</p><h2>Rivalry comparison</h2></div><section><label>Team one{selector(managerAId,managerBId,setManagerAId,"Select first manager")}</label><Swords/><label>Team two{selector(managerBId,managerAId,setManagerBId,"Select second manager")}</label></section></section>
-  <section className="versus-board"><article><h3>{currentTeam(managerA)}</h3><p>{managerA.manager_name}</p><strong>{aWins}</strong><span>Regular-season wins</span></article><div><span>{regular.length} meetings</span><b>{aWins}–{bWins}{ties?`–${ties}`:""}</b><small>Official regular-season series</small></div><article><h3>{currentTeam(managerB)}</h3><p>{managerB.manager_name}</p><strong>{bWins}</strong><span>Regular-season wins</span></article></section>
-  <section className="h2h-stats"><article><span>Total points</span><strong>{fmt.format(aPoints)} – {fmt.format(bPoints)}</strong><small>Regular season</small></article><article><span>Largest victory</span><strong>{largest?`${fmt.format(largest.margin!)} pts`:"—"}</strong><small>{largest?`${largest.aResult==="W"?largest.aTeam:largest.bTeam} · ${largest.season} Week ${largest.matchup_period}`:"No decided meetings"}</small></article><article><span>Closest game</span><strong>{closest?`${fmt.format(closest.margin!)} pts`:"—"}</strong><small>{closest?`${closest.season} Week ${closest.matchup_period}`:"No decided meetings"}</small></article></section>
-  <div className="section-title compact"><div><p className="eyebrow">Regular season</p><h2>Complete matchup history</h2></div></div>{regular.length?meetingRows(regular):<p className="empty-series">These teams have not met in a completed regular-season game.</p>}
-  <div className="section-title compact"><div><p className="eyebrow">Postseason</p><h2>Playoff meetings</h2></div><p>Tracked separately from the official regular-season series.</p></div>{playoffs.length?meetingRows(playoffs):<p className="empty-series">No playoff meetings yet.</p>}</>;
-}
-
-function DraftHistory({managerId,setManagerId}:{managerId:string;setManagerId:(id:string)=>void}) {
-  const draftSeasons=data.seasons.filter(s=>s.draft_picks.length>0);
-  const [draftYear,setDraftYear]=useState(String(draftSeasons.at(-1)?.season??2025)); const [round,setRound]=useState("1");
-  const [managerDraftYear,setManagerDraftYear]=useState(String(draftSeasons.at(-1)?.season??2025));
-  const season=draftSeasons.find(s=>String(s.season)===draftYear)??draftSeasons[0]; const picks=season.draft_picks as unknown as DraftPick[];
-  const rounds=[...new Set(picks.map(p=>p.round))].sort((a,b)=>a-b); const roundPicks=picks.filter(p=>p.round===Number(round)); const first=picks.find(p=>p.overall_pick===1);
-  const allPicks=draftSeasons.flatMap(s=>s.draft_picks as unknown as DraftPick[]); const unresolved=allPicks.filter(p=>!p.player_name).length;
-  const managers=data.manager_history.standings; const playerLabel=(pick?:DraftPick)=>pick?.player_name??`ESPN player #${pick?.player_id}`;
-  const currentTeam=(id:string)=>{const manager=managers.find(m=>m.manager_id===id);return manager?[...manager.team_names].sort((a,b)=>b.season-a.season)[0]?.team_name??"—":"—"};
-  const teamPlayerCounts=[...allPicks.reduce((map,p)=>{for(const id of p.manager_ids){const key=`${id}:${p.player_id}`;const row=map.get(key)??{manager_id:id,player_id:p.player_id,player_name:p.player_name,position:p.position,count:0,seasons:new Set<number>()};row.count++;row.seasons.add(p.season);if(!row.player_name&&p.player_name)row.player_name=p.player_name;if(!row.position&&p.position)row.position=p.position;map.set(key,row)}return map;},new Map<string,{manager_id:string;player_id:number;player_name?:string|null;position?:string|null;count:number;seasons:Set<number>}>()).values()].filter(p=>p.count>1).sort((a,b)=>b.count-a.count||currentTeam(a.manager_id).localeCompare(currentTeam(b.manager_id))||String(a.player_name).localeCompare(String(b.player_name)));
-  const managerYears=draftSeasons.filter(s=>(s.draft_picks as unknown as DraftPick[]).some(p=>p.manager_ids.includes(managerId))).map(s=>s.season).sort((a,b)=>b-a);
-  const selectedManagerYear=managerYears.includes(Number(managerDraftYear))?Number(managerDraftYear):managerYears[0];
-  const selectedManagerPicks=allPicks.filter(p=>p.season===selectedManagerYear&&p.manager_ids.includes(managerId)).sort((a,b)=>a.overall_pick-b.overall_pick);
-  const changeManager=(id:string)=>{setManagerId(id);const latest=draftSeasons.filter(s=>(s.draft_picks as unknown as DraftPick[]).some(p=>p.manager_ids.includes(id))).at(-1);if(latest)setManagerDraftYear(String(latest.season))};
-  return <><section className="draft-head"><div><p className="eyebrow">Draft history</p><h2>{season.season} Draft Board</h2><p>{picks.length} selections · {season.settings.team_count} teams</p></div><div><label>Season<Select value={String(season.season)} onValueChange={value=>{setDraftYear(value);setRound("1")}}><SelectTrigger aria-label="Select draft season"><SelectValue/></SelectTrigger><SelectContent>{draftSeasons.map(s=><SelectItem key={s.season} value={String(s.season)}>{s.season}</SelectItem>)}</SelectContent></Select></label><label>Round<Select value={round} onValueChange={setRound}><SelectTrigger aria-label="Select draft round"><SelectValue/></SelectTrigger><SelectContent>{rounds.map(r=><SelectItem key={r} value={String(r)}>Round {r}</SelectItem>)}</SelectContent></Select></label></div></section>
-  {unresolved>0&&<p className="draft-warning">{unresolved} archived selections still need a player name. Rebuild from the complete weekly roster archive to resolve them.</p>}
-  <section className="draft-summary"><article><p className="eyebrow">First overall</p><strong>{playerLabel(first)}</strong><span>{first?.position&&`${first.position} · `}{first?.team_name}<small>{names(first?.manager_names)}</small></span></article><article><p className="eyebrow">Draft format</p><strong>{rounds.length} rounds</strong><span>{season.settings.team_count}-team snake draft</span></article><article><p className="eyebrow">Keepers</p><strong>{picks.filter(p=>p.keeper).length}</strong><span>Keeper selections</span></article></section>
-  <div className="draft-board">{roundPicks.map(p=><article key={p.overall_pick}><span>#{p.overall_pick}</span><div><b>{playerLabel(p)}</b><small>{p.position??"Position unavailable"}</small></div><div><b>{p.team_name}</b><small>{names(p.manager_names)}</small></div></article>)}</div>
-  <div className="section-title compact"><div><p className="eyebrow">Franchise view</p><h2>Team draft history</h2></div><div className="draft-history-filters"><Select value={managerId} onValueChange={changeManager}><SelectTrigger aria-label="Select draft team"><SelectValue/></SelectTrigger><SelectContent>{managers.filter(m=>draftSeasons.some(s=>(s.draft_picks as unknown as DraftPick[]).some(p=>p.manager_ids.includes(m.manager_id)))).map(m=><SelectItem key={m.manager_id} value={m.manager_id}>{currentTeam(m.manager_id)} · {m.manager_name}</SelectItem>)}</SelectContent></Select><Select value={String(selectedManagerYear)} onValueChange={setManagerDraftYear}><SelectTrigger aria-label="Select team draft season"><SelectValue/></SelectTrigger><SelectContent>{managerYears.map(year=><SelectItem key={year} value={String(year)}>{year}</SelectItem>)}</SelectContent></Select></div></div><div className="team-draft-card"><header><div><p className="eyebrow">{selectedManagerYear} draft</p><h3>{selectedManagerPicks[0]?.team_name??currentTeam(managerId)}</h3><p>{managers.find(m=>m.manager_id===managerId)?.manager_name}</p></div><strong>Slot #{selectedManagerPicks.find(p=>p.round===1)?.round_pick??"—"}</strong></header><div className="draft-board team-board">{selectedManagerPicks.map(p=><article key={p.overall_pick}><span>R{p.round}</span><div><b>{playerLabel(p)}</b><small>{p.position??"Position unavailable"}</small></div><div><b>Pick #{p.overall_pick}</b><small>Round {p.round}, pick {p.round_pick}</small></div></article>)}</div></div>
-  <div className="section-title compact"><div><p className="eyebrow">Team tendencies</p><h2>Franchise Favorites</h2></div><p>Every player selected by the same franchise in multiple seasons, ranked by selections and then team.</p></div>{teamPlayerCounts.length?<div className="repeat-picks">{teamPlayerCounts.map((player,index)=>{const manager=managers.find(m=>m.manager_id===player.manager_id);const rank=teamPlayerCounts.findIndex(row=>row.count===player.count)+1;return <article key={`${player.manager_id}:${player.player_id}`} className={index>0&&teamPlayerCounts[index-1].count!==player.count?"new-tier":""}><span>{rank}</span><div><b>{player.player_name??`ESPN player #${player.player_id}`}</b><small>{player.position??"Position unavailable"} · {currentTeam(player.manager_id)} · {manager?.manager_name} · {[...player.seasons].sort().join(" & ")}</small></div><strong>{player.count}×</strong></article>})}</div>:<p className="empty-series">No franchise has drafted the same player in multiple archived drafts.</p>}</>;
-}
-
-function LeaderboardCard({title,rows,format,note}:{title:string;rows:LeaderRow[];format?:"percent"|"points"|"streak";note?:string}) {
-  const value=(row:LeaderRow)=>format==="percent"?`${(row.value*100).toFixed(1)}%`:format==="points"?fmt.format(row.value):format==="streak"?`${row.value} games`:fmt.format(row.value);
-  return <article className="leaderboard-card"><header><h3>{title}</h3>{note&&<small>{note}</small>}</header><ol>{rows.map(row=><li key={`${row.rank}:${row.team_name}:${row.season??"career"}`}><span>{row.rank}</span><div><b>{row.team_name}</b><small>{row.manager_name??names(row.manager_names)}{row.season?` · ${row.season}`:""}{row.record?` · ${row.record}`:""}</small></div><strong>{value(row)}</strong></li>)}</ol></article>;
-}
-
-function RecordsLeaderboards({boards}:{boards?:RecordLeaderboards}) {
-  if(!boards)return null;
-  return <section className="leaderboard-section"><div className="section-title compact"><div><p className="eyebrow">The chase</p><h2>Career leaders</h2></div><p>Current team names represent each manager&apos;s full CGL career.</p></div><div className="leaderboard-grid"><LeaderboardCard title="Most wins" rows={boards.career.wins}/><LeaderboardCard title="Winning percentage" rows={boards.career.winning_percentage} format="percent" note={`${boards.minimum_games_for_percentage}-game minimum`}/><LeaderboardCard title="Championships" rows={boards.career.championships}/><LeaderboardCard title="Playoff appearances" rows={boards.career.playoff_appearances}/></div>
-  <div className="section-title compact"><div><p className="eyebrow">Volume records</p><h2>Career scoring</h2></div><p>Regular-season points only.</p></div><div className="leaderboard-grid two"><LeaderboardCard title="Most points scored" rows={boards.career.points_for} format="points"/><LeaderboardCard title="Most points allowed" rows={boards.career.points_against} format="points"/></div>
-  <div className="section-title compact"><div><p className="eyebrow">One-year peaks</p><h2>Single-season leaders</h2></div><p>Completed seasons only; historical team names are preserved.</p></div><div className="leaderboard-grid"><LeaderboardCard title="Most wins" rows={boards.single_season.wins}/><LeaderboardCard title="Best record" rows={boards.single_season.winning_percentage} format="percent"/><LeaderboardCard title="Most points" rows={boards.single_season.points_for} format="points"/><LeaderboardCard title="Highest weekly average" rows={boards.single_season.average_points} format="points"/><LeaderboardCard title="Most points allowed" rows={boards.single_season.points_against} format="points"/><LeaderboardCard title="Lowest winning percentage" rows={boards.single_season.lowest_winning_percentage} format="percent"/></div>
-  <div className="section-title compact"><div><p className="eyebrow">Momentum</p><h2>Longest streaks</h2></div><p>Regular-season games across season boundaries.</p></div><div className="leaderboard-grid two"><LeaderboardCard title="Winning streaks" rows={boards.streaks.winning} format="streak"/><LeaderboardCard title="Losing streaks" rows={boards.streaks.losing} format="streak"/></div></section>;
-}
-
-function CurrentSeason({ season }: {season?:Season}) {
-  if(!season) return <section className="empty-live"><p className="eyebrow gold">2026 Live</p><h2>Current-season data is ready to be pulled.</h2><p>Run the 2026 ESPN discovery and rebuild the history to activate this page.</p></section>;
-  const standings=[...season.teams].sort((a,b)=>(a.playoff_seed??99)-(b.playoff_seed??99));
-  const complete=season.matchups.filter(m=>m.stage==="regular_season"&&m.decided&&m.home_team_id!==null&&m.away_team_id!==null);
-  const completedIds=new Set(complete.map(m=>m.matchup_id));
-  const scores=season.weekly_scores.filter(s=>completedIds.has(s.matchup_id));
-  const weeklyHigh=scores.length?[...scores].sort((a,b)=>b.points-a.points)[0]:undefined;
-  const latestGames=complete.filter(m=>m.matchup_period===season.through_week);
-  const pointsLeader=[...season.teams].sort((a,b)=>b.regular_season.points_for-a.regular_season.points_for)[0];
-  const liveStories=(season as EnrichedSeason).storylines?.filter(story=>story.label==="Expansion"||story.label==="New identities")??[];
-  return <><section className="live-banner"><div><p className="eyebrow">Current season</p><h2>{season.season} Live</h2><p>{season.through_week?`Standings and official results through Week ${season.through_week}.`:"Standings are live; Week 1 results are not final yet."}</p></div><span className="live-pill"><i/>In progress</span></section>
-  <section className="live-cards"><article><p className="eyebrow">Current leader</p><strong>{standings[0]?.team_name}</strong><span>{names(standings[0]?.manager_names)} · {standings[0]?.regular_season.wins}–{standings[0]?.regular_season.losses}</span></article><article><p className="eyebrow">Points leader</p><strong>{pointsLeader?.team_name}</strong><span>{names(pointsLeader?.manager_names)} · {fmt.format(pointsLeader?.regular_season.points_for??0)} points</span></article><article><p className="eyebrow">Season high</p><strong>{weeklyHigh?fmt.format(weeklyHigh.points):"—"}</strong><span>{weeklyHigh?`${weeklyHigh.team_name} · ${names(weeklyHigh.manager_names)} · Week ${weeklyHigh.scoring_period}`:"No completed games"}</span></article></section>
-  {liveStories.length?<section className="live-notes">{liveStories.map(story=><article key={story.label}><p className="eyebrow">{story.label}</p><h3>{story.title}</h3><p>{story.text}</p></article>)}</section>:null}
-  <div className="section-title compact"><div><p className="eyebrow">Playoff picture</p><h2>Current standings</h2></div><p>Seeds reflect ESPN&apos;s current league order.</p></div><div className="table-shell"><Table><TableHeader><TableRow><TableHead>Seed</TableHead><TableHead>Team</TableHead><TableHead>Record</TableHead><TableHead>PF</TableHead><TableHead>PA</TableHead></TableRow></TableHeader><TableBody>{standings.map(t=><TableRow key={t.team_season_id}><TableCell className="rank">#{t.playoff_seed}</TableCell><TableCell><strong>{t.team_name}</strong><small>{names(t.manager_names)}</small></TableCell><TableCell>{t.regular_season.wins}–{t.regular_season.losses}</TableCell><TableCell>{fmt.format(t.regular_season.points_for)}</TableCell><TableCell>{fmt.format(t.regular_season.points_against)}</TableCell></TableRow>)}</TableBody></Table></div>
-  {season.through_week>0&&<><div className="section-title compact"><div><p className="eyebrow">Latest completed week</p><h2>Week {season.through_week} results</h2></div></div><section className="score-grid">{latestGames.map(g=><article key={g.matchup_key}><div className={(g.winner==="HOME"?"winner ":"")+"score-side"}><span><b>{g.home_team_name}</b><small>{names(g.home_manager_names)}</small></span><strong>{fmt.format(g.home_score??0)}</strong></div><div className={(g.winner==="AWAY"?"winner ":"")+"score-side"}><span><b>{g.away_team_name}</b><small>{names(g.away_manager_names)}</small></span><strong>{fmt.format(g.away_score??0)}</strong></div></article>)}</section></>}</>;
-}
+import type { RecordLeaderboards } from "@/lib/record-book/history";
+import { data, fmt, names } from "@/lib/record-book/history";
+import { Crown, History, Shield, Swords, Trophy } from "lucide-react";
+import { useState } from "react";
 
 export default function Home() {
-  const [year,setYear]=useState(2025); const season=data.seasons.find(s=>s.season===year)??data.seasons[0];
-  const regular=data.records.regular_season, playoffs=data.records.championship_playoffs, series=data.records.multiweek_playoff_series;
-  const leaderboards=(data.records as unknown as {leaderboards?:RecordLeaderboards}).leaderboards;
-  const latestSeason=[...data.seasons].reverse().find(s=>s.is_complete)!;
-  const latestChampion=latestSeason.teams.find(t=>t.final_rank===1)!;
-  const [managerId,setManagerId]=useState(latestChampion.manager_ids[0]);
-  const previousChampion=data.records.champions.slice().sort((a,b)=>b.season-a.season).find(c=>!c.manager_ids.includes(latestChampion.manager_ids[0]));
-  const [managerAId,setManagerAId]=useState(latestChampion.manager_ids[0]);
-  const [managerBId,setManagerBId]=useState(previousChampion?.manager_ids[0]??data.manager_history.standings.find(m=>m.manager_id!==latestChampion.manager_ids[0])!.manager_id);
-  const currentSeason=data.seasons.find(s=>!s.is_complete);
-  return <main><header className="site-header"><div className="crest"><b>CGL</b><small>EST. 2024</small></div><div><p>Charley&apos;s Gonna Lose</p><h1>Official Record Book</h1></div><div className="seal"><Shield/><span>League<br/>History</span></div></header>
-  <Tabs defaultValue="overview" className="tabs"><nav><TabsList variant="line"><TabsTrigger value="overview">Overview</TabsTrigger><TabsTrigger value="current">2026 Live</TabsTrigger><TabsTrigger value="champions">Champions</TabsTrigger><TabsTrigger value="standings">Standings</TabsTrigger><TabsTrigger value="managers">Managers</TabsTrigger><TabsTrigger value="head-to-head">Head-to-Head</TabsTrigger><TabsTrigger value="drafts">Drafts</TabsTrigger><TabsTrigger value="records">Records</TabsTrigger><TabsTrigger value="seasons">Seasons</TabsTrigger></TabsList></nav>
-  <TabsContent value="overview" className="page"><section className="lede"><div><p className="eyebrow gold">The books are open</p><h2>{data.records.counts.seasons} seasons.<br/><em>One official history.</em></h2><p className="intro">Every matchup, title and heartbreak since CGL&apos;s official record era began in 2024.</p><p className="legend"><History/> Pre-2024 championships live on as league legend.</p></div><article className="reigning"><Crown/><p className="eyebrow">Reigning champion · {latestSeason.season}</p><h3>{latestChampion.team_name}</h3><p>{names(latestChampion.manager_names)}</p><div><span><b>{latestChampion.regular_season.wins}–{latestChampion.regular_season.losses}</b>Regular season</span><span><b>#{latestChampion.playoff_seed}</b>Playoff seed</span></div></article></section>
-  <section className="totals"><div><b>{data.records.counts.seasons}</b><span>Seasons</span></div><div><b>{data.records.counts.regular_season_matchups}</b><span>Regular-season games</span></div><div><b>{data.managers.length}</b><span>Managers</span></div><div><b>{data.records.champions.length}</b><span>Champions</span></div></section>
-  <div className="section-title"><div><p className="eyebrow">All-time pace setters</p><h2>Winning percentage</h2></div><p>Career regular-season records. No minimum games—yet.</p></div><Standings rows={data.manager_history.standings.slice(0,5)}/>
-  <section className="record-grid spaced"><RecordCard label="Single-week high" title={regular.highest_weekly_score.team_name} record={regular.highest_weekly_score} value={fmt.format(regular.highest_weekly_score.points)}/><RecordCard label="Closest finish" title={`${regular.closest_game.home_team_name} / ${regular.closest_game.away_team_name}`} record={regular.closest_game} value={`${fmt.format(regular.closest_game.margin)} pts`}/><RecordCard label="Largest rout" title={`${regular.largest_margin.home_team_name} / ${regular.largest_margin.away_team_name}`} record={regular.largest_margin} value={`${fmt.format(regular.largest_margin.margin)} pts`}/></section></TabsContent>
+  const [year, setYear] = useState(2025);
+  const season = data.seasons.find((s) => s.season === year) ?? data.seasons[0];
+  const regular = data.records.regular_season,
+    playoffs = data.records.championship_playoffs,
+    series = data.records.multiweek_playoff_series;
+  const leaderboards = (
+    data.records as unknown as { leaderboards?: RecordLeaderboards }
+  ).leaderboards;
+  const latestSeason = [...data.seasons].reverse().find((s) => s.is_complete)!;
+  const latestChampion = latestSeason.teams.find((t) => t.final_rank === 1)!;
+  const [managerId, setManagerId] = useState(latestChampion.manager_ids[0]);
+  const previousChampion = data.records.champions
+    .slice()
+    .sort((a, b) => b.season - a.season)
+    .find((c) => !c.manager_ids.includes(latestChampion.manager_ids[0]));
+  const [managerAId, setManagerAId] = useState(latestChampion.manager_ids[0]);
+  const [managerBId, setManagerBId] = useState(
+    previousChampion?.manager_ids[0] ??
+      data.manager_history.standings.find(
+        (m) => m.manager_id !== latestChampion.manager_ids[0],
+      )!.manager_id,
+  );
+  const currentSeason = data.seasons.find((s) => !s.is_complete);
+  return (
+    <main>
+      <header className="site-header">
+        <div className="crest">
+          <b>CGL</b>
+          <small>EST. 2024</small>
+        </div>
+        <div>
+          <p>Charley&apos;s Gonna Lose</p>
+          <h1>Official Record Book</h1>
+        </div>
+        <div className="seal">
+          <Shield />
+          <span>
+            League
+            <br />
+            History
+          </span>
+        </div>
+      </header>
+      <Tabs defaultValue="overview" className="tabs">
+        <nav>
+          <TabsList variant="line">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="current">2026 Live</TabsTrigger>
+            <TabsTrigger value="champions">Champions</TabsTrigger>
+            <TabsTrigger value="standings">Standings</TabsTrigger>
+            <TabsTrigger value="managers">Managers</TabsTrigger>
+            <TabsTrigger value="head-to-head">Head-to-Head</TabsTrigger>
+            <TabsTrigger value="drafts">Drafts</TabsTrigger>
+            <TabsTrigger value="records">Records</TabsTrigger>
+            <TabsTrigger value="seasons">Seasons</TabsTrigger>
+          </TabsList>
+        </nav>
+        <TabsContent value="overview" className="page">
+          <section className="lede">
+            <div>
+              <p className="eyebrow gold">The books are open</p>
+              <h2>
+                {data.records.counts.seasons} seasons.
+                <br />
+                <em>One official history.</em>
+              </h2>
+              <p className="intro">
+                Every matchup, title and heartbreak since CGL&apos;s official
+                record era began in 2024.
+              </p>
+              <p className="legend">
+                <History /> Pre-2024 championships live on as league legend.
+              </p>
+            </div>
+            <article className="reigning">
+              <Crown />
+              <p className="eyebrow">
+                Reigning champion · {latestSeason.season}
+              </p>
+              <h3>{latestChampion.team_name}</h3>
+              <p>{names(latestChampion.manager_names)}</p>
+              <div>
+                <span>
+                  <b>
+                    {latestChampion.regular_season.wins}–
+                    {latestChampion.regular_season.losses}
+                  </b>
+                  Regular season
+                </span>
+                <span>
+                  <b>#{latestChampion.playoff_seed}</b>Playoff seed
+                </span>
+              </div>
+            </article>
+          </section>
+          <section className="totals">
+            <div>
+              <b>{data.records.counts.seasons}</b>
+              <span>Seasons</span>
+            </div>
+            <div>
+              <b>{data.records.counts.regular_season_matchups}</b>
+              <span>Regular-season games</span>
+            </div>
+            <div>
+              <b>{data.managers.length}</b>
+              <span>Managers</span>
+            </div>
+            <div>
+              <b>{data.records.champions.length}</b>
+              <span>Champions</span>
+            </div>
+          </section>
+          <div className="section-title">
+            <div>
+              <p className="eyebrow">All-time pace setters</p>
+              <h2>Winning percentage</h2>
+            </div>
+            <p>Career regular-season records. No minimum games—yet.</p>
+          </div>
+          <Standings rows={data.manager_history.standings.slice(0, 5)} />
+          <section className="record-grid spaced">
+            <RecordCard
+              label="Single-week high"
+              title={regular.highest_weekly_score.team_name}
+              record={regular.highest_weekly_score}
+              value={fmt.format(regular.highest_weekly_score.points)}
+            />
+            <RecordCard
+              label="Closest finish"
+              title={`${regular.closest_game.home_team_name} / ${regular.closest_game.away_team_name}`}
+              record={regular.closest_game}
+              value={`${fmt.format(regular.closest_game.margin)} pts`}
+            />
+            <RecordCard
+              label="Largest rout"
+              title={`${regular.largest_margin.home_team_name} / ${regular.largest_margin.away_team_name}`}
+              record={regular.largest_margin}
+              value={`${fmt.format(regular.largest_margin.margin)} pts`}
+            />
+          </section>
+        </TabsContent>
 
-  <TabsContent value="current" className="page"><CurrentSeason season={currentSeason}/></TabsContent>
+        <TabsContent value="current" className="page">
+          <CurrentSeason season={currentSeason} />
+        </TabsContent>
 
-  <TabsContent value="champions" className="page"><PageHead overline="The highest honor" title="Championship ledger" text="Official CGL champions beginning with the 2024 season."/><div className="ledger">{data.records.champions.map(c=>{const s=data.seasons.find(x=>x.season===c.season)!;const t=s.teams.find(x=>x.team_id===c.team_id)!;const ru=s.teams.find(x=>x.final_rank===2)!;const f=s.matchups.find(x=>x.stage==="championship_playoffs"&&x.is_multiweek_series&&(x.home_team_id===c.team_id||x.away_team_id===c.team_id));return <article key={c.season}><strong className="year">{c.season}</strong><span className="medal"><Trophy/></span><div><p className="eyebrow">CGL champion</p><h3>{c.team_name}</h3><p>{names(c.manager_names)}</p></div><dl><div><dt>Regular season</dt><dd>{t.regular_season.wins}–{t.regular_season.losses} · #{t.playoff_seed} seed</dd></div><div><dt>Championship</dt><dd>{f?`${fmt.format(Math.max(f.home_score??0,f.away_score??0))}–${fmt.format(Math.min(f.home_score??0,f.away_score??0))}`:"—"} vs. <b>{ru.team_name}</b><small>{names(ru.manager_names)}</small></dd></div></dl></article>})}</div></TabsContent>
+        <TabsContent value="champions" className="page">
+          <PageHead
+            overline="The highest honor"
+            title="Championship ledger"
+            text="Official CGL champions beginning with the 2024 season."
+          />
+          <div className="ledger">
+            {data.records.champions.map((c) => {
+              const s = data.seasons.find((x) => x.season === c.season)!;
+              const t = s.teams.find((x) => x.team_id === c.team_id)!;
+              const ru = s.teams.find((x) => x.final_rank === 2)!;
+              const f = s.matchups.find(
+                (x) =>
+                  x.stage === "championship_playoffs" &&
+                  x.is_multiweek_series &&
+                  (x.home_team_id === c.team_id ||
+                    x.away_team_id === c.team_id),
+              );
+              return (
+                <article key={c.season}>
+                  <strong className="year">{c.season}</strong>
+                  <span className="medal">
+                    <Trophy />
+                  </span>
+                  <div>
+                    <p className="eyebrow">CGL champion</p>
+                    <h3>{c.team_name}</h3>
+                    <p>{names(c.manager_names)}</p>
+                  </div>
+                  <dl>
+                    <div>
+                      <dt>Regular season</dt>
+                      <dd>
+                        {t.regular_season.wins}–{t.regular_season.losses} · #
+                        {t.playoff_seed} seed
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Championship</dt>
+                      <dd>
+                        {f
+                          ? `${fmt.format(Math.max(f.home_score ?? 0, f.away_score ?? 0))}–${fmt.format(Math.min(f.home_score ?? 0, f.away_score ?? 0))}`
+                          : "—"}{" "}
+                        vs. <b>{ru.team_name}</b>
+                        <small>{names(ru.manager_names)}</small>
+                      </dd>
+                    </div>
+                  </dl>
+                </article>
+              );
+            })}
+          </div>
+        </TabsContent>
 
-  <TabsContent value="standings" className="page"><PageHead overline="Every season counts" title="All-time standings" text="Ranked by regular-season winning percentage, then wins and points scored."/><Standings rows={data.manager_history.standings}/></TabsContent>
+        <TabsContent value="standings" className="page">
+          <PageHead
+            overline="Every season counts"
+            title="All-time standings"
+            text="Ranked by regular-season winning percentage, then wins and points scored."
+          />
+          <Standings rows={data.manager_history.standings} />
+        </TabsContent>
 
-  <TabsContent value="managers" className="page"><ManagerProfile managerId={managerId} setManagerId={setManagerId}/></TabsContent>
+        <TabsContent value="managers" className="page">
+          <ManagerProfile managerId={managerId} setManagerId={setManagerId} />
+        </TabsContent>
 
-  <TabsContent value="head-to-head" className="page"><HeadToHead managerAId={managerAId} managerBId={managerBId} setManagerAId={setManagerAId} setManagerBId={setManagerBId}/></TabsContent>
+        <TabsContent value="head-to-head" className="page">
+          <HeadToHead
+            managerAId={managerAId}
+            managerBId={managerBId}
+            setManagerAId={setManagerAId}
+            setManagerBId={setManagerBId}
+          />
+        </TabsContent>
 
-  <TabsContent value="drafts" className="page"><DraftHistory managerId={managerId} setManagerId={setManagerId}/></TabsContent>
+        <TabsContent value="drafts" className="page">
+          <DraftHistory managerId={managerId} setManagerId={setManagerId} />
+        </TabsContent>
 
-  <TabsContent value="records" className="page"><PageHead overline="Best, worst & wildest" title="The record board" text="Consolation games are preserved in season history but excluded here."/>
-  <RecordsLeaderboards boards={leaderboards}/>
-  <div className="section-title compact game-records"><div><p className="eyebrow">Single-game history</p><h2>Game records</h2></div><p>League-wide extremes from official regular-season and championship-playoff games.</p></div>
-  <RecordGroup number="01" name="Regular season"><RecordCard label="Highest score" title={regular.highest_weekly_score.team_name} record={regular.highest_weekly_score} value={fmt.format(regular.highest_weekly_score.points)}/><RecordCard label="Lowest score" title={regular.lowest_weekly_score.team_name} record={regular.lowest_weekly_score} value={fmt.format(regular.lowest_weekly_score.points)}/><RecordCard label="Highest score in a loss" title={regular.highest_score_in_loss.team_name} record={regular.highest_score_in_loss} value={fmt.format(regular.highest_score_in_loss.points)}/><RecordCard label="Lowest score in a win" title={regular.lowest_score_in_win.team_name} record={regular.lowest_score_in_win} value={fmt.format(regular.lowest_score_in_win.points)}/><RecordCard label="Largest margin" title={`${regular.largest_margin.home_team_name} / ${regular.largest_margin.away_team_name}`} record={regular.largest_margin} value={fmt.format(regular.largest_margin.margin)}/><RecordCard label="Closest game" title={`${regular.closest_game.home_team_name} / ${regular.closest_game.away_team_name}`} record={regular.closest_game} value={fmt.format(regular.closest_game.margin)}/></RecordGroup>
-  <RecordGroup number="02" name="Championship playoffs"><RecordCard label="Highest playoff week" title={playoffs.highest_weekly_score.team_name} record={playoffs.highest_weekly_score} value={fmt.format(playoffs.highest_weekly_score.points)}/><RecordCard label="Lowest playoff week" title={playoffs.lowest_weekly_score.team_name} record={playoffs.lowest_weekly_score} value={fmt.format(playoffs.lowest_weekly_score.points)}/><RecordCard label="Largest playoff margin" title={`${playoffs.largest_single_week_or_round_margin.home_team_name} / ${playoffs.largest_single_week_or_round_margin.away_team_name}`} record={playoffs.largest_single_week_or_round_margin} value={fmt.format(playoffs.largest_single_week_or_round_margin.margin)}/></RecordGroup>
-  <RecordGroup number="03" name="Two-week championship series"><RecordCard label="Largest series margin" title={`${series.largest_margin.home_team_name} / ${series.largest_margin.away_team_name}`} record={series.largest_margin} value={fmt.format(series.largest_margin.margin)}/><RecordCard label="Closest series" title={`${series.closest_series.home_team_name} / ${series.closest_series.away_team_name}`} record={series.closest_series} value={fmt.format(series.closest_series.margin)}/><RecordCard label="Highest combined" title={`${series.highest_combined_score.home_team_name} / ${series.highest_combined_score.away_team_name}`} record={series.highest_combined_score} value={fmt.format(series.highest_combined_score.combined_score)}/></RecordGroup></TabsContent>
+        <TabsContent value="records" className="page">
+          <PageHead
+            overline="Best, worst & wildest"
+            title="The record board"
+            text="Consolation games are preserved in season history but excluded here."
+          />
+          <RecordsLeaderboards boards={leaderboards} />
+          <div className="section-title compact game-records">
+            <div>
+              <p className="eyebrow">Single-game history</p>
+              <h2>Game records</h2>
+            </div>
+            <p>
+              League-wide extremes from official regular-season and
+              championship-playoff games.
+            </p>
+          </div>
+          <RecordGroup number="01" name="Regular season">
+            <RecordCard
+              label="Highest score"
+              title={regular.highest_weekly_score.team_name}
+              record={regular.highest_weekly_score}
+              value={fmt.format(regular.highest_weekly_score.points)}
+            />
+            <RecordCard
+              label="Lowest score"
+              title={regular.lowest_weekly_score.team_name}
+              record={regular.lowest_weekly_score}
+              value={fmt.format(regular.lowest_weekly_score.points)}
+            />
+            <RecordCard
+              label="Highest score in a loss"
+              title={regular.highest_score_in_loss.team_name}
+              record={regular.highest_score_in_loss}
+              value={fmt.format(regular.highest_score_in_loss.points)}
+            />
+            <RecordCard
+              label="Lowest score in a win"
+              title={regular.lowest_score_in_win.team_name}
+              record={regular.lowest_score_in_win}
+              value={fmt.format(regular.lowest_score_in_win.points)}
+            />
+            <RecordCard
+              label="Largest margin"
+              title={`${regular.largest_margin.home_team_name} / ${regular.largest_margin.away_team_name}`}
+              record={regular.largest_margin}
+              value={fmt.format(regular.largest_margin.margin)}
+            />
+            <RecordCard
+              label="Closest game"
+              title={`${regular.closest_game.home_team_name} / ${regular.closest_game.away_team_name}`}
+              record={regular.closest_game}
+              value={fmt.format(regular.closest_game.margin)}
+            />
+          </RecordGroup>
+          <RecordGroup number="02" name="Championship playoffs">
+            <RecordCard
+              label="Highest playoff week"
+              title={playoffs.highest_weekly_score.team_name}
+              record={playoffs.highest_weekly_score}
+              value={fmt.format(playoffs.highest_weekly_score.points)}
+            />
+            <RecordCard
+              label="Lowest playoff week"
+              title={playoffs.lowest_weekly_score.team_name}
+              record={playoffs.lowest_weekly_score}
+              value={fmt.format(playoffs.lowest_weekly_score.points)}
+            />
+            <RecordCard
+              label="Largest playoff margin"
+              title={`${playoffs.largest_single_week_or_round_margin.home_team_name} / ${playoffs.largest_single_week_or_round_margin.away_team_name}`}
+              record={playoffs.largest_single_week_or_round_margin}
+              value={fmt.format(
+                playoffs.largest_single_week_or_round_margin.margin,
+              )}
+            />
+          </RecordGroup>
+          <RecordGroup number="03" name="Two-week championship series">
+            <RecordCard
+              label="Largest series margin"
+              title={`${series.largest_margin.home_team_name} / ${series.largest_margin.away_team_name}`}
+              record={series.largest_margin}
+              value={fmt.format(series.largest_margin.margin)}
+            />
+            <RecordCard
+              label="Closest series"
+              title={`${series.closest_series.home_team_name} / ${series.closest_series.away_team_name}`}
+              record={series.closest_series}
+              value={fmt.format(series.closest_series.margin)}
+            />
+            <RecordCard
+              label="Highest combined"
+              title={`${series.highest_combined_score.home_team_name} / ${series.highest_combined_score.away_team_name}`}
+              record={series.highest_combined_score}
+              value={fmt.format(series.highest_combined_score.combined_score)}
+            />
+          </RecordGroup>
+        </TabsContent>
 
-  <TabsContent value="seasons" className="page"><div className="season-head"><PageHead overline="Year by year" title="Season archive"/><div className="year-pick">{data.seasons.filter(s=>s.is_complete).map(s=><button key={s.season} className={s.season===year?"active":""} onClick={()=>setYear(s.season)}>{s.season}</button>)}</div></div><SeasonArchive key={season.season} season={season}/></TabsContent></Tabs>
-  <footer><div className="crest mini"><b>CGL</b></div><p>Official statistical history begins in 2024.</p><Swords/></footer></main>;
+        <TabsContent value="seasons" className="page">
+          <div className="season-head">
+            <PageHead overline="Year by year" title="Season archive" />
+            <div className="year-pick">
+              {data.seasons
+                .filter((s) => s.is_complete)
+                .map((s) => (
+                  <button
+                    key={s.season}
+                    className={s.season === year ? "active" : ""}
+                    onClick={() => setYear(s.season)}
+                  >
+                    {s.season}
+                  </button>
+                ))}
+            </div>
+          </div>
+          <SeasonArchive key={season.season} season={season} />
+        </TabsContent>
+      </Tabs>
+      <footer>
+        <div className="crest mini">
+          <b>CGL</b>
+        </div>
+        <p>Official statistical history begins in 2024.</p>
+        <Swords />
+      </footer>
+    </main>
+  );
 }
-
-function PageHead({overline,title,text}:{overline:string;title:string;text?:string}) { return <header className="page-head"><p className="eyebrow gold">{overline}</p><h2>{title}</h2>{text&&<p>{text}</p>}</header>; }
-function RecordGroup({number,name,children}:{number:string;name:string;children:React.ReactNode}) { return <section className="record-group"><div><strong>{number}</strong><p className="eyebrow">Record class</p><h3>{name}</h3></div><div className="record-grid">{children}</div></section>; }

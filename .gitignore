@@ -17,11 +17,8 @@ public/data/core_history.json
 
 # Website build and local tooling
 /node_modules/
-/.next/
-/.vinext/
 /dist/
 /dist-pages/
-/.wrangler/
 /.sites-runtime/
 .npmrc
 *.tsbuildinfo
