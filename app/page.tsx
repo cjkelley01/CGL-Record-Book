@@ -16,7 +16,20 @@ import { data, fmt, names } from "@/lib/record-book/history";
 import { Crown, History, Shield, Swords, Trophy } from "lucide-react";
 import { useState } from "react";
 
+const sections = [
+  ["overview", "Overview"],
+  ["current", "2026 Live"],
+  ["champions", "Champions"],
+  ["standings", "Standings"],
+  ["managers", "Managers"],
+  ["head-to-head", "Head-to-Head"],
+  ["drafts", "Drafts"],
+  ["records", "Records"],
+  ["seasons", "Seasons"],
+] as const;
+
 export default function Home() {
+  const [section, setSection] = useState("overview");
   const [year, setYear] = useState(2025);
   const season = data.seasons.find((s) => s.season === year) ?? data.seasons[0];
   const regular = data.records.regular_season,
@@ -60,18 +73,20 @@ export default function Home() {
           </span>
         </div>
       </header>
-      <Tabs defaultValue="overview" className="tabs">
-        <nav>
+      <Tabs value={section} onValueChange={setSection} className="tabs">
+        <nav aria-label="Record book sections">
+          <label className="mobile-navigation">
+            Browse
+            <select value={section} onChange={(event) => setSection(event.target.value)}>
+              {sections.map(([value, label]) => (
+                <option key={value} value={value}>{label}</option>
+              ))}
+            </select>
+          </label>
           <TabsList variant="line">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="current">2026 Live</TabsTrigger>
-            <TabsTrigger value="champions">Champions</TabsTrigger>
-            <TabsTrigger value="standings">Standings</TabsTrigger>
-            <TabsTrigger value="managers">Managers</TabsTrigger>
-            <TabsTrigger value="head-to-head">Head-to-Head</TabsTrigger>
-            <TabsTrigger value="drafts">Drafts</TabsTrigger>
-            <TabsTrigger value="records">Records</TabsTrigger>
-            <TabsTrigger value="seasons">Seasons</TabsTrigger>
+            {sections.map(([value, label]) => (
+              <TabsTrigger key={value} value={value}>{label}</TabsTrigger>
+            ))}
           </TabsList>
         </nav>
         <TabsContent value="overview" className="page">

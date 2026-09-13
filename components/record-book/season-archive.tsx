@@ -80,7 +80,26 @@ export function SeasonArchive({ season }: { season: Season }) {
         </aside>
         <div>
           <p className="eyebrow">Regular-season standings</p>
-          <div className="table-shell no-top">
+          <div className="season-standings-cards">
+            {teams.map((t) => (
+              <article key={t.team_season_id}>
+                <header>
+                  <span className="rank">#{t.playoff_seed}</span>
+                  <div>
+                    <h3>{t.team_name}</h3>
+                    <p>{names(t.manager_names)}</p>
+                  </div>
+                </header>
+                <dl>
+                  <div><dt>Record</dt><dd>{t.regular_season.wins}–{t.regular_season.losses}</dd></div>
+                  <div><dt>Final finish</dt><dd>{t.final_rank === 1 ? "Champion" : t.final_rank === 2 ? "Runner-up" : `#${t.final_rank}`}</dd></div>
+                  <div><dt>Points for</dt><dd>{fmt.format(t.regular_season.points_for)}</dd></div>
+                  <div><dt>Points against</dt><dd>{fmt.format(t.regular_season.points_against)}</dd></div>
+                </dl>
+              </article>
+            ))}
+          </div>
+          <div className="table-shell no-top season-standings-table">
             <Table>
               <TableHeader>
                 <TableRow>
