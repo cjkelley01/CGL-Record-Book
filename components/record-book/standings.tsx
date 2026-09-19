@@ -90,11 +90,14 @@ export function Standings({ rows, qualificationGames }: StandingsProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {qualified.map((standing) => {
+          {qualified.map((standing, index) => {
             const firstAtPercentage = qualified.findIndex(
               (row) => row.winning_percentage === standing.winning_percentage,
             );
-            return renderRow(standing, firstAtPercentage + 1);
+            return renderRow(
+              standing,
+              qualificationGames ? firstAtPercentage + 1 : index + 1,
+            );
           })}
           {qualificationGames && provisional.length > 0 ? (
             <TableRow className="provisional-divider">
