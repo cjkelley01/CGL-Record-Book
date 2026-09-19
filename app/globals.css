@@ -381,6 +381,29 @@ body {
   font-size: 0.72rem;
   text-overflow: ellipsis;
 }
+.percentage-standings [data-slot="table-container"] {
+  max-height: 430px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+.percentage-standings [data-slot="table-head"] {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.percentage-standings .provisional-divider,
+.percentage-standings .provisional-divider:hover {
+  background: #ece5d6;
+}
+.percentage-standings .provisional-divider [data-slot="table-cell"] {
+  height: auto;
+  padding-block: 9px;
+  color: #6f6040;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
 .rank {
   color: #8b6b20;
   font:
