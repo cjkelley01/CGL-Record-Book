@@ -1,5 +1,7 @@
 "use client";
 
+import { TeamLink } from "@/components/record-book/team-link";
+
 import { PlayoffBracket } from "@/components/record-book/playoff-bracket";
 import {
   Select,
@@ -19,11 +21,10 @@ import {
 import type { EnrichedSeason, Season } from "@/lib/record-book/history";
 import { fmt, names } from "@/lib/record-book/history";
 import { Trophy } from "lucide-react";
-import { useState } from "react";
+import { useViewValue } from "@/lib/record-book/navigation";
 
 export function SeasonArchive({ season }: { season: Season }) {
   const archive = season as EnrichedSeason;
-  const [week, setWeek] = useState("1");
   const teams = [...season.teams].sort(
     (a, b) => (a.playoff_seed ?? 99) - (b.playoff_seed ?? 99),
   );
@@ -36,6 +37,7 @@ export function SeasonArchive({ season }: { season: Season }) {
         .map((s) => s.scoring_period),
     ),
   ].sort((a, b) => a - b);
+  const [week, setWeek] = useViewValue("week", String(periods[0] ?? 1), periods.map(String));
   const selected = Number(week);
   const scoreRows = season.weekly_scores.filter(
     (s) => s.scoring_period === selected && s.opponent_team_id !== null,
@@ -56,7 +58,7 @@ export function SeasonArchive({ season }: { season: Season }) {
           <span className="watermark">{season.season}</span>
           <Trophy />
           <p className="eyebrow">League champion</p>
-          <h3>{champ?.team_name}</h3>
+          <h3><TeamLink season={season.season}>{champ?.team_name}</TeamLink></h3>
           <p>{names(champ?.manager_names)}</p>
           <dl>
             <div>
@@ -72,7 +74,7 @@ export function SeasonArchive({ season }: { season: Season }) {
             <div>
               <dt>Runner-up</dt>
               <dd>
-                <b>{runner?.team_name}</b>
+                <b><TeamLink season={season.season}>{runner?.team_name}</TeamLink></b>
                 <small>{names(runner?.manager_names)}</small>
               </dd>
             </div>
@@ -86,7 +88,7 @@ export function SeasonArchive({ season }: { season: Season }) {
                 <header>
                   <span className="rank">#{t.playoff_seed}</span>
                   <div>
-                    <h3>{t.team_name}</h3>
+                    <h3><TeamLink season={season.season}>{t.team_name}</TeamLink></h3>
                     <p>{names(t.manager_names)}</p>
                   </div>
                 </header>
@@ -116,7 +118,7 @@ export function SeasonArchive({ season }: { season: Season }) {
                   <TableRow key={t.team_season_id}>
                     <TableCell className="rank">#{t.playoff_seed}</TableCell>
                     <TableCell>
-                      <strong>{t.team_name}</strong>
+                      <strong><TeamLink season={season.season}>{t.team_name}</TeamLink></strong>
                       <small>{names(t.manager_names)}</small>
                     </TableCell>
                     <TableCell>
@@ -147,7 +149,7 @@ export function SeasonArchive({ season }: { season: Season }) {
           <div>
             <p className="eyebrow">Championship recap</p>
             <h2>
-              {championship.home_team_name} vs. {championship.away_team_name}
+              <TeamLink season={season.season}>{championship.home_team_name}</TeamLink> vs. <TeamLink season={season.season}>{championship.away_team_name}</TeamLink>
             </h2>
             <p>Two-week championship series · {season.season}</p>
           </div>
@@ -157,7 +159,7 @@ export function SeasonArchive({ season }: { season: Season }) {
             }
           >
             <span>
-              <b>{championship.home_team_name}</b>
+              <b><TeamLink season={season.season}>{championship.home_team_name}</TeamLink></b>
               <small>{names(championship.home_manager_names)}</small>
             </span>
             <strong>{fmt.format(championship.home_score ?? 0)}</strong>
@@ -168,7 +170,7 @@ export function SeasonArchive({ season }: { season: Season }) {
             }
           >
             <span>
-              <b>{championship.away_team_name}</b>
+              <b><TeamLink season={season.season}>{championship.away_team_name}</TeamLink></b>
               <small>{names(championship.away_manager_names)}</small>
             </span>
             <strong>{fmt.format(championship.away_score ?? 0)}</strong>
@@ -190,7 +192,7 @@ export function SeasonArchive({ season }: { season: Season }) {
           >
             <p className="eyebrow">{award.title}</p>
             <strong>{award.value}</strong>
-            <h3>{award.team_name}</h3>
+            <h3><TeamLink season={season.season}>{award.team_name}</TeamLink></h3>
             <span>{names(award.manager_names)}</span>
             <small>{award.detail}</small>
           </article>
@@ -248,7 +250,7 @@ export function SeasonArchive({ season }: { season: Season }) {
                 }
               >
                 <span>
-                  <b>{a.team_name}</b>
+                  <b><TeamLink season={season.season}>{a.team_name}</TeamLink></b>
                   <small>{names(a.manager_names)}</small>
                 </span>
                 <strong>{fmt.format(a.points)}</strong>
@@ -259,7 +261,7 @@ export function SeasonArchive({ season }: { season: Season }) {
                 }
               >
                 <span>
-                  <b>{b?.team_name}</b>
+                  <b><TeamLink season={season.season}>{b?.team_name}</TeamLink></b>
                   <small>{names(b?.manager_names)}</small>
                 </span>
                 <strong>{fmt.format(b?.points ?? 0)}</strong>

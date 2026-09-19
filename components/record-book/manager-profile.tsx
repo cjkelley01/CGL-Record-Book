@@ -1,5 +1,7 @@
 "use client";
 
+import { TeamLink } from "@/components/record-book/team-link";
+
 import {
   Select,
   SelectContent,
@@ -249,7 +251,7 @@ export function ManagerProfile({
               return (
                 <TableRow key={row.opponentId}>
                   <TableCell>
-                    <strong>{row.opponentTeam}</strong>
+                    <strong><TeamLink managerId={row.opponentId}>{row.opponentTeam}</TeamLink></strong>
                   </TableCell>
                   <TableCell>{row.opponentName}</TableCell>
                   <TableCell>

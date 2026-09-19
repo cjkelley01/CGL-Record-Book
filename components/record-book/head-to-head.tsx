@@ -1,5 +1,7 @@
 "use client";
 
+import { TeamLink } from "@/components/record-book/team-link";
+
 import {
   Select,
   SelectContent,
@@ -109,7 +111,7 @@ export function HeadToHead({
           </div>
           <section>
             <div>
-              <b>{m.aTeam}</b>
+              <b><TeamLink managerId={managerAId}>{m.aTeam}</TeamLink></b>
               <small>{names(m.aManagers)}</small>
             </div>
             <i className={`result-${m.aResult.toLowerCase()}`}>{m.aResult}</i>
@@ -118,7 +120,7 @@ export function HeadToHead({
             <strong>{fmt.format(m.bScore)}</strong>
             <i className={`result-${m.bResult.toLowerCase()}`}>{m.bResult}</i>
             <div>
-              <b>{m.bTeam}</b>
+              <b><TeamLink managerId={managerBId}>{m.bTeam}</TeamLink></b>
               <small>{names(m.bManagers)}</small>
             </div>
           </section>
@@ -157,7 +159,7 @@ export function HeadToHead({
       </section>
       <section className="versus-board">
         <article>
-          <h3>{currentTeam(managerA)}</h3>
+          <h3><TeamLink managerId={managerAId}>{currentTeam(managerA)}</TeamLink></h3>
           <p>{managerA.manager_name}</p>
           <strong>{aWins}</strong>
           <span>Regular-season wins</span>
@@ -171,7 +173,7 @@ export function HeadToHead({
           <small>Official regular-season series</small>
         </div>
         <article>
-          <h3>{currentTeam(managerB)}</h3>
+          <h3><TeamLink managerId={managerBId}>{currentTeam(managerB)}</TeamLink></h3>
           <p>{managerB.manager_name}</p>
           <strong>{bWins}</strong>
           <span>Regular-season wins</span>

@@ -1,5 +1,7 @@
 "use client";
 
+import { TeamLink } from "@/components/record-book/team-link";
+
 import {
   Select,
   SelectContent,
@@ -9,27 +11,21 @@ import {
 } from "@/components/ui/select";
 import type { DraftPick } from "@/lib/record-book/history";
 import { data, names } from "@/lib/record-book/history";
-import { useState } from "react";
+import { updateView, useViewValue } from "@/lib/record-book/navigation";
 
 export function DraftHistory({
   managerId,
-  setManagerId,
 }: {
   managerId: string;
-  setManagerId: (id: string) => void;
 }) {
   const draftSeasons = data.seasons.filter((s) => s.draft_picks.length > 0);
-  const [draftYear, setDraftYear] = useState(
-    String(draftSeasons.at(-1)?.season ?? 2025),
-  );
-  const [round, setRound] = useState("1");
-  const [managerDraftYear, setManagerDraftYear] = useState(
-    String(draftSeasons.at(-1)?.season ?? 2025),
-  );
+  const draftYears = draftSeasons.map((s) => String(s.season));
+  const [draftYear] = useViewValue("draftSeason", draftYears.at(-1) ?? "2025", draftYears);
   const season =
     draftSeasons.find((s) => String(s.season) === draftYear) ?? draftSeasons[0];
   const picks = season.draft_picks as unknown as DraftPick[];
   const rounds = [...new Set(picks.map((p) => p.round))].sort((a, b) => a - b);
+  const [round, setRound] = useViewValue("round", String(rounds[0] ?? 1), rounds.map(String));
   const roundPicks = picks.filter((p) => p.round === Number(round));
   const first = picks.find((p) => p.overall_pick === 1);
   const allPicks = draftSeasons.flatMap(
@@ -85,6 +81,7 @@ export function DraftHistory({
     )
     .map((s) => s.season)
     .sort((a, b) => b - a);
+  const [managerDraftYear, setManagerDraftYear] = useViewValue("managerDraftSeason", String(managerYears[0]), managerYears.map(String));
   const selectedManagerYear = managerYears.includes(Number(managerDraftYear))
     ? Number(managerDraftYear)
     : managerYears[0];
@@ -95,7 +92,6 @@ export function DraftHistory({
     )
     .sort((a, b) => a.overall_pick - b.overall_pick);
   const changeManager = (id: string) => {
-    setManagerId(id);
     const latest = draftSeasons
       .filter((s) =>
         (s.draft_picks as unknown as DraftPick[]).some((p) =>
@@ -103,7 +99,7 @@ export function DraftHistory({
         ),
       )
       .at(-1);
-    if (latest) setManagerDraftYear(String(latest.season));
+    updateView({ manager: id, ...(latest ? { managerDraftSeason: String(latest.season) } : {}) });
   };
   return (
     <>
@@ -121,8 +117,7 @@ export function DraftHistory({
             <Select
               value={String(season.season)}
               onValueChange={(value) => {
-                setDraftYear(value);
-                setRound("1");
+                updateView({ draftSeason: value, round: "1" });
               }}
             >
               <SelectTrigger aria-label="Select draft season">
@@ -166,7 +161,7 @@ export function DraftHistory({
           <strong>{playerLabel(first)}</strong>
           <span>
             {first?.position && `${first.position} · `}
-            {first?.team_name}
+            <TeamLink season={season.season}>{first?.team_name}</TeamLink>
             <small>{names(first?.manager_names)}</small>
           </span>
         </article>
@@ -190,7 +185,7 @@ export function DraftHistory({
               <small>{p.position ?? "Position unavailable"}</small>
             </div>
             <div>
-              <b>{p.team_name}</b>
+              <b><TeamLink season={p.season}>{p.team_name}</TeamLink></b>
               <small>{names(p.manager_names)}</small>
             </div>
           </article>

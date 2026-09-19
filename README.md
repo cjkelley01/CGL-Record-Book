@@ -47,6 +47,17 @@ Follow these steps in order on Windows. All commands below are entered in PowerS
 
 The `.cmd` suffix on `corepack.cmd` runs the installed Windows command directly and avoids PowerShell script execution-policy issues. It is not a repository shortcut. On macOS/Linux, use `corepack` instead.
 
+## Sharing and navigating the record book
+
+The address bar tracks the selected section, manager, head-to-head teams, season,
+scoring week, and draft filters. Copy the URL to reopen that view; refresh and the
+browser's Back/Forward buttons preserve navigation. When sharing with the league,
+copy the address from the published website rather than your local preview.
+
+Underlined team names open the corresponding manager profile. Historical team
+names use that season's ownership; shared teams open their first listed owner.
+The existing manager selectors remain available.
+
 ## Everyday commands
 
 Run these commands from a terminal in the repository folder.

@@ -1,5 +1,7 @@
 "use client";
 
+import { TeamLink } from "@/components/record-book/team-link";
+
 import type { RecordEntry } from "@/lib/record-book/history";
 import { names } from "@/lib/record-book/history";
 
@@ -32,13 +34,13 @@ export function RecordCard({
       {matchup ? (
         <div className="record-matchup">
           <div>
-            <b>{record.home_team_name}</b>
+            <b><TeamLink season={record.season}>{record.home_team_name}</TeamLink></b>
             <i className={`result-${homeResult.toLowerCase()}`}>{homeResult}</i>
             <small>{names(record.home_manager_names)}</small>
           </div>
           <span>vs.</span>
           <div>
-            <b>{record.away_team_name}</b>
+            <b><TeamLink season={record.season}>{record.away_team_name}</TeamLink></b>
             <i className={`result-${awayResult.toLowerCase()}`}>{awayResult}</i>
             <small>{names(record.away_manager_names)}</small>
           </div>
@@ -46,7 +48,7 @@ export function RecordCard({
       ) : (
         <>
           <h3>
-            {title}
+            <TeamLink season={record.season}>{title}</TeamLink>
             {record.result && (
               <i className={`result-${record.result.toLowerCase()}`}>
                 {record.result}

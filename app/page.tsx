@@ -14,7 +14,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { RecordLeaderboards } from "@/lib/record-book/history";
 import { data, fmt, names } from "@/lib/record-book/history";
 import { Crown, History, Shield, Swords, Trophy } from "lucide-react";
-import { useState } from "react";
+import { updateView, useViewValue } from "@/lib/record-book/navigation";
+import { TeamLink } from "@/components/record-book/team-link";
 
 const sections = [
   ["overview", "Overview"],
@@ -29,8 +30,10 @@ const sections = [
 ] as const;
 
 export default function Home() {
-  const [section, setSection] = useState("overview");
-  const [year, setYear] = useState(2025);
+  const [section] = useViewValue("section", "overview", sections.map(([value]) => value));
+  const [yearValue, setYear] = useViewValue("season", String([...data.seasons].reverse().find((s) => s.is_complete)!.season), data.seasons.filter((s) => s.is_complete).map((s) => String(s.season)));
+  const year = Number(yearValue);
+  const managerIds = data.manager_history.standings.map((m) => m.manager_id);
   const season = data.seasons.find((s) => s.season === year) ?? data.seasons[0];
   const regular = data.records.regular_season,
     playoffs = data.records.championship_playoffs,
@@ -40,19 +43,27 @@ export default function Home() {
   ).leaderboards;
   const latestSeason = [...data.seasons].reverse().find((s) => s.is_complete)!;
   const latestChampion = latestSeason.teams.find((t) => t.final_rank === 1)!;
-  const [managerId, setManagerId] = useState(latestChampion.manager_ids[0]);
+  const [managerId, setManagerId] = useViewValue("manager", latestChampion.manager_ids[0], managerIds);
   const previousChampion = data.records.champions
     .slice()
     .sort((a, b) => b.season - a.season)
     .find((c) => !c.manager_ids.includes(latestChampion.manager_ids[0]));
-  const [managerAId, setManagerAId] = useState(latestChampion.manager_ids[0]);
-  const [managerBId, setManagerBId] = useState(
-    previousChampion?.manager_ids[0] ??
+  const [managerAId, setManagerAId] = useViewValue("team1", latestChampion.manager_ids[0], managerIds);
+  const [managerBId, setManagerBId] = useViewValue("team2",
+    (previousChampion?.manager_ids[0] !== managerAId ? previousChampion?.manager_ids[0] : undefined) ??
       data.manager_history.standings.find(
-        (m) => m.manager_id !== latestChampion.manager_ids[0],
+        (m) => m.manager_id !== managerAId,
       )!.manager_id,
+    managerIds.filter((id) => id !== managerAId),
   );
   const currentSeason = data.seasons.find((s) => !s.is_complete);
+  const setSection = (next: string) => updateView({
+    section: next,
+    season: yearValue,
+    manager: managerId,
+    team1: managerAId,
+    team2: managerBId,
+  });
   return (
     <main>
       <header className="site-header">
@@ -111,7 +122,7 @@ export default function Home() {
               <p className="eyebrow">
                 Reigning champion · {latestSeason.season}
               </p>
-              <h3>{latestChampion.team_name}</h3>
+              <h3><TeamLink>{latestChampion.team_name}</TeamLink></h3>
               <p>{names(latestChampion.manager_names)}</p>
               <div>
                 <span>
@@ -205,7 +216,7 @@ export default function Home() {
                   </span>
                   <div>
                     <p className="eyebrow">CGL champion</p>
-                    <h3>{c.team_name}</h3>
+                    <h3><TeamLink season={c.season}>{c.team_name}</TeamLink></h3>
                     <p>{names(c.manager_names)}</p>
                   </div>
                   <dl>
@@ -222,7 +233,7 @@ export default function Home() {
                         {f
                           ? `${fmt.format(Math.max(f.home_score ?? 0, f.away_score ?? 0))}–${fmt.format(Math.min(f.home_score ?? 0, f.away_score ?? 0))}`
                           : "—"}{" "}
-                        vs. <b>{ru.team_name}</b>
+                        vs. <b><TeamLink season={c.season}>{ru.team_name}</TeamLink></b>
                         <small>{names(ru.manager_names)}</small>
                       </dd>
                     </div>
@@ -256,7 +267,7 @@ export default function Home() {
         </TabsContent>
 
         <TabsContent value="drafts" className="page">
-          <DraftHistory managerId={managerId} setManagerId={setManagerId} />
+          <DraftHistory managerId={managerId} />
         </TabsContent>
 
         <TabsContent value="records" className="page">
@@ -368,7 +379,7 @@ export default function Home() {
                   <button
                     key={s.season}
                     className={s.season === year ? "active" : ""}
-                    onClick={() => setYear(s.season)}
+                    onClick={() => setYear(String(s.season))}
                   >
                     {s.season}
                   </button>
