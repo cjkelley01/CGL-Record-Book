@@ -251,9 +251,12 @@ export default function Home() {
           <PageHead
             overline="Every season counts"
             title="All-time standings"
-            text="Ranked by regular-season winning percentage, then wins and points scored."
+            text="Ranked by regular-season winning percentage. A minimum of 14 completed games is required to qualify."
           />
-          <Standings rows={data.manager_history.standings} />
+          <Standings
+            rows={data.manager_history.standings}
+            qualificationGames={14}
+          />
         </TabsContent>
 
         <TabsContent value="managers" className="page">
