@@ -161,9 +161,12 @@ export default function Home() {
               <p className="eyebrow">All-time pace setters</p>
               <h2>Winning percentage</h2>
             </div>
-            <p>Career regular-season records. No minimum games—yet.</p>
+            <p>Minimum 14 completed regular-season games to qualify.</p>
           </div>
-          <Standings rows={data.manager_history.standings.slice(0, 5)} />
+          <Standings
+            rows={data.manager_history.standings}
+            qualificationGames={14}
+          />
           <section className="record-grid spaced">
             <RecordCard
               label="Single-week high"
