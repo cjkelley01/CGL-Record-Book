@@ -2,6 +2,14 @@
 
 The official historical record for **CGL — Charley’s Gonna Lose**, a 14-team PPR fantasy football league.
 
+## Live website
+
+Open the public record book here:
+
+**[View the CGL Record Book](https://cjkelley01.github.io/CGL-Record-Book/)**
+
+No account or login is required. The published site updates after a successful GitHub Pages deployment.
+
 ## Official history
 
 - Official statistical history begins with the **2024 season**.
