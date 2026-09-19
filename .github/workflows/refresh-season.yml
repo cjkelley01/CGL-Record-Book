@@ -31,7 +31,19 @@ jobs:
           cache: pip
       - name: Install Python dependencies
         run: pip install -r requirements.txt
+      - name: Verify ESPN credentials
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+        run: |
+          if [ -z "$ESPN_S2" ] || [ -z "$ESPN_SWID" ]; then
+            echo "::error::Missing ESPN_S2 or ESPN_SWID repository secret. Add both under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
       - name: Download complete ESPN archive
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
         run: python scripts/discover_espn_history.py --seasons 2024 2025 2026
       - name: Rebuild record book data
         run: python scripts/build_core_history.py
