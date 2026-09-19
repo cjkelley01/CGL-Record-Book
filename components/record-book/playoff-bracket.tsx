@@ -1,5 +1,7 @@
 "use client";
 
+import { TeamLink } from "@/components/record-book/team-link";
+
 import type { Season } from "@/lib/record-book/history";
 import { fmt, names } from "@/lib/record-book/history";
 
@@ -34,14 +36,14 @@ export function PlayoffBracket({ season }: { season: Season }) {
                 <article key={m.matchup_key}>
                   <div className={m.winner === "HOME" ? "winner" : ""}>
                     <span>
-                      <b>{m.home_team_name}</b>
+                      <b><TeamLink season={season.season}>{m.home_team_name}</TeamLink></b>
                       <small>{names(m.home_manager_names)}</small>
                     </span>
                     <strong>{fmt.format(m.home_score ?? 0)}</strong>
                   </div>
                   <div className={m.winner === "AWAY" ? "winner" : ""}>
                     <span>
-                      <b>{m.away_team_name}</b>
+                      <b><TeamLink season={season.season}>{m.away_team_name}</TeamLink></b>
                       <small>{names(m.away_manager_names)}</small>
                     </span>
                     <strong>{fmt.format(m.away_score ?? 0)}</strong>

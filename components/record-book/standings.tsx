@@ -1,5 +1,7 @@
 "use client";
 
+import { TeamLink } from "@/components/record-book/team-link";
+
 import {
   Table,
   TableBody,
@@ -37,7 +39,7 @@ export function Standings({ rows }: { rows: Standing[] }) {
               <TableRow key={m.manager_id}>
                 <TableCell className="rank">{i + 1}</TableCell>
                 <TableCell>
-                  <strong>{currentTeam}</strong>
+                  <strong><TeamLink managerId={m.manager_id}>{currentTeam}</TeamLink></strong>
                   <small>{m.manager_name}</small>
                 </TableCell>
                 <TableCell>{m.seasons}</TableCell>

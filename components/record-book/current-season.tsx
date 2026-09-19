@@ -1,5 +1,7 @@
 "use client";
 
+import { TeamLink } from "@/components/record-book/team-link";
+
 import {
   Table,
   TableBody,
@@ -71,7 +73,7 @@ export function CurrentSeason({ season }: { season?: Season }) {
       <section className="live-cards">
         <article>
           <p className="eyebrow">Current leader</p>
-          <strong>{standings[0]?.team_name}</strong>
+          <strong><TeamLink season={season.season}>{standings[0]?.team_name}</TeamLink></strong>
           <span>
             {names(standings[0]?.manager_names)} ·{" "}
             {standings[0]?.regular_season.wins}–
@@ -80,7 +82,7 @@ export function CurrentSeason({ season }: { season?: Season }) {
         </article>
         <article>
           <p className="eyebrow">Points leader</p>
-          <strong>{pointsLeader?.team_name}</strong>
+          <strong><TeamLink season={season.season}>{pointsLeader?.team_name}</TeamLink></strong>
           <span>
             {names(pointsLeader?.manager_names)} ·{" "}
             {fmt.format(pointsLeader?.regular_season.points_for ?? 0)} points
@@ -130,7 +132,7 @@ export function CurrentSeason({ season }: { season?: Season }) {
               <TableRow key={t.team_season_id}>
                 <TableCell className="rank">#{t.playoff_seed}</TableCell>
                 <TableCell>
-                  <strong>{t.team_name}</strong>
+                  <strong><TeamLink season={season.season}>{t.team_name}</TeamLink></strong>
                   <small>{names(t.manager_names)}</small>
                 </TableCell>
                 <TableCell>
@@ -162,7 +164,7 @@ export function CurrentSeason({ season }: { season?: Season }) {
                   }
                 >
                   <span>
-                    <b>{g.home_team_name}</b>
+                    <b><TeamLink season={season.season}>{g.home_team_name}</TeamLink></b>
                     <small>{names(g.home_manager_names)}</small>
                   </span>
                   <strong>{fmt.format(g.home_score ?? 0)}</strong>
@@ -173,7 +175,7 @@ export function CurrentSeason({ season }: { season?: Season }) {
                   }
                 >
                   <span>
-                    <b>{g.away_team_name}</b>
+                    <b><TeamLink season={season.season}>{g.away_team_name}</TeamLink></b>
                     <small>{names(g.away_manager_names)}</small>
                   </span>
                   <strong>{fmt.format(g.away_score ?? 0)}</strong>
