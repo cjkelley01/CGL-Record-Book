@@ -89,7 +89,7 @@ export function MovesThatMattered({ moves }: { moves: MovesData }) {
 
   return <>
     <div className="moves-head">
-      <PageHead overline="Transactions with consequences" title="Moves That Mattered" text="The trades, pickups and decisions that became part of CGL history." />
+      <PageHead overline="Decisions with a legacy" title="Moves That Mattered" text="The draft picks, trades and second chances that became part of CGL history." />
       <label>Season<select value={season} onChange={(event) => setSeason(event.target.value)}><option value="all">All-Time</option>{seasons.map((year) => <option key={year}>{year}</option>)}</select></label>
     </div>
 
@@ -104,9 +104,10 @@ export function MovesThatMattered({ moves }: { moves: MovesData }) {
         {crossYear.map((story) => <CrossYearStory key={story.id} story={story} />)}
       </section>}
       {shorter.length > 0 && <section className="move-story-section">
-        <div className="story-section-heading"><p className="eyebrow">Worth remembering</p><h2>Two more from the transaction wire</h2></div>
+        <div className="story-section-heading"><p className="eyebrow">Worth remembering</p><h2>More stories from the archive</h2></div>
         <div className="short-story-grid">{shorter.map((story) => <ShortStory key={story.id} story={story} />)}</div>
       </section>}
     </>}
   </>;
 }
+

@@ -17,7 +17,7 @@ STORY_MANIFEST: list[dict[str, Any]] = [
         "label": "2025 · Blockbuster trade",
         "context": "Charley’s Angels entered Week {week} at {charley_before}, while All the way to the Em-zone stood {emma_before}. The deal landed at a clear pivot point for both teams.",
         "decision": "Charley K. acquired Patrick Mahomes, Ashton Jeanty and Terry McLaurin. Emma T. received T.J. Hockenson, Brian Thomas Jr. and Baker Mayfield in the same six-player deal.",
-        "aftermath": "Mahomes and Jeanty supplied {charley_points} starting-lineup points for Charley; McLaurin never entered a CGL starting lineup during that stint. Charley won the next {charley_streak} games, but finished {charley_final} and missed the playoffs. Emma’s return supplied {emma_points} starter points, and her team finished {emma_final}. The timing makes this a memorable turn, not proof that the trade caused the brief streak.",
+        "aftermath": "Mahomes and Jeanty supplied {charley_points} starting-lineup points for Charley; McLaurin never entered a CGL starting lineup during that stint. Charley won the next {charley_streak} games, but finished {charley_final} and missed the playoffs. Emma’s return supplied {emma_points} starter points, and her team finished {emma_final}.",
         "evidence": ["{charley_points} starter points received by Charley", "{emma_points} starter points received by Emma", "Final records: {charley_final} and {emma_final}"],
     },
     {
@@ -27,11 +27,12 @@ STORY_MANIFEST: list[dict[str, Any]] = [
         "transaction_ids": ["5fb7fe22-d944-4ada-a2cf-3e0bc4f5bce2"],
         "manager_ids": ["charley_k", "charley_b"],
         "expected_players": ["D'Andre Swift", "A.J. Brown", "Tyreek Hill", "Chuba Hubbard"],
-        "headline": "Four starters changed teams before a championship run",
+        "headline": "A twelfth-round pick became part of a championship deal",
+        "draft_picks": [{"season": 2024, "manager_id": "charley_k", "player_name": "Chuba Hubbard", "round": 12, "overall_pick": 142}],
         "label": "2024 · Foundational trade",
         "context": "Charley’s Angels and CB’s Bulls were both {shared_before} when they completed one of the archive’s largest deals before Week {week}.",
-        "decision": "Charley K. sent Tyreek Hill and Chuba Hubbard to Charley B. for D’Andre Swift and A.J. Brown. All four recovered assets later reached their new teams’ starting lineups.",
-        "aftermath": "Swift and Brown produced {charley_points} starter points, including {charley_playoff_points} in the championship bracket. Hill and Hubbard produced {cb_points} for CB’s Bulls. Charley’s Angels finished {charley_final} and won the title; CB’s Bulls finished {cb_final}. The deal became part of the champion’s season, but those outcomes are not a controlled verdict on the trade.",
+        "decision": "Charley K. had drafted Chuba Hubbard in Round {hubbard_round}, {hubbard_pick}nd overall. Before Week {week}, he packaged that late-round pick with Tyreek Hill for D’Andre Swift and A.J. Brown. CB’s Bulls put both Hill and Hubbard to work; all four players became starters for their new teams.",
+        "aftermath": "Swift and Brown produced {charley_points} starter points, including {charley_playoff_points} in the championship bracket. Hill and Hubbard produced {cb_points} for CB’s Bulls. Charley’s Angels finished {charley_final} and won the title; CB’s Bulls finished {cb_final}.",
         "evidence": ["{combined_points} combined starter points", "{charley_playoff_points} playoff points from Swift and Brown", "Charley’s Angels: 2024 champion"],
     },
     {
@@ -40,16 +41,21 @@ STORY_MANIFEST: list[dict[str, Any]] = [
         "priority": 80,
         "transaction_ids": [
             "25f45eab-b531-44a8-87b5-546bea6340f2",
+            "7b8164c4-32b9-4aba-bfc7-a02edd9bf066",
             "a460057c-2aa5-416e-82a4-4a847e0ea081",
             "2cf2c1c4-8944-420d-bcc3-36a6c7ce1044",
         ],
         "manager_ids": ["timmy_k"],
         "expected_players": ["Chase Brown", "Quinshon Judkins", "George Kittle"],
-        "headline": "Timmy kept finding season-long starters after draft day",
+        "headline": "The first pick went missing. An eleventh-rounder got a second chance.",
+        "draft_picks": [
+            {"season": 2024, "manager_id": "timmy_k", "player_name": "Christian McCaffrey", "round": 1, "overall_pick": 1},
+            {"season": 2024, "manager_id": "timmy_k", "player_name": "Chase Brown", "round": 11, "overall_pick": 121},
+        ],
         "label": "{span} · Sustained success",
-        "context": "The Timberwolves posted 9–5 regular-season records in both 2024 and 2025. Three separate post-draft additions became a recurring part of those lineups.",
-        "decision": "Timmy K. added Chase Brown in 2024, then Quinshon Judkins and George Kittle in 2025. These were three distinct acquisition episodes, not one multi-player transaction.",
-        "aftermath": "Together they supplied {total_points} starter points across {total_starts} starts. Brown added {brown_playoff_points} points in the 2024 championship bracket; Judkins and Kittle combined for {year_2025_points} points after joining the 2025 roster. The pattern is sustained lineup value across two seasons, not a claim that every transaction was a hit.",
+        "context": "Timmy K. opened the 2024 draft with Christian McCaffrey at No. {cmc_pick}. McCaffrey’s Achilles trouble kept him out through Week 9, leaving the Timberwolves without their first overall pick for most of the regular season. One answer was a player Timmy had already drafted—and let go.",
+        "decision": "Chase Brown arrived in Round {brown_round}, pick {brown_pick}. Timmy dropped him for Cam Akers in Week {drop_week}, then reversed the move {return_days} days later. Back with the Timberwolves, Brown became a regular starter and supplied {brown_points} points, including {brown_playoff_points} in the playoffs.",
+        "aftermath": "The Timberwolves finished {record_2024} in 2024. Timmy found more help after draft day the following year: Quinshon Judkins and George Kittle supplied {year_2025_points} starting-lineup points between them, and the team finished {record_2025}. Across the two seasons, those three additions supplied {total_points} points in {total_starts} starts.",
         "evidence": ["3 distinct acquisitions", "{total_points} starter points", "{total_starts} starts across {span}"],
     },
     {
@@ -68,7 +74,7 @@ STORY_MANIFEST: list[dict[str, Any]] = [
         "label": "2025 · Championship reinforcements",
         "context": "Flux Capacitors entered the 2025 championship bracket as the #{seed} seed after a {record} regular season.",
         "decision": "Tony R. used four separate acquisitions for four consecutive playoff weeks: Jacksonville, New Orleans, Pittsburgh and Las Vegas.",
-        "aftermath": "Each defense made one championship-bracket start and the group scored {playoff_points} points. Flux Capacitors finished the run as CGL champion. This is direct playoff contribution, not a claim that defense streaming alone produced the title.",
+        "aftermath": "Each defense made one championship-bracket start and the group scored {playoff_points} points. Flux Capacitors finished the run as CGL champion.",
         "evidence": ["4 separate acquisitions", "{playoff_points} playoff points", "2025 CGL champion"],
     },
     {
@@ -83,10 +89,10 @@ STORY_MANIFEST: list[dict[str, Any]] = [
         "expected_players": ["Tee Higgins", "Alexander Mattison"],
         "headline": "Tee Higgins crossed the waiver wire—and resurfaced in the playoffs",
         "label": "2024 · The one that got away",
-        "context": "CB’s Bulls released Tee Higgins while adding Alexander Mattison in Week 2. This was an actual drop, not an asset exchanged in a trade.",
+        "context": "CB’s Bulls released Tee Higgins while adding Alexander Mattison in Week 2.",
         "decision": "The Timberwolves added Higgins the following week and later used him for seven starts.",
-        "aftermath": "Higgins delivered {total_points} starter points for Timmy K., including {playoff_points} across two championship-bracket starts. Mattison produced {mattison_points} points in two starts for CB’s Bulls. The linked departure and reacquisition make this the archive’s clearest ‘got away’ story.",
-        "evidence": ["{total_points} points after the reacquisition", "{playoff_points} playoff points", "7 starts for the Timberwolves"],
+        "aftermath": "Higgins delivered {total_points} starter points for Timmy K., including {playoff_points} across two championship-bracket starts. Mattison produced {mattison_points} points in two starts for CB’s Bulls. A September release had become a December contributor for another contender.",
+        "evidence": ["{total_points} points after the pickup", "{playoff_points} playoff points", "7 starts for the Timberwolves"],
     },
     {
         "id": "bucky-irving-breakout-2024",
@@ -99,8 +105,24 @@ STORY_MANIFEST: list[dict[str, Any]] = [
         "label": "2024 · Waiver find",
         "context": "Mike’s Magic was {before} when Bucky Irving arrived before Week {week}.",
         "decision": "Mike K. added Irving as a free agent and eventually started him eleven times.",
-        "aftermath": "Irving supplied {points} regular-season points, the strongest pickup contribution in the 2024 archive. Mike’s Magic improved from that winless start but finished {final} outside the playoffs—a valuable move without a rewritten team outcome.",
+        "aftermath": "Irving supplied {points} regular-season points, the strongest pickup contribution in the 2024 archive. Mike’s Magic recovered from its winless start to finish {final}. Irving became a bright spot even as the team missed the playoffs.",
         "evidence": ["{points} starter points", "11 starts", "Final record: {final}"],
+    },
+
+    {
+        "id": "alex-double-deal-2024",
+        "story_type": "feature",
+        "priority": 75,
+        "transaction_ids": ["0052ede9-4ab1-447b-b770-31c30f19186e", "0abd4d81-d79e-4453-b6b1-73eb241c74f5"],
+        "manager_ids": ["alex_h", "robin_h", "kelley_h"],
+        "expected_players": ["Trey McBride", "Ka'imi Fairbairn", "Breece Hall", "Jameson Williams", "Tyrone Tracy Jr.", "Mike Evans", "Jake Moody", "Baker Mayfield", "Tyler Lockett", "Justice Hill"],
+        "draft_picks": [{"season": 2024, "manager_id": "alex_h", "player_name": "Baker Mayfield", "round": 16, "overall_pick": 186}],
+        "headline": "Two trades in one day, five reinforcements—and a narrow exit",
+        "label": "2024 · A late-season overhaul",
+        "context": "Alex’s Astounding Team stood {before} heading into Week {week}. On {trade_date}, Alex H. made two trades that would reshape his playoff lineup. One piece of the package was Baker Mayfield, his Round {baker_round} draft pick.",
+        "decision": "Alex sent Mike Evans and Jake Moody to Robin H. for Trey McBride and Ka’imi Fairbairn. In the other deal, Kelley H. received Mayfield, Tyler Lockett and Justice Hill; Alex received Breece Hall, Jameson Williams and Tyrone Tracy Jr.",
+        "aftermath": "All five arrivals started in Alex’s quarterfinal against the Timberwolves, contributing {quarterfinal_points} points. They were central to the lineup, but the run ended there: Alex lost {alex_score}–{opponent_score}, just {margin} points short. The team had finished the regular season {final}; its late overhaul set up a close playoff finish rather than a deep run.",
+        "evidence": ["2 trades on the same day", "5 acquired players in the quarterfinal lineup", "A {margin}-point playoff defeat"],
     },
 ]
 
@@ -149,6 +171,21 @@ def _team(season: dict[str, Any], manager_id: str) -> dict[str, Any]:
     return next(team for team in season["teams"] if manager_id in team["manager_ids"])
 
 
+def _draft(seasons: dict[int, dict[str, Any]], year: int, manager: str, player: str) -> dict[str, Any]:
+    matches = [pick for pick in seasons[year]["draft_picks"]
+               if manager in pick["manager_ids"] and pick["player_name"] == player]
+    if len(matches) != 1:
+        raise ValueError(f"Expected one draft pick for {year} {manager} {player}")
+    return matches[0]
+
+
+def _validate_drafts(definition: dict[str, Any], seasons: dict[int, dict[str, Any]]) -> None:
+    for reference in definition.get("draft_picks", []):
+        pick = _draft(seasons, reference["season"], reference["manager_id"], reference["player_name"])
+        if any(pick[key] != reference[key] for key in ("round", "overall_pick")):
+            raise ValueError(f"Story {definition['id']} draft evidence changed: {reference['player_name']}")
+
+
 def _facts(definition: dict[str, Any], events: list[dict[str, Any]], seasons: dict[int, dict[str, Any]]) -> dict[str, str]:
     first = events[0]
     season = seasons[first["season"]]
@@ -165,14 +202,28 @@ def _facts(definition: dict[str, Any], events: list[dict[str, Any]], seasons: di
         before = _record_text(_record(charley["team_id"], season, before_week=first["week"]))
         if before != _record_text(_record(cb["team_id"], season, before_week=first["week"])):
             raise ValueError(f"Story {definition['id']} expected a shared pre-trade record")
-        return {"week": str(first["week"]), "shared_before": before, "charley_points": f'{cp["total_points"]:.1f}',
+        hubbard = _draft(seasons, 2024, "charley_k", "Chuba Hubbard")
+        return {"hubbard_round": str(hubbard["round"]), "hubbard_pick": str(hubbard["overall_pick"]), "week": str(first["week"]), "shared_before": before, "charley_points": f'{cp["total_points"]:.1f}',
                 "charley_playoff_points": f'{cp["playoff_points"]:.1f}', "cb_points": f'{bp["total_points"]:.1f}',
                 "combined_points": f'{cp["total_points"] + bp["total_points"]:.1f}',
                 "charley_final": _record_text(_record(charley["team_id"], season)), "cb_final": _record_text(_record(cb["team_id"], season))}
     if definition["id"] == "timberwolves-waiver-rhythm":
-        contributions = [_side(event, "timmy_k")["contribution"] for event in events]
+        # The Akers transaction supplies departure evidence, not a fourth success.
+        successes = [event for event in events if event["id"] != "7b8164c4-32b9-4aba-bfc7-a02edd9bf066"]
+        contributions = [_side(event, "timmy_k")["contribution"] for event in successes]
+        from datetime import date
+        departure = events[1]
+        if not any(p["player_name"] == "Chase Brown" for p in _side(departure, "timmy_k")["outgoing"]):
+            raise ValueError("Brown departure evidence changed")
+        brown = _draft(seasons, 2024, "timmy_k", "Chase Brown")
+        cmc = _draft(seasons, 2024, "timmy_k", "Christian McCaffrey")
         years = sorted({event["season"] for event in events})
-        return {"span": f"{years[0]}–{years[-1]}", "total_points": f'{sum(row["total_points"] for row in contributions):.1f}',
+        return {"cmc_pick": str(cmc["overall_pick"]), "brown_round": str(brown["round"]), "brown_pick": str(brown["overall_pick"]),
+                "drop_week": str(departure["week"]), "return_days": str((date.fromisoformat(first["date"]) - date.fromisoformat(departure["date"])).days),
+                "brown_points": f'{_player(first, "Chase Brown")["contribution"]["total_points"]:.1f}',
+                "record_2024": _record_text(_record(_team(seasons[2024], "timmy_k")["team_id"], seasons[2024])),
+                "record_2025": _record_text(_record(_team(seasons[2025], "timmy_k")["team_id"], seasons[2025])),
+                "span": f"{years[0]}–{years[-1]}", "total_points": f'{sum(row["total_points"] for row in contributions):.1f}',
                 "total_starts": str(sum(row["total_starts"] for row in contributions)),
                 "brown_playoff_points": f'{_player(events[0], "Chase Brown")["contribution"]["playoff_points"]:.1f}',
                 "year_2025_points": f'{sum(_side(event, "timmy_k")["contribution"]["total_points"] for event in events if event["season"] == 2025):.1f}'}
@@ -191,6 +242,29 @@ def _facts(definition: dict[str, Any], events: list[dict[str, Any]], seasons: di
         return {"before": _record_text(_record(side["team_id"], season, before_week=first["week"])),
                 "week": str(first["week"]), "points": f'{side["contribution"]["regular_points"]:.1f}',
                 "final": _record_text(_record(side["team_id"], season))}
+    if definition["id"] == "alex-double-deal-2024":
+        from datetime import date
+        if len({event["date"] for event in events}) != 1:
+            raise ValueError("Alex's deals no longer share a date")
+        side = _side(first, "alex_h")
+        team_id = side["team_id"]
+        quarterfinal = next(m for m in season["matchups"] if m["stage"] == "championship_playoffs"
+                            and m.get("playoff_round") == 1 and team_id in (m["home_team_id"], m["away_team_id"]))
+        rows = [row for event in events for player in _side(event, "alex_h")["acquired"]
+                for row in player["contribution"]["weekly"] if row["week"] in quarterfinal["scoring_periods"]]
+        if len(rows) != 5:
+            raise ValueError("Expected all five Alex acquisitions to start in the quarterfinal")
+        alex_home = quarterfinal["home_team_id"] == team_id
+        own = quarterfinal["home_score"] if alex_home else quarterfinal["away_score"]
+        opponent = quarterfinal["away_score"] if alex_home else quarterfinal["home_score"]
+        if opponent <= own:
+            raise ValueError("Alex quarterfinal result changed")
+        return {"before": _record_text(_record(team_id, season, before_week=first["week"])),
+                "week": str(first["week"]), "trade_date": date.fromisoformat(first["date"]).strftime("%B %d"),
+                "baker_round": str(_draft(seasons, 2024, "alex_h", "Baker Mayfield")["round"]),
+                "quarterfinal_points": f'{sum(row["points"] for row in rows):.1f}',
+                "alex_score": f"{own:g}", "opponent_score": f"{opponent:g}", "margin": f"{opponent-own:.1f}",
+                "final": _record_text(_record(team_id, season))}
     raise ValueError(f"No fact builder for story {definition['id']}")
 
 
@@ -227,10 +301,12 @@ def build_stories(moves: list[dict[str, Any]], seasons: list[dict[str, Any]]) ->
         if not set(definition["expected_players"]).issubset(actual_players):
             raise ValueError(f"Story {definition['id']} player identities no longer match its evidence")
         relevant_seasons = sorted({event["season"] for event in events})
+        _validate_drafts(definition, season_by_year)
         facts = _facts(definition, events, season_by_year)
         stories.append({
             "id": definition["id"], "story_type": definition["story_type"], "priority": definition["priority"],
             "transaction_ids": definition["transaction_ids"], "manager_ids": definition["manager_ids"],
+            "draft_evidence": definition.get("draft_picks", []),
             "relevant_seasons": relevant_seasons, "span": f"{relevant_seasons[0]}" if len(relevant_seasons) == 1 else f"{relevant_seasons[0]}–{relevant_seasons[-1]}",
             "headline": definition["headline"].format(**facts), "label": definition["label"].format(**facts),
             "context": definition["context"].format(**facts), "decision": definition["decision"].format(**facts),
@@ -238,3 +314,4 @@ def build_stories(moves: list[dict[str, Any]], seasons: list[dict[str, Any]]) ->
             "evidence": [item.format(**facts) for item in definition["evidence"]],
         })
     return sorted(stories, key=lambda story: -story["priority"])
+

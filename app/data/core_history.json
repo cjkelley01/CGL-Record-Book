@@ -87846,6 +87846,7 @@
           "charley_k",
           "emma_t"
         ],
+        "draft_evidence": [],
         "relevant_seasons": [
           2025
         ],
@@ -87854,7 +87855,7 @@
         "label": "2025 \u00b7 Blockbuster trade",
         "context": "Charley\u2019s Angels entered Week 5 at 1\u20133, while All the way to the Em-zone stood 3\u20131. The deal landed at a clear pivot point for both teams.",
         "decision": "Charley K. acquired Patrick Mahomes, Ashton Jeanty and Terry McLaurin. Emma T. received T.J. Hockenson, Brian Thomas Jr. and Baker Mayfield in the same six-player deal.",
-        "aftermath": "Mahomes and Jeanty supplied 308.26 starting-lineup points for Charley; McLaurin never entered a CGL starting lineup during that stint. Charley won the next 3 games, but finished 6\u20138 and missed the playoffs. Emma\u2019s return supplied 118.4 starter points, and her team finished 5\u20139. The timing makes this a memorable turn, not proof that the trade caused the brief streak.",
+        "aftermath": "Mahomes and Jeanty supplied 308.26 starting-lineup points for Charley; McLaurin never entered a CGL starting lineup during that stint. Charley won the next 3 games, but finished 6\u20138 and missed the playoffs. Emma\u2019s return supplied 118.4 starter points, and her team finished 5\u20139.",
         "evidence": [
           "308.26 starter points received by Charley",
           "118.4 starter points received by Emma",
@@ -87872,15 +87873,24 @@
           "charley_k",
           "charley_b"
         ],
+        "draft_evidence": [
+          {
+            "season": 2024,
+            "manager_id": "charley_k",
+            "player_name": "Chuba Hubbard",
+            "round": 12,
+            "overall_pick": 142
+          }
+        ],
         "relevant_seasons": [
           2024
         ],
         "span": "2024",
-        "headline": "Four starters changed teams before a championship run",
+        "headline": "A twelfth-round pick became part of a championship deal",
         "label": "2024 \u00b7 Foundational trade",
         "context": "Charley\u2019s Angels and CB\u2019s Bulls were both 1\u20131 when they completed one of the archive\u2019s largest deals before Week 3.",
-        "decision": "Charley K. sent Tyreek Hill and Chuba Hubbard to Charley B. for D\u2019Andre Swift and A.J. Brown. All four recovered assets later reached their new teams\u2019 starting lineups.",
-        "aftermath": "Swift and Brown produced 320.6 starter points, including 94.2 in the championship bracket. Hill and Hubbard produced 331.8 for CB\u2019s Bulls. Charley\u2019s Angels finished 13\u20131 and won the title; CB\u2019s Bulls finished 3\u201311. The deal became part of the champion\u2019s season, but those outcomes are not a controlled verdict on the trade.",
+        "decision": "Charley K. had drafted Chuba Hubbard in Round 12, 142nd overall. Before Week 3, he packaged that late-round pick with Tyreek Hill for D\u2019Andre Swift and A.J. Brown. CB\u2019s Bulls put both Hill and Hubbard to work; all four players became starters for their new teams.",
+        "aftermath": "Swift and Brown produced 320.6 starter points, including 94.2 in the championship bracket. Hill and Hubbard produced 331.8 for CB\u2019s Bulls. Charley\u2019s Angels finished 13\u20131 and won the title; CB\u2019s Bulls finished 3\u201311.",
         "evidence": [
           "652.4 combined starter points",
           "94.2 playoff points from Swift and Brown",
@@ -87893,26 +87903,80 @@
         "priority": 80,
         "transaction_ids": [
           "25f45eab-b531-44a8-87b5-546bea6340f2",
+          "7b8164c4-32b9-4aba-bfc7-a02edd9bf066",
           "a460057c-2aa5-416e-82a4-4a847e0ea081",
           "2cf2c1c4-8944-420d-bcc3-36a6c7ce1044"
         ],
         "manager_ids": [
           "timmy_k"
         ],
+        "draft_evidence": [
+          {
+            "season": 2024,
+            "manager_id": "timmy_k",
+            "player_name": "Christian McCaffrey",
+            "round": 1,
+            "overall_pick": 1
+          },
+          {
+            "season": 2024,
+            "manager_id": "timmy_k",
+            "player_name": "Chase Brown",
+            "round": 11,
+            "overall_pick": 121
+          }
+        ],
         "relevant_seasons": [
           2024,
           2025
         ],
         "span": "2024\u20132025",
-        "headline": "Timmy kept finding season-long starters after draft day",
+        "headline": "The first pick went missing. An eleventh-rounder got a second chance.",
         "label": "2024\u20132025 \u00b7 Sustained success",
-        "context": "The Timberwolves posted 9\u20135 regular-season records in both 2024 and 2025. Three separate post-draft additions became a recurring part of those lineups.",
-        "decision": "Timmy K. added Chase Brown in 2024, then Quinshon Judkins and George Kittle in 2025. These were three distinct acquisition episodes, not one multi-player transaction.",
-        "aftermath": "Together they supplied 413.2 starter points across 28 starts. Brown added 40.2 points in the 2024 championship bracket; Judkins and Kittle combined for 228.2 points after joining the 2025 roster. The pattern is sustained lineup value across two seasons, not a claim that every transaction was a hit.",
+        "context": "Timmy K. opened the 2024 draft with Christian McCaffrey at No. 1. McCaffrey\u2019s Achilles trouble kept him out through Week 9, leaving the Timberwolves without their first overall pick for most of the regular season. One answer was a player Timmy had already drafted\u2014and let go.",
+        "decision": "Chase Brown arrived in Round 11, pick 121. Timmy dropped him for Cam Akers in Week 3, then reversed the move 3 days later. Back with the Timberwolves, Brown became a regular starter and supplied 185.0 points, including 40.2 in the playoffs.",
+        "aftermath": "The Timberwolves finished 9\u20135 in 2024. Timmy found more help after draft day the following year: Quinshon Judkins and George Kittle supplied 228.2 starting-lineup points between them, and the team finished 9\u20135. Across the two seasons, those three additions supplied 413.2 points in 28 starts.",
         "evidence": [
           "3 distinct acquisitions",
           "413.2 starter points",
           "28 starts across 2024\u20132025"
+        ]
+      },
+      {
+        "id": "alex-double-deal-2024",
+        "story_type": "feature",
+        "priority": 75,
+        "transaction_ids": [
+          "0052ede9-4ab1-447b-b770-31c30f19186e",
+          "0abd4d81-d79e-4453-b6b1-73eb241c74f5"
+        ],
+        "manager_ids": [
+          "alex_h",
+          "robin_h",
+          "kelley_h"
+        ],
+        "draft_evidence": [
+          {
+            "season": 2024,
+            "manager_id": "alex_h",
+            "player_name": "Baker Mayfield",
+            "round": 16,
+            "overall_pick": 186
+          }
+        ],
+        "relevant_seasons": [
+          2024
+        ],
+        "span": "2024",
+        "headline": "Two trades in one day, five reinforcements\u2014and a narrow exit",
+        "label": "2024 \u00b7 A late-season overhaul",
+        "context": "Alex\u2019s Astounding Team stood 7\u20134 heading into Week 12. On November 22, Alex H. made two trades that would reshape his playoff lineup. One piece of the package was Baker Mayfield, his Round 16 draft pick.",
+        "decision": "Alex sent Mike Evans and Jake Moody to Robin H. for Trey McBride and Ka\u2019imi Fairbairn. In the other deal, Kelley H. received Mayfield, Tyler Lockett and Justice Hill; Alex received Breece Hall, Jameson Williams and Tyrone Tracy Jr.",
+        "aftermath": "All five arrivals started in Alex\u2019s quarterfinal against the Timberwolves, contributing 57.0 points. They were central to the lineup, but the run ended there: Alex lost 139.4\u2013145, just 5.6 points short. The team had finished the regular season 7\u20137; its late overhaul set up a close playoff finish rather than a deep run.",
+        "evidence": [
+          "2 trades on the same day",
+          "5 acquired players in the quarterfinal lineup",
+          "A 5.6-point playoff defeat"
         ]
       },
       {
@@ -87928,6 +87992,7 @@
         "manager_ids": [
           "tony_r"
         ],
+        "draft_evidence": [],
         "relevant_seasons": [
           2025
         ],
@@ -87936,7 +88001,7 @@
         "label": "2025 \u00b7 Championship reinforcements",
         "context": "Flux Capacitors entered the 2025 championship bracket as the #4 seed after a 9\u20135 regular season.",
         "decision": "Tony R. used four separate acquisitions for four consecutive playoff weeks: Jacksonville, New Orleans, Pittsburgh and Las Vegas.",
-        "aftermath": "Each defense made one championship-bracket start and the group scored 61.0 points. Flux Capacitors finished the run as CGL champion. This is direct playoff contribution, not a claim that defense streaming alone produced the title.",
+        "aftermath": "Each defense made one championship-bracket start and the group scored 61.0 points. Flux Capacitors finished the run as CGL champion.",
         "evidence": [
           "4 separate acquisitions",
           "61.0 playoff points",
@@ -87955,17 +88020,18 @@
           "charley_b",
           "timmy_k"
         ],
+        "draft_evidence": [],
         "relevant_seasons": [
           2024
         ],
         "span": "2024",
         "headline": "Tee Higgins crossed the waiver wire\u2014and resurfaced in the playoffs",
         "label": "2024 \u00b7 The one that got away",
-        "context": "CB\u2019s Bulls released Tee Higgins while adding Alexander Mattison in Week 2. This was an actual drop, not an asset exchanged in a trade.",
+        "context": "CB\u2019s Bulls released Tee Higgins while adding Alexander Mattison in Week 2.",
         "decision": "The Timberwolves added Higgins the following week and later used him for seven starts.",
-        "aftermath": "Higgins delivered 124.5 starter points for Timmy K., including 39.6 across two championship-bracket starts. Mattison produced 13.5 points in two starts for CB\u2019s Bulls. The linked departure and reacquisition make this the archive\u2019s clearest \u2018got away\u2019 story.",
+        "aftermath": "Higgins delivered 124.5 starter points for Timmy K., including 39.6 across two championship-bracket starts. Mattison produced 13.5 points in two starts for CB\u2019s Bulls. A September release had become a December contributor for another contender.",
         "evidence": [
-          "124.5 points after the reacquisition",
+          "124.5 points after the pickup",
           "39.6 playoff points",
           "7 starts for the Timberwolves"
         ]
@@ -87980,6 +88046,7 @@
         "manager_ids": [
           "mike_k"
         ],
+        "draft_evidence": [],
         "relevant_seasons": [
           2024
         ],
@@ -87988,7 +88055,7 @@
         "label": "2024 \u00b7 Waiver find",
         "context": "Mike\u2019s Magic was 0\u20132 when Bucky Irving arrived before Week 3.",
         "decision": "Mike K. added Irving as a free agent and eventually started him eleven times.",
-        "aftermath": "Irving supplied 161.7 regular-season points, the strongest pickup contribution in the 2024 archive. Mike\u2019s Magic improved from that winless start but finished 5\u20139 outside the playoffs\u2014a valuable move without a rewritten team outcome.",
+        "aftermath": "Irving supplied 161.7 regular-season points, the strongest pickup contribution in the 2024 archive. Mike\u2019s Magic recovered from its winless start to finish 5\u20139. Irving became a bright spot even as the team missed the playoffs.",
         "evidence": [
           "161.7 starter points",
           "11 starts",
