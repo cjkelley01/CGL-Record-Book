@@ -50,14 +50,6 @@ class ArchivedStoryEvidenceTests(unittest.TestCase):
         self.assertEqual(4, len(story["transaction_ids"]))
         self.assertEqual([2024, 2025], story["relevant_seasons"])
 
-    def test_combined_deals_match_actual_playoff_result(self):
-        story = self.stories["alex-double-deal-2024"]
-        self.assertEqual(2, len(story["transaction_ids"]))
-        self.assertIn("57.0 points", story["aftermath"])
-        self.assertIn("139.4–145", story["aftermath"])
-        self.assertIn("5.6 points short", story["aftermath"])
-        self.assertEqual(16, story["draft_evidence"][0]["round"])
-
     def test_incorrect_draft_position_blocks_publication(self):
         seasons = deepcopy(self.seasons)
         pick = next(p for s in seasons if s["season"] == 2024 for p in s["draft_picks"]
@@ -71,18 +63,9 @@ class ArchivedStoryEvidenceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "missing supporting transactions"):
             build_stories(moves, self.seasons)
 
-    def test_changed_playoff_participation_blocks_five_starter_claim(self):
-        moves = deepcopy(self.moves)
-        deal = next(m for m in moves if m["id"] == "0052ede9-4ab1-447b-b770-31c30f19186e")
-        side = next(s for s in deal["sides"] if "alex_h" in s["manager_ids"])
-        side["acquired"][0]["contribution"]["weekly"] = []
-        with self.assertRaisesRegex(ValueError, "all five"):
-            build_stories(moves, self.seasons)
-
     def test_published_stories_are_current(self):
         self.assertEqual(self.archive["moves"]["stories"], build_stories(self.moves, self.seasons))
 
 
 if __name__ == "__main__":
     unittest.main()
-

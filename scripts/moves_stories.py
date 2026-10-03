@@ -109,21 +109,6 @@ STORY_MANIFEST: list[dict[str, Any]] = [
         "evidence": ["{points} starter points", "11 starts", "Final record: {final}"],
     },
 
-    {
-        "id": "alex-double-deal-2024",
-        "story_type": "feature",
-        "priority": 75,
-        "transaction_ids": ["0052ede9-4ab1-447b-b770-31c30f19186e", "0abd4d81-d79e-4453-b6b1-73eb241c74f5"],
-        "manager_ids": ["alex_h", "robin_h", "kelley_h"],
-        "expected_players": ["Trey McBride", "Ka'imi Fairbairn", "Breece Hall", "Jameson Williams", "Tyrone Tracy Jr.", "Mike Evans", "Jake Moody", "Baker Mayfield", "Tyler Lockett", "Justice Hill"],
-        "draft_picks": [{"season": 2024, "manager_id": "alex_h", "player_name": "Baker Mayfield", "round": 16, "overall_pick": 186}],
-        "headline": "Two trades in one day, five reinforcements—and a narrow exit",
-        "label": "2024 · A late-season overhaul",
-        "context": "Alex’s Astounding Team stood {before} heading into Week {week}. On {trade_date}, Alex H. made two trades that would reshape his playoff lineup. One piece of the package was Baker Mayfield, his Round {baker_round} draft pick.",
-        "decision": "Alex sent Mike Evans and Jake Moody to Robin H. for Trey McBride and Ka’imi Fairbairn. In the other deal, Kelley H. received Mayfield, Tyler Lockett and Justice Hill; Alex received Breece Hall, Jameson Williams and Tyrone Tracy Jr.",
-        "aftermath": "All five arrivals started in Alex’s quarterfinal against the Timberwolves, contributing {quarterfinal_points} points. They were central to the lineup, but the run ended there: Alex lost {alex_score}–{opponent_score}, just {margin} points short. The team had finished the regular season {final}; its late overhaul set up a close playoff finish rather than a deep run.",
-        "evidence": ["2 trades on the same day", "5 acquired players in the quarterfinal lineup", "A {margin}-point playoff defeat"],
-    },
 ]
 
 
@@ -242,29 +227,6 @@ def _facts(definition: dict[str, Any], events: list[dict[str, Any]], seasons: di
         return {"before": _record_text(_record(side["team_id"], season, before_week=first["week"])),
                 "week": str(first["week"]), "points": f'{side["contribution"]["regular_points"]:.1f}',
                 "final": _record_text(_record(side["team_id"], season))}
-    if definition["id"] == "alex-double-deal-2024":
-        from datetime import date
-        if len({event["date"] for event in events}) != 1:
-            raise ValueError("Alex's deals no longer share a date")
-        side = _side(first, "alex_h")
-        team_id = side["team_id"]
-        quarterfinal = next(m for m in season["matchups"] if m["stage"] == "championship_playoffs"
-                            and m.get("playoff_round") == 1 and team_id in (m["home_team_id"], m["away_team_id"]))
-        rows = [row for event in events for player in _side(event, "alex_h")["acquired"]
-                for row in player["contribution"]["weekly"] if row["week"] in quarterfinal["scoring_periods"]]
-        if len(rows) != 5:
-            raise ValueError("Expected all five Alex acquisitions to start in the quarterfinal")
-        alex_home = quarterfinal["home_team_id"] == team_id
-        own = quarterfinal["home_score"] if alex_home else quarterfinal["away_score"]
-        opponent = quarterfinal["away_score"] if alex_home else quarterfinal["home_score"]
-        if opponent <= own:
-            raise ValueError("Alex quarterfinal result changed")
-        return {"before": _record_text(_record(team_id, season, before_week=first["week"])),
-                "week": str(first["week"]), "trade_date": date.fromisoformat(first["date"]).strftime("%B %d"),
-                "baker_round": str(_draft(seasons, 2024, "alex_h", "Baker Mayfield")["round"]),
-                "quarterfinal_points": f'{sum(row["points"] for row in rows):.1f}',
-                "alex_score": f"{own:g}", "opponent_score": f"{opponent:g}", "margin": f"{opponent-own:.1f}",
-                "final": _record_text(_record(team_id, season))}
     raise ValueError(f"No fact builder for story {definition['id']}")
 
 
@@ -314,4 +276,3 @@ def build_stories(moves: list[dict[str, Any]], seasons: list[dict[str, Any]]) ->
             "evidence": [item.format(**facts) for item in definition["evidence"]],
         })
     return sorted(stories, key=lambda story: -story["priority"])
-
