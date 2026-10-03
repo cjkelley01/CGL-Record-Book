@@ -78,6 +78,7 @@ Run these commands from a terminal in the repository folder.
 | Check TypeScript | `corepack pnpm typecheck` |
 | Check code style and common errors | `corepack pnpm lint` |
 | Build without opening a browser | `corepack pnpm build` |
+| Run transaction-analysis regression tests | `.\.venv\Scripts\python.exe -m unittest discover -s tests -v` |
 | Reinstall website dependencies after dependency changes | `corepack pnpm install --frozen-lockfile` |
 
 

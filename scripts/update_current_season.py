@@ -39,6 +39,7 @@ def main() -> int:
     report_path = root / "data" / "reports" / "espn_history_discovery.json"
     report = json.loads(report_path.read_text(encoding="utf-8"))
     failures = [row for row in report["results"] if not row["ok"]]
+    failures.extend(row for row in report.get("transaction_sources", []) if not row["ok"])
     if failures:
         print(f"\nUpdate stopped: {len(failures)} ESPN requests failed.")
         for row in failures[:10]:

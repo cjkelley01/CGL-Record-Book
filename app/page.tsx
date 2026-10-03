@@ -4,6 +4,7 @@ import { CurrentSeason } from "@/components/record-book/current-season";
 import { DraftHistory } from "@/components/record-book/draft-history";
 import { HeadToHead } from "@/components/record-book/head-to-head";
 import { ManagerProfile } from "@/components/record-book/manager-profile";
+import { MovesThatMattered } from "@/components/record-book/moves-that-mattered";
 import { PageHead } from "@/components/record-book/page-head";
 import { RecordCard } from "@/components/record-book/record-card";
 import { RecordGroup } from "@/components/record-book/record-group";
@@ -25,6 +26,7 @@ const sections = [
   ["managers", "Managers"],
   ["head-to-head", "Head-to-Head"],
   ["drafts", "Drafts"],
+  ["moves", "Moves That Mattered"],
   ["records", "Records"],
   ["seasons", "Seasons"],
 ] as const;
@@ -274,6 +276,10 @@ export default function Home() {
 
         <TabsContent value="drafts" className="page">
           <DraftHistory managerId={managerId} />
+        </TabsContent>
+
+        <TabsContent value="moves" className="page">
+          <MovesThatMattered moves={data.moves} />
         </TabsContent>
 
         <TabsContent value="records" className="page">

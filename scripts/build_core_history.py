@@ -11,6 +11,8 @@ from typing import Any
 
 import requests
 
+from moves_analysis import build_moves
+
 
 MANAGERS = {
     "charley_k": "Charley K.", "quy_h": "Quy H.", "mike_k": "Mike K.",
@@ -96,6 +98,7 @@ def player_catalog(data_root: Path, season: int) -> dict[int, dict[str, Any]]:
     candidates = list((season_root / "league").glob("mRoster.json"))
     candidates.extend((season_root / "weeks").glob("**/mRoster.json"))
     candidates.extend((season_root / "weeks").glob("**/mBoxscore.json"))
+    candidates.extend((season_root / "transactions").glob("kona_playercard.json"))
     for path in candidates:
         visit(read_json(path))
     return catalog
@@ -641,17 +644,18 @@ def main() -> int:
     streaks = build_streaks(seasons)
     records = build_records(seasons)
     records["leaderboards"] = build_leaderboards(seasons, manager_history, streaks)
+    moves = build_moves(args.data_root, seasons, manager_ids, manager_names, player_catalog)
     output = {"schema_version": 2, "league_id": seasons[0]["league_id"],
         "manager_display_policy": "First name and last initial; achievements follow managers across team-name changes.",
         "managers": [{"manager_id": mid, "manager_name": name} for mid, name in MANAGERS.items()],
         "seasons": seasons, "records": records, "manager_history": manager_history,
-        "head_to_head": build_head_to_head(seasons), "streaks": streaks,
+        "head_to_head": build_head_to_head(seasons), "streaks": streaks, "moves": moves,
         "notes": ["Ed B. & Carolyn B. are one permanent joint ownership unit for Ed's Plus 1 Team.",
                   "Kelley H. receives sole credit for Pandamonium despite ESPN's misleading 2024 owner listing.",
                   "Airel G., Kaitlyn K., and Burke K. joined for the 2026 expansion to 14 teams.",
                   "Current-season games enter career totals and records only after ESPN marks them decided.",
                   "Consolation games are preserved but excluded from official records.",
-                  "Detailed transaction history was not present in the sampled mTransactions2 response."]}
+                  "Completed move history is recovered from ESPN player cards and deduplicated by transaction ID; historical failed or rejected moves are not available."]}
     processed = args.data_root / "processed"
     processed.mkdir(parents=True, exist_ok=True)
     destination = processed / "core_history.json"
