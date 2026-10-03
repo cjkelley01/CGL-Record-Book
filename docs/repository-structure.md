@@ -17,6 +17,7 @@ Feature components may import shared helpers and UI primitives. Keep navigation 
 - `scripts/build_core_history.py`: normalizes history and calculates records.
 - `scripts/update_current_season.py`: coordinates downloading and rebuilding.
 - `scripts/moves_analysis.py`: deduplicates transactions, separates ownership stints, and calculates starter-only move impact.
+- `scripts/moves_stories.py`: validates the curated editorial manifest and resolves story facts from supporting events.
 - `data/raw/`, `data/processed/`, and `data/reports/`: local archives and generated output, excluded from Git.
 - `docs/record-book-scope.md`: historical boundaries, identities, and verification rules.
 - `docs/moves-that-mattered.md`: source coverage, metrics, thresholds, validation, and counterfactual limits.

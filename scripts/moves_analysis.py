@@ -8,6 +8,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
+try:
+    from moves_stories import build_stories
+except ModuleNotFoundError:  # Imported as scripts.moves_analysis by the test suite.
+    from scripts.moves_stories import build_stories
+
 
 BENCH_SLOTS = {20, 21}
 COMPLETED_STATUS = "EXECUTED"
@@ -188,13 +193,28 @@ def combine_metrics(players: list[dict[str, Any]]) -> dict[str, Any]:
     return {field: round(sum(player["contribution"][field] for player in players), 2) for field in fields}
 
 
+def side_success_flags(move: dict[str, Any], side: dict[str, Any]) -> dict[str, bool]:
+    """Attribute success to the qualifying side, never automatically to both trade parties."""
+    contribution = side["contribution"]
+    return {
+        "waiver": move["kind"] != "trade" and contribution["regular_points"] >= THRESHOLDS["waiver_gold"]["points"] and contribution["regular_starts"] >= THRESHOLDS["waiver_gold"]["starts"],
+        "trade": move["kind"] == "trade" and contribution["total_points"] >= THRESHOLDS["deal_maker"]["points"] and contribution["total_starts"] >= THRESHOLDS["deal_maker"]["starts"],
+        "playoff": contribution["playoff_points"] >= THRESHOLDS["championship_reinforcement"]["playoff_points"] and contribution["playoff_starts"] >= THRESHOLDS["championship_reinforcement"]["playoff_starts"],
+    }
+
+
+def got_away_qualifies(outgoing: dict[str, Any]) -> bool:
+    contribution = outgoing.get("subsequent_contribution", {})
+    return outgoing.get("departure_type") == "drop" and contribution.get("total_points", 0) >= THRESHOLDS["got_away"]["points"] and contribution.get("total_starts", 0) >= THRESHOLDS["got_away"]["starts"]
+
+
 def projected_alternative(
     weekly: list[dict[str, Any]], acquired: dict[str, Any], week: int, team_id: int,
 ) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
     candidates = [row for row in weekly if row["week"] == week and row["team_id"] == team_id
                   and not row["started"] and row["lineup_slot_id"] == 20
                   and acquired["lineup_slot_id"] in row.get("eligible_slots", [])
-                  and row["projected_points"] is not None]
+                  and row["projected_points"] is not None and row["projected_points"] > 0]
     candidates.sort(key=lambda row: (-row["projected_points"], row["player_name"]))
     return (candidates[0] if candidates else None), candidates[:3]
 
@@ -211,12 +231,14 @@ def counterfactual_summary(
                 team_id = matchup.get(f"{side}_team_id")
                 if team_id is not None:
                     matchup_for_team_week[(int(team_id), int(week))] = {
+                        "matchup_id": matchup["matchup_id"],
+                        "weeks": matchup["scoring_periods"],
                         "result": "W" if matchup.get("winner") == side.upper() else "L",
                         "margin": abs(float(matchup.get("home_score") or 0) - float(matchup.get("away_score") or 0)),
                         "opponent": matchup.get(f"{other}_team_name"),
                         "stage": matchup["stage"],
                     }
-    comparisons = []
+    player_week_comparisons = []
     for side in move["sides"]:
         team_id = side["team_id"]
         for player in side["acquired"]:
@@ -230,20 +252,47 @@ def counterfactual_summary(
                 if not alternative:
                     continue
                 delta = round(current["points"] - alternative["points"], 2)
-                swings = delta > matchup["margin"]
-                sensitivity_swings = [round(current["points"] - candidate["points"], 2) > matchup["margin"] for candidate in sensitivity]
-                comparisons.append({
+                player_week_comparisons.append({
+                    "matchup_id": matchup["matchup_id"], "matchup_weeks": matchup["weeks"],
                     "week": evidence["week"], "team_id": team_id, "opponent": matchup["opponent"],
                     "acquired_player": player["player_name"], "actual_points": current["points"],
                     "alternative": alternative["player_name"], "alternative_actual_points": alternative["points"],
                     "alternative_projected_points": alternative["projected_points"], "matchup_margin": matchup["margin"],
-                    "potentially_swung": swings, "robust_across_top_three": bool(sensitivity_swings) and all(sensitivity_swings),
+                    "delta": delta,
+                    "sensitivity_deltas": [round(current["points"] - candidate["points"], 2) for candidate in sensitivity],
                 })
+    # One acquired player cannot become one "win" when another acquired player
+    # appears in the same matchup. Keep one conservative comparison per team/week,
+    # then aggregate multiweek playoff rounds at the series level.
+    best_by_team_week: dict[tuple[int, int, int], dict[str, Any]] = {}
+    for row in player_week_comparisons:
+        key = (row["team_id"], row["matchup_id"], row["week"])
+        if key not in best_by_team_week or row["delta"] > best_by_team_week[key]["delta"]:
+            best_by_team_week[key] = row
+    grouped: dict[tuple[int, int], list[dict[str, Any]]] = defaultdict(list)
+    for row in best_by_team_week.values():
+        grouped[(row["team_id"], row["matchup_id"])].append(row)
+    comparisons = []
+    for rows in grouped.values():
+        rows.sort(key=lambda row: row["week"])
+        margin = rows[0]["matchup_margin"]
+        delta = round(sum(row["delta"] for row in rows), 2)
+        conservative_delta = round(sum(min(row["sensitivity_deltas"]) for row in rows if row["sensitivity_deltas"]), 2)
+        comparisons.append({
+            "matchup_id": rows[0]["matchup_id"], "team_id": rows[0]["team_id"],
+            "weeks": [row["week"] for row in rows], "opponent": rows[0]["opponent"],
+            "acquired_players": sorted({row["acquired_player"] for row in rows}),
+            "alternatives": sorted({row["alternative"] for row in rows}),
+            "comparison_delta": delta, "matchup_margin": margin,
+            "potentially_swung": delta > margin,
+            "robust_across_top_three": conservative_delta > margin,
+        })
     return {
         "potential_swings": sum(row["potentially_swung"] for row in comparisons),
         "robust_swings": sum(row["potentially_swung"] and row["robust_across_top_three"] for row in comparisons),
         "comparisons": comparisons,
-        "method": "Replaces an acquired starter with the eligible bench player carrying the highest archived pregame projection; actual alternative points determine whether the recorded winning margin changes.",
+        "supports_causal_story": move["kind"] != "trade",
+        "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored.",
     }
 
 
@@ -303,7 +352,7 @@ def build_moves(
                     })
                 outgoing_items = [item for item in transaction.get("items", [])
                                   if item.get("fromTeamId") == team_id and item.get("type") in {"DROP", "TRADE"}]
-                outgoing = [{"player_id": int(item["playerId"]),
+                outgoing = [{"player_id": int(item["playerId"]), "departure_type": item.get("type", "").lower(),
                              "player_name": catalog.get(int(item["playerId"]), {}).get("player_name", str(item["playerId"]))}
                             for item in outgoing_items]
                 ids = team["manager_ids"] or manager_lookup(year, team_id, team["team_name"])
@@ -340,6 +389,8 @@ def build_moves(
     for move in all_moves:
         for side in move["sides"]:
             for outgoing in side["outgoing"]:
+                if outgoing.get("departure_type") != "drop":
+                    continue
                 later = [entry for entry in acquisitions_by_player[(move["season"], outgoing["player_id"])]
                          if entry[0] >= move["week"] and entry[2]["team_id"] != side["team_id"]]
                 if later:
@@ -355,9 +406,7 @@ def build_moves(
         total = combine_metrics([player for side in move["sides"] for player in side["acquired"]])
         if move["kind"] in {"waiver", "freeagent"} and total["regular_points"] >= THRESHOLDS["waiver_gold"]["points"] and total["regular_starts"] >= THRESHOLDS["waiver_gold"]["starts"]:
             move["badges"].append("waiver_gold")
-        if any(out.get("subsequent_contribution", {}).get("total_points", 0) >= THRESHOLDS["got_away"]["points"]
-               and out.get("subsequent_contribution", {}).get("total_starts", 0) >= THRESHOLDS["got_away"]["starts"]
-               for side in move["sides"] for out in side["outgoing"]):
+        if any(got_away_qualifies(out) for side in move["sides"] for out in side["outgoing"]):
             move["badges"].append("got_away")
         if move["kind"] == "trade" and any(side["contribution"]["total_points"] >= THRESHOLDS["deal_maker"]["points"]
                                             and side["contribution"]["total_starts"] >= THRESHOLDS["deal_maker"]["starts"] for side in move["sides"]):
@@ -369,7 +418,7 @@ def build_moves(
             move["badges"].append("buyer_remorse")
         if total["playoff_points"] >= THRESHOLDS["championship_reinforcement"]["playoff_points"] and total["playoff_starts"] >= THRESHOLDS["championship_reinforcement"]["playoff_starts"]:
             move["badges"].append("championship_reinforcement")
-        if total["total_points"] >= THRESHOLDS["turning_point"]["points"] and total["total_starts"] >= THRESHOLDS["turning_point"]["starts"] and move["counterfactual"]["potential_swings"] >= THRESHOLDS["turning_point"]["potential_swings"]:
+        if move["kind"] != "trade" and total["total_points"] >= THRESHOLDS["turning_point"]["points"] and total["total_starts"] >= THRESHOLDS["turning_point"]["starts"] and move["counterfactual"]["robust_swings"] >= THRESHOLDS["turning_point"]["potential_swings"]:
             move["badges"].append("turning_point")
 
     front_office: dict[str, dict[str, Any]] = {}
@@ -377,15 +426,20 @@ def build_moves(
         for side in move["sides"]:
             for manager_id, manager_name in zip(side["manager_ids"], side["manager_names"]):
                 row = front_office.setdefault(manager_id, {"manager_id": manager_id, "manager_name": manager_name,
-                    "transaction_volume": 0, "waiver_hits": [], "trade_hits": [], "playoff_hits": [], "seasons": set()})
+                    "transaction_volume": 0, "waiver_hits": [], "trade_hits": [], "playoff_hits": [],
+                    "activity_seasons": set(), "success_seasons": set()})
                 row["transaction_volume"] += 1
-                row["seasons"].add(move["season"])
-                if "waiver_gold" in move["badges"] and move["kind"] != "trade": row["waiver_hits"].append(move["id"])
-                if "deal_maker" in move["badges"] and move["kind"] == "trade": row["trade_hits"].append(move["id"])
-                if "championship_reinforcement" in move["badges"]: row["playoff_hits"].append(move["id"])
+                row["activity_seasons"].add(move["season"])
+                flags = side_success_flags(move, side)
+                waiver_hit, trade_hit, playoff_hit = flags["waiver"], flags["trade"], flags["playoff"]
+                if waiver_hit: row["waiver_hits"].append(move["id"])
+                if trade_hit: row["trade_hits"].append(move["id"])
+                if playoff_hit: row["playoff_hits"].append(move["id"])
+                if waiver_hit or trade_hit or playoff_hit: row["success_seasons"].add(move["season"])
     front_rows = []
     for row in front_office.values():
-        row["seasons"] = sorted(row["seasons"])
+        row["activity_seasons"] = sorted(row["activity_seasons"])
+        row["seasons"] = sorted(row.pop("success_seasons"))
         row["badges"] = []
         if len(set(row["waiver_hits"])) >= 2: row["badges"].append("waiver_whisperer")
         if len(set(row["trade_hits"])) >= 2: row["badges"].append("deal_architect")
@@ -397,12 +451,14 @@ def build_moves(
                                         for move in all_moves if move["kind"] in {"waiver", "freeagent"}),
         "trade_side_points": sorted(side["contribution"]["total_points"] for move in all_moves if move["kind"] == "trade" for side in move["sides"]),
     }
+    transactions = sorted(all_moves, key=lambda move: (move["season"], move["week"], move["date"] or ""), reverse=True)
     return {
         "coverage": coverage,
         "thresholds": THRESHOLDS,
         "threshold_policy": "Fixed qualification floors selected after inspecting the full observed distributions; categories are hidden when no move qualifies.",
-        "counterfactual_limitations": "Comparisons use archived projections only when an eligible bench alternative exists. They do not remodel injuries, later transactions, changed seeding, or an alternate playoff bracket, and move-level swings must not be added together.",
+        "counterfactual_limitations": "Comparisons require a positively projected eligible alternative, count a matchup once, and aggregate multiweek playoff series. They do not remodel injuries, later transactions, changed seeding, or alternate brackets. Trade comparisons do not restore outgoing assets and are not treated as complete no-trade scenarios.",
         "distributions": distributions,
-        "transactions": sorted(all_moves, key=lambda move: (move["season"], move["week"], move["date"] or ""), reverse=True),
+        "transactions": transactions,
+        "stories": build_stories(transactions, seasons),
         "front_office": sorted(front_rows, key=lambda row: (-len(row["badges"]), -len(row["waiver_hits"]) - len(row["trade_hits"]), row["manager_name"])),
     }
