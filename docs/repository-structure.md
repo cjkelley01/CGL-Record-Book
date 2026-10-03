@@ -16,8 +16,10 @@ Feature components may import shared helpers and UI primitives. Keep navigation 
 - `scripts/discover_espn_history.py`: downloads and reports on ESPN source data.
 - `scripts/build_core_history.py`: normalizes history and calculates records.
 - `scripts/update_current_season.py`: coordinates downloading and rebuilding.
+- `scripts/moves_analysis.py`: deduplicates transactions, separates ownership stints, and calculates starter-only move impact.
 - `data/raw/`, `data/processed/`, and `data/reports/`: local archives and generated output, excluded from Git.
 - `docs/record-book-scope.md`: historical boundaries, identities, and verification rules.
+- `docs/moves-that-mattered.md`: source coverage, metrics, thresholds, validation, and counterfactual limits.
 
 ## Development, preview, and deployment
 

@@ -14,7 +14,8 @@ export function TeamLink({
   // Use the season's ownership, including names that have since changed.
   // A shared team opens its first listed owner's profile; owner-specific
   // standings and matchup links supply an explicit manager ID instead.
-  const team = [...data.seasons]
+  const seasons = data.seasons as unknown as Array<{ season: number; teams: Array<{ team_name: string; manager_ids: string[] }> }>;
+  const team = [...seasons]
     .sort((a, b) => b.season - a.season)
     .filter((entry) => season === undefined || entry.season === season)
     .flatMap((entry) => entry.teams)

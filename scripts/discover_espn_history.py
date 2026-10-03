@@ -37,6 +37,7 @@ WEEKLY_VIEWS = (
     "mBoxscore",
     "mRoster",
 )
+TRANSACTION_PAGE_SIZE = 250
 
 
 @dataclass
@@ -106,6 +107,97 @@ def fetch(
         )
 
 
+def fetch_json(
+    session: requests.Session,
+    url: str,
+    output_path: Path,
+    *,
+    params: dict[str, str | int],
+    headers: dict[str, str] | None = None,
+) -> tuple[Any | None, int | None, str | None]:
+    """Fetch and preserve an auxiliary response without logging sensitive headers."""
+    try:
+        response = session.get(url, params=params, headers=headers, timeout=45)
+        response.raise_for_status()
+        payload = response.json()
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+        return payload, response.status_code, None
+    except (requests.RequestException, ValueError) as exc:
+        status = getattr(getattr(exc, "response", None), "status_code", None)
+        return None, status, str(exc)
+
+
+def fetch_transaction_sources(
+    session: requests.Session,
+    url: str,
+    output_root: Path,
+    season: int,
+) -> list[dict[str, Any]]:
+    """Preserve player-card history and every available activity-feed page."""
+    results: list[dict[str, Any]] = []
+    transaction_root = output_root / "raw" / str(season) / "transactions"
+
+    playercards, status, error = fetch_json(
+        session,
+        f"{url}/players",
+        transaction_root / "kona_playercard.json",
+        params={"view": "kona_playercard", "scoringPeriodId": 0},
+    )
+    results.append({
+        "season": season,
+        "source": "kona_playercard",
+        "ok": playercards is not None,
+        "status_code": status,
+        "path": str(transaction_root / "kona_playercard.json") if playercards is not None else None,
+        "item_count": len(playercards) if isinstance(playercards, list) else None,
+        "error": error,
+    })
+
+    offset = 0
+    page = 1
+    while True:
+        topic_filter = {
+            "communication": {
+                "topicsByType": {
+                    "ACTIVITY_TRANSACTIONS": {
+                        "offset": offset,
+                        "limit": TRANSACTION_PAGE_SIZE,
+                        "sortMessageDate": {"sortPriority": 1, "sortAsc": False},
+                    }
+                }
+            }
+        }
+        payload, status, error = fetch_json(
+            session,
+            url,
+            transaction_root / f"kona_league_communication_{page:03d}.json",
+            params={"view": "kona_league_communication"},
+            headers={"x-fantasy-filter": json.dumps(topic_filter)},
+        )
+        topic_count = 0
+        if isinstance(payload, dict):
+            topics = payload.get("communication", {}).get("topics", [])
+            topic_count = len(topics) if isinstance(topics, list) else 0
+        results.append({
+            "season": season,
+            "source": "kona_league_communication",
+            "page": page,
+            "offset": offset,
+            "ok": payload is not None,
+            "status_code": status,
+            "path": str(transaction_root / f"kona_league_communication_{page:03d}.json") if payload is not None else None,
+            "item_count": topic_count,
+            "error": error,
+        })
+        if payload is None or topic_count < TRANSACTION_PAGE_SIZE:
+            break
+        offset += topic_count
+        page += 1
+        time.sleep(0.05)
+    return results
+
+
 def load_env_file(path: Path) -> None:
     """Load simple KEY=value entries without another dependency."""
     if not path.exists():
@@ -155,6 +247,19 @@ def markdown_report(report: dict[str, Any]) -> str:
         "A view marked available returned valid JSON; it still needs field-level inspection before record calculations are implemented.",
         "",
     ])
+    if report.get("transaction_sources"):
+        lines.extend([
+            "## Transaction sources",
+            "",
+            "| Season | Source | Page | Result | Items |",
+            "|---:|---|---:|---|---:|",
+        ])
+        for row in report["transaction_sources"]:
+            lines.append(
+                f"| {row['season']} | {row['source']} | {row.get('page') or ''} | "
+                f"{'available' if row['ok'] else 'failed'} | {row.get('item_count') or 0} |"
+            )
+        lines.extend(["", "Zero items records a coverage gap; it is not evidence that no transactions occurred.", ""])
     return "\n".join(lines)
 
 
@@ -184,6 +289,7 @@ def main() -> int:
             file=sys.stderr,
         )
     results: list[Result] = []
+    transaction_sources: list[dict[str, Any]] = []
 
     for season in args.seasons:
         url = endpoint(args.league_id, season)
@@ -213,12 +319,22 @@ def main() -> int:
                 )
                 time.sleep(args.delay)
 
+        source_rows = fetch_transaction_sources(session, url, args.output, season)
+        transaction_sources.extend(source_rows)
+        for row in source_rows:
+            suffix = f" page {row.get('page')}" if row.get("page") else ""
+            print(
+                f"{season} {row['source']}{suffix}: "
+                f"{'OK' if row['ok'] else 'FAILED'} ({row.get('item_count') or 0} items)"
+            )
+
     report = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "league_id": args.league_id,
         "seasons": args.seasons,
         "week_range": [args.start_week, args.end_week],
         "results": [asdict(result) for result in results],
+        "transaction_sources": transaction_sources,
     }
     reports = args.output / "reports"
     reports.mkdir(parents=True, exist_ok=True)
@@ -230,9 +346,10 @@ def main() -> int:
     )
 
     successes = sum(result.ok for result in results)
-    print(f"Completed: {successes}/{len(results)} requests returned JSON.")
+    source_successes = sum(row["ok"] for row in transaction_sources)
+    print(f"Completed: {successes}/{len(results)} core requests and {source_successes}/{len(transaction_sources)} transaction-source requests returned JSON.")
     print(f"Report: {reports / 'espn_history_discovery.md'}")
-    return 0 if successes == len(results) else 1
+    return 0 if successes == len(results) and source_successes == len(transaction_sources) else 1
 
 
 if __name__ == "__main__":
