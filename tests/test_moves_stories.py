@@ -1,6 +1,9 @@
 import unittest
+import json
+from copy import deepcopy
+from pathlib import Path
 
-from scripts.moves_stories import filter_stories, validate_unique_event_coverage
+from scripts.moves_stories import build_stories, filter_stories, validate_unique_event_coverage
 
 
 class MoveStoryTests(unittest.TestCase):
@@ -29,6 +32,39 @@ class MoveStoryTests(unittest.TestCase):
         ]
         with self.assertRaisesRegex(ValueError, "retold"):
             validate_unique_event_coverage(definitions)
+
+
+class ArchivedStoryEvidenceTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.archive = json.loads((Path(__file__).resolve().parents[1] / "app/data/core_history.json").read_text())
+        cls.moves = cls.archive["moves"]["transactions"]
+        cls.seasons = cls.archive["seasons"]
+        cls.stories = {s["id"]: s for s in build_stories(cls.moves, cls.seasons)}
+
+    def test_brown_reversal_does_not_count_akers_as_a_success(self):
+        story = self.stories["timberwolves-waiver-rhythm"]
+        self.assertIn("3 days later", story["decision"])
+        self.assertIn("413.2 points in 28 starts", story["aftermath"])
+        self.assertIn("3 distinct acquisitions", story["evidence"])
+        self.assertEqual(4, len(story["transaction_ids"]))
+        self.assertEqual([2024, 2025], story["relevant_seasons"])
+
+    def test_incorrect_draft_position_blocks_publication(self):
+        seasons = deepcopy(self.seasons)
+        pick = next(p for s in seasons if s["season"] == 2024 for p in s["draft_picks"]
+                    if p["player_name"] == "Christian McCaffrey")
+        pick["overall_pick"] = 2
+        with self.assertRaisesRegex(ValueError, "draft evidence changed"):
+            build_stories(self.moves, seasons)
+
+    def test_missing_departure_blocks_second_chance_story(self):
+        moves = [m for m in self.moves if m["id"] != "7b8164c4-32b9-4aba-bfc7-a02edd9bf066"]
+        with self.assertRaisesRegex(ValueError, "missing supporting transactions"):
+            build_stories(moves, self.seasons)
+
+    def test_published_stories_are_current(self):
+        self.assertEqual(self.archive["moves"]["stories"], build_stories(self.moves, self.seasons))
 
 
 if __name__ == "__main__":
