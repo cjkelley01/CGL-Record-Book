@@ -38,6 +38,7 @@ WEEKLY_VIEWS = (
     "mRoster",
 )
 TRANSACTION_PAGE_SIZE = 250
+TRANSACTION_MAX_PAGES = 50
 
 
 @dataclass
@@ -156,7 +157,8 @@ def fetch_transaction_sources(
 
     offset = 0
     page = 1
-    while True:
+    seen_page_signatures: set[str] = set()
+    while page <= TRANSACTION_MAX_PAGES:
         topic_filter = {
             "communication": {
                 "topicsByType": {
@@ -175,10 +177,35 @@ def fetch_transaction_sources(
             params={"view": "kona_league_communication"},
             headers={"x-fantasy-filter": json.dumps(topic_filter)},
         )
-        topic_count = 0
+        topics: list[Any] = []
         if isinstance(payload, dict):
-            topics = payload.get("communication", {}).get("topics", [])
-            topic_count = len(topics) if isinstance(topics, list) else 0
+            candidate_topics = payload.get("communication", {}).get("topics", [])
+            if isinstance(candidate_topics, list):
+                topics = candidate_topics
+        topic_count = len(topics)
+
+        # ESPN occasionally ignores the requested offset and returns the same
+        # full page forever. Detect that before saving another duplicate page.
+        page_signature = json.dumps(topics, sort_keys=True, separators=(",", ":"))
+        if payload is not None and page_signature in seen_page_signatures:
+            output_path = transaction_root / f"kona_league_communication_{page:03d}.json"
+            output_path.unlink(missing_ok=True)
+            results.append({
+                "season": season,
+                "source": "kona_league_communication",
+                "page": page,
+                "offset": offset,
+                "ok": True,
+                "status_code": status,
+                "path": None,
+                "item_count": 0,
+                "warning": "ESPN repeated the previous page; pagination stopped safely.",
+                "error": None,
+            })
+            break
+        if payload is not None:
+            seen_page_signatures.add(page_signature)
+
         results.append({
             "season": season,
             "source": "kona_league_communication",
@@ -195,6 +222,20 @@ def fetch_transaction_sources(
         offset += topic_count
         page += 1
         time.sleep(0.05)
+
+    if page > TRANSACTION_MAX_PAGES:
+        results.append({
+            "season": season,
+            "source": "kona_league_communication",
+            "page": page,
+            "offset": offset,
+            "ok": True,
+            "status_code": None,
+            "path": None,
+            "item_count": 0,
+            "warning": f"Stopped at the {TRANSACTION_MAX_PAGES}-page safety limit.",
+            "error": None,
+        })
     return results
 
 
