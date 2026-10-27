@@ -4,7 +4,7 @@ Only aggregate counts and error categories are published; no roster contents.
 """
 import argparse
 import json
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
 from scripts.analytics.espn_projections import normalized_players, roster_entries, starter_slots
@@ -20,6 +20,7 @@ def audit(data_root, season, weeks):
     if not team_ids:
         raise ValueError("No league teams found")
     results = []
+    failure_patterns = defaultdict(lambda: {'weeks': [], 'missing_by_slot': Counter()})
     for week in weeks:
         path = root / "weeks" / f"{week:02d}" / "mRoster.json"
         if not path.exists():
@@ -41,13 +42,28 @@ def audit(data_root, season, weeks):
                 msg = str(exc)
                 if "weekly ESPN projection" in msg:
                     errors["missing_or_ambiguous_player_projection"] += 1
+                    pattern = failure_patterns[str(tid)]
+                    pattern["weeks"].append(week)
+                    for entry in entries:
+                        player = (entry.get("playerPoolEntry") or {}).get("player") or {}
+                        matches = [s for s in (player.get("stats") or [])
+                                   if isinstance(s, dict) and s.get("statSourceId") == 1
+                                   and s.get("scoringPeriodId") == week
+                                   and isinstance(s.get("appliedTotal"), (int, float))
+                                   and not isinstance(s.get("appliedTotal"), bool)]
+                        if len(matches) != 1:
+                            pattern["missing_by_slot"][str(entry.get("lineupSlotId", "unknown"))] += 1
                 elif "No legal lineup" in msg or "Insufficient available" in msg:
                     errors["incomplete_eligible_lineup"] += 1
                 else:
                     errors["other_lineup_validation_error"] += 1
         results.append({"week": week, "expected_teams": len(team_ids),
                         "valid_lineups": valid, "errors": dict(sorted(errors.items()))})
+    patterns = [{"team_id": int(tid), "weeks": item["weeks"],
+                 "missing_by_slot": dict(item["missing_by_slot"])}
+                for tid, item in sorted(failure_patterns.items())]
     return {"season": season, "starting_slots": sorted(slots),
+            "failure_patterns": patterns,
             "weeks": results,
             "ready": all(x["valid_lineups"] == len(team_ids) for x in results)}
 
