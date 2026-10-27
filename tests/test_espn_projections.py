@@ -10,7 +10,7 @@ from scripts.analytics.espn_projections import (
 
 def player(pid, points, week=9, slots=None):
     return {"playerPoolEntry": {"player": {
-        "id": pid, "eligibleSlots": slots or [0],
+        "id": pid, "proTeamId": 1, "eligibleSlots": slots or [0],
         "stats": [{"statSourceId": 1, "scoringPeriodId": week, "appliedTotal": points}],
     }}}
 
@@ -66,6 +66,13 @@ class EspnProjectionsTests(unittest.TestCase):
         pool[2]["onTeamId"] = 5
         self.assertEqual(waiver_replacements(pool, 9, {103}, [0]), [])
 
+    def test_nfl_schedule_excludes_bye_team_even_with_positive_projection(self):
+        from scripts.analytics.espn_projections import is_playable
+        p = player(55, 12)["playerPoolEntry"]["player"]
+        self.assertTrue(is_playable(p, 9, {1, 2}))
+        self.assertFalse(is_playable(p, 9, {2, 3}))
+        self.assertFalse(is_playable({"id": 55, "stats": p["stats"]}, 9, {1, 2}))
+
     def test_multiple_waiver_replacements_for_same_position(self):
         pool = [{"status": "FREEAGENT", "onTeamId": 0,
                  "player": {"id": pid, "eligibleSlots": [2],
@@ -82,6 +89,7 @@ class EspnProjectionsTests(unittest.TestCase):
             root = Path(directory) / "raw" / "2026"
             (root / "league").mkdir(parents=True)
             (root / "weeks" / "09").mkdir(parents=True)
+            (root / "nfl_schedule.json").write_text(json.dumps({"9": list(range(1, 27))}))
             (root / "league" / "mSettings.json").write_text(json.dumps({
                 "settings": {"rosterSettings": {"lineupSlotCounts": {"0": 1, "20": 4}}}
             }))
