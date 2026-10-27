@@ -66,6 +66,17 @@ class EspnProjectionsTests(unittest.TestCase):
         pool[2]["onTeamId"] = 5
         self.assertEqual(waiver_replacements(pool, 9, {103}, [0]), [])
 
+    def test_multiple_waiver_replacements_for_same_position(self):
+        pool = [{"status": "FREEAGENT", "onTeamId": 0,
+                 "player": {"id": pid, "eligibleSlots": [2],
+                            "stats": [{"statSourceId": 1, "scoringPeriodId": 9,
+                                       "appliedTotal": score}]}}
+                for pid, score in [(101, 18), (102, 15), (103, 12)]]
+        selected = waiver_replacements(pool, 9, set(), [2, 2])
+        self.assertEqual(len(selected), 2)
+        self.assertEqual(len({p["player_id"] for p in selected}), 2)
+        self.assertTrue(all(p["projection"] == 15 for p in selected))
+
     def test_complete_week_and_missing_future_week(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory) / "raw" / "2026"
