@@ -2250,3 +2250,16 @@ footer > svg {
     overscroll-behavior-x: contain;
   }
 }
+
+/* CGL Analytics */
+.analytics-controls { display: flex; flex-wrap: wrap; gap: 18px; margin: 0 0 20px; }
+.analytics-controls label { display: grid; gap: 6px; font-size: .8rem; font-weight: 700; }
+.analytics-controls select { min-height: 42px; padding: 8px 12px; border: 1px solid var(--line); background: var(--white); color: var(--ink); }
+.analytics-note { margin: 14px 0 20px; color: var(--muted); line-height: 1.5; }
+.analytics-table-wrap { overflow-x: auto; }
+.analytics-table { width: 100%; min-width: 680px; border-collapse: collapse; background: var(--white); }
+.analytics-table th, .analytics-table td { padding: 14px 12px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.analytics-table th { background: var(--ink); color: var(--white); font-size: .75rem; }
+.analytics-table td { font-variant-numeric: tabular-nums; }
+.analytics-positive { color: #227346; font-weight: 800; }
+.analytics-negative { color: #b24137; font-weight: 800; }
