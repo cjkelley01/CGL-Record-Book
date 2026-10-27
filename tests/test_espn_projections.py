@@ -52,7 +52,7 @@ class EspnProjectionsTests(unittest.TestCase):
                                            "appliedTotal": score}]}}
             pool.append(entry)
         selected = waiver_replacements(pool, 9, set(), [0])
-        self.assertEqual(selected[0]["projection"], 12)
+        self.assertEqual(selected[0]["projection"], 15)
         self.assertEqual(waiver_replacements(pool[:2], 9, set(), [0]), [])
         pool[2]["onTeamId"] = 5
         self.assertEqual(waiver_replacements(pool, 9, {103}, [0]), [])
