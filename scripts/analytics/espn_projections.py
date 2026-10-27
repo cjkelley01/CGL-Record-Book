@@ -3,6 +3,7 @@
 Fail closed on absent or ambiguous projection data; never convert missing to zero.
 """
 import json
+import math
 from pathlib import Path
 
 from scripts.analytics.optimal_lineup import optimize_lineup
@@ -32,7 +33,10 @@ def projection_for_week(player, week):
                and not isinstance(s.get("appliedTotal"), bool)]
     if len(matches) != 1:
         raise ValueError(f"Expected exactly one weekly ESPN projection, found {len(matches)}")
-    return float(matches[0])
+    value = float(matches[0])
+    if not math.isfinite(value):
+        raise ValueError("Non-finite projection")
+    return value
 
 
 def roster_entries(payload):
@@ -53,6 +57,25 @@ def roster_entries(payload):
     return found
 
 
+def is_playable(player, week):
+    """ESPN projected schedule: bye/inactive players must not fill a starter slot.
+
+    ESPN uses proTeamSchedules with proTeamId and scoringPeriodId; when schedule
+    data is missing, zero projections cannot establish a playable starter.
+    """
+    if player.get("onBye") is True or player.get("byeWeek") == week:
+        return False
+    stats = player.get("stats") or []
+    projected = [s for s in stats if isinstance(s, dict) and
+                 s.get("statSourceId") == 1 and s.get("scoringPeriodId") == week]
+    if not projected:
+        return False
+    # A positive projection is strong evidence of an actual game; zero alone
+    # is not evidence, particularly for D/STs on bye.
+    return any(isinstance(s.get("appliedTotal"), (int, float)) and
+               s["appliedTotal"] > 0 for s in projected)
+
+
 def normalized_players(entries, week, *, skip_missing=False):
     players = []
     for entry in entries:
@@ -62,6 +85,8 @@ def normalized_players(entries, week, *, skip_missing=False):
         if pid is None:
             raise ValueError("Roster entry missing player ID")
         try:
+            if not is_playable(player, week):
+                raise ValueError("Player has no verified playable projection this week")
             projection = projection_for_week(player, week)
         except ValueError:
             if skip_missing:
@@ -95,6 +120,8 @@ def waiver_replacements(pool, week, rostered_ids, slots):
         if pid is None or int(pid) in rostered_ids:
             continue
         try:
+            if not is_playable(player, week):
+                continue
             points = projection_for_week(player, week)
         except ValueError:
             continue
