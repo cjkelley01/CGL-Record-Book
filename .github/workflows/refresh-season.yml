@@ -49,6 +49,8 @@ jobs:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
           ESPN_SWID: ${{ secrets.ESPN_SWID }}
         run: python scripts/discover_espn_history.py --seasons 2024 2025 2026
+      - name: Audit future ESPN projection coverage
+        run: python scripts/inspect_future_projections.py --start-week 9 --end-week 18
       - name: Rebuild record book data
         run: python scripts/build_core_history.py
       - name: Validate generated analytics
@@ -68,12 +70,12 @@ jobs:
           PY
       - name: Save updated data
         run: |
-          if git diff --quiet -- app/data/core_history.json; then
+          git add app/data/core_history.json data/reports/forecast_projection_coverage.json
+          if git diff --cached --quiet; then
             echo "ESPN data produced no website changes."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add app/data/core_history.json
-            git commit -m "Update 2026 results"
+            git commit -m "Update 2026 results and projection coverage"
             git push
           fi
