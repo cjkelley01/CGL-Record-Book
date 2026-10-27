@@ -11,105 +11,86 @@
     17,
     23
   ],
-  "failure_patterns": [
-    {
-      "team_id": 14,
-      "weeks": [
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18
-      ],
-      "missing_by_slot": {
-        "20": 10
-      }
-    }
-  ],
+  "failure_patterns": [],
   "weeks": [
     {
       "week": 9,
       "expected_teams": 14,
-      "valid_lineups": 13,
+      "valid_lineups": 3,
       "errors": {
-        "missing_or_ambiguous_player_projection": 1
+        "other_lineup_validation_error": 11
       }
     },
     {
       "week": 10,
       "expected_teams": 14,
-      "valid_lineups": 13,
+      "valid_lineups": 0,
       "errors": {
-        "missing_or_ambiguous_player_projection": 1
+        "other_lineup_validation_error": 14
       }
     },
     {
       "week": 11,
       "expected_teams": 14,
-      "valid_lineups": 13,
+      "valid_lineups": 0,
       "errors": {
-        "missing_or_ambiguous_player_projection": 1
+        "other_lineup_validation_error": 14
       }
     },
     {
       "week": 12,
       "expected_teams": 14,
-      "valid_lineups": 13,
+      "valid_lineups": 5,
       "errors": {
-        "missing_or_ambiguous_player_projection": 1
+        "other_lineup_validation_error": 9
       }
     },
     {
       "week": 13,
       "expected_teams": 14,
-      "valid_lineups": 13,
+      "valid_lineups": 2,
       "errors": {
-        "missing_or_ambiguous_player_projection": 1
+        "other_lineup_validation_error": 12
       }
     },
     {
       "week": 14,
       "expected_teams": 14,
-      "valid_lineups": 13,
+      "valid_lineups": 2,
       "errors": {
-        "missing_or_ambiguous_player_projection": 1
+        "other_lineup_validation_error": 12
       }
     },
     {
       "week": 15,
       "expected_teams": 14,
-      "valid_lineups": 13,
+      "valid_lineups": 5,
       "errors": {
-        "missing_or_ambiguous_player_projection": 1
+        "other_lineup_validation_error": 9
       }
     },
     {
       "week": 16,
       "expected_teams": 14,
-      "valid_lineups": 13,
+      "valid_lineups": 5,
       "errors": {
-        "missing_or_ambiguous_player_projection": 1
+        "other_lineup_validation_error": 9
       }
     },
     {
       "week": 17,
       "expected_teams": 14,
-      "valid_lineups": 13,
+      "valid_lineups": 5,
       "errors": {
-        "missing_or_ambiguous_player_projection": 1
+        "other_lineup_validation_error": 9
       }
     },
     {
       "week": 18,
       "expected_teams": 14,
-      "valid_lineups": 13,
+      "valid_lineups": 5,
       "errors": {
-        "missing_or_ambiguous_player_projection": 1
+        "other_lineup_validation_error": 9
       }
     }
   ],
