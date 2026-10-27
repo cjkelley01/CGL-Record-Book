@@ -57,12 +57,16 @@ def roster_entries(payload):
     return found
 
 
-def is_playable(player, week):
+def is_playable(player, week, playing_teams=None):
     """ESPN projected schedule: bye/inactive players must not fill a starter slot.
 
     ESPN uses proTeamSchedules with proTeamId and scoringPeriodId; when schedule
     data is missing, zero projections cannot establish a playable starter.
     """
+    if playing_teams is not None:
+        pro_team = player.get("proTeamId")
+        if pro_team is None or int(pro_team) not in playing_teams:
+            return False
     if player.get("onBye") is True or player.get("byeWeek") == week:
         return False
     stats = player.get("stats") or []
@@ -76,7 +80,7 @@ def is_playable(player, week):
                s["appliedTotal"] > 0 for s in projected)
 
 
-def normalized_players(entries, week, *, skip_missing=False):
+def normalized_players(entries, week, *, skip_missing=False, playing_teams=None):
     players = []
     for entry in entries:
         pool = entry.get("playerPoolEntry") or {}
@@ -85,7 +89,7 @@ def normalized_players(entries, week, *, skip_missing=False):
         if pid is None:
             raise ValueError("Roster entry missing player ID")
         try:
-            if not is_playable(player, week):
+            if not is_playable(player, week, playing_teams):
                 raise ValueError("Player has no verified playable projection this week")
             projection = projection_for_week(player, week)
         except ValueError:
@@ -99,7 +103,7 @@ def normalized_players(entries, week, *, skip_missing=False):
     return players
 
 
-def waiver_replacements(pool, week, rostered_ids, slots):
+def waiver_replacements(pool, week, rostered_ids, slots, playing_teams=None):
     """Conservative slot-specific estimates from ESPN-confirmed unrostered players.
 
     Use the average projection of the three highest eligible available options
@@ -151,7 +155,14 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
     slots = starter_slots(settings)
     means = {int(tid): {} for tid in team_ids}
     coverage = []
+    schedule_path = root / "nfl_schedule.json"
+    schedule = json.loads(schedule_path.read_text()) if schedule_path.exists() else {}
     for week in weeks:
+        playing = set(schedule.get(str(week), []))
+        if not 26 <= len(playing) <= 32:
+            coverage.append({"week": week, "status": "missing_verified_nfl_schedule",
+                             "teams_with_valid_lineups": 0, "teams_expected": len(means)})
+            continue
         path = root / "weeks" / f"{week:02d}" / "mRoster.json"
         if not path.exists():
             coverage.append({"week": week, "status": "missing_file"})
@@ -167,13 +178,13 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
                         if (e.get("playerPoolEntry") or {}).get("player", {}).get("id") or e.get("playerId")}
         pool_path = root / "weeks" / f"{week:02d}" / "free_agents.json"
         pool = json.loads(pool_path.read_text()) if pool_path.exists() else None
-        fallback = waiver_replacements(pool, week, rostered_ids, slots)
+        fallback = waiver_replacements(pool, week, rostered_ids, slots, playing)
         for tid in means:
             entries = rosters.get(tid)
             if not entries:
                 continue
             try:
-                roster_players = normalized_players(entries, week, skip_missing=True)
+                roster_players = normalized_players(entries, week, skip_missing=True, playing_teams=playing)
                 try:
                     optimized = optimize_lineup(roster_players, slots)
                 except ValueError:
