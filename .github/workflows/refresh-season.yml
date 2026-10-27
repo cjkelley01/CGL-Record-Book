@@ -6,6 +6,7 @@ on:
     paths:
       - 'scripts/build_core_history.py'
       - 'scripts/analytics/**'
+      - 'scripts/fetch_waiver_pool.py'
       - '.github/workflows/refresh-season.yml'
   schedule:
     - cron: "0 11 * * 2"
