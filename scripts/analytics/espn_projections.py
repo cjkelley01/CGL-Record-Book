@@ -53,7 +53,7 @@ def roster_entries(payload):
     return found
 
 
-def normalized_players(entries, week):
+def normalized_players(entries, week, *, skip_missing=False):
     players = []
     for entry in entries:
         pool = entry.get("playerPoolEntry") or {}
@@ -61,8 +61,14 @@ def normalized_players(entries, week):
         pid = player.get("id", entry.get("playerId"))
         if pid is None:
             raise ValueError("Roster entry missing player ID")
+        try:
+            projection = projection_for_week(player, week)
+        except ValueError:
+            if skip_missing:
+                continue  # Bye/injury/unprojected player cannot be selected.
+            raise
         players.append({"player_id": int(pid),
-                        "projection": projection_for_week(player, week),
+                        "projection": projection,
                         "eligible_slots": [int(slot) for slot in player.get("eligibleSlots", [])],
                         "available": True})
     return players
@@ -87,7 +93,7 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
             if not entries:
                 continue
             try:
-                means[tid][week] = optimize_lineup(normalized_players(entries, week), slots)["projected_points"]
+                means[tid][week] = optimize_lineup(normalized_players(entries, week, skip_missing=True), slots)["projected_points"]
                 successful += 1
             except (ValueError, KeyError, TypeError):
                 continue
