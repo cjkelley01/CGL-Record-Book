@@ -12,6 +12,7 @@ from typing import Any
 import requests
 
 from moves_analysis import build_moves
+from analytics.all_play import calculate_all_play
 
 
 MANAGERS = {
@@ -649,6 +650,7 @@ def main() -> int:
         "manager_display_policy": "First name and last initial; achievements follow managers across team-name changes.",
         "managers": [{"manager_id": mid, "manager_name": name} for mid, name in MANAGERS.items()],
         "seasons": seasons, "records": records, "manager_history": manager_history,
+        "analytics": {"all_play": [calculate_all_play(season) for season in seasons]},
         "head_to_head": build_head_to_head(seasons), "streaks": streaks, "moves": moves,
         "notes": ["Ed B. & Carolyn B. are one permanent joint ownership unit for Ed's Plus 1 Team.",
                   "Kelley H. receives sole credit for Pandamonium despite ESPN's misleading 2024 owner listing.",

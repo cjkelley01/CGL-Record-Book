@@ -1,6 +1,12 @@
 name: Refresh 2026 Season
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_core_history.py'
+      - 'scripts/analytics/**'
+      - '.github/workflows/refresh-season.yml'
   schedule:
     - cron: "0 11 * * 2"
       timezone: "America/New_York"
@@ -50,6 +56,21 @@ jobs:
         run: python scripts/discover_espn_history.py --seasons 2024 2025 2026
       - name: Rebuild record book data
         run: python scripts/build_core_history.py
+      - name: Validate generated analytics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('app/data/core_history.json').read_text())
+          by_season = {s['season']: s for s in data['seasons']}
+          for item in data['analytics']['all_play']:
+              season = by_season[item['season']]
+              assert len(item['teams']) == len(season['teams'])
+              assert all(row['weeks'] == len(item['completed_weeks']) for row in item['teams'])
+              assert all(row['all_play_wins'] + row['all_play_losses'] + row['all_play_ties'] == row['weeks'] * (len(item['teams']) - 1) for row in item['teams'])
+              assert abs(sum(row['luck_differential'] for row in item['teams'])) < 0.01
+              print(f"Season {item['season']}: {len(item['completed_weeks'])} validated weeks, {len(item['teams'])} teams")
+          PY
       - name: Save updated data
         run: |
           if git diff --quiet -- app/data/core_history.json; then

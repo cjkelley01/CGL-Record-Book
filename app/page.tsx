@@ -1,5 +1,6 @@
 "use client";
 
+import { LeagueAnalytics } from "@/components/record-book/league-analytics";
 import { CurrentSeason } from "@/components/record-book/current-season";
 import { DraftHistory } from "@/components/record-book/draft-history";
 import { HeadToHead } from "@/components/record-book/head-to-head";
@@ -21,6 +22,7 @@ import { TeamLink } from "@/components/record-book/team-link";
 const sections = [
   ["overview", "Overview"],
   ["current", "2026 Live"],
+  ["analytics", "Analytics"],
   ["champions", "Champions"],
   ["standings", "Standings"],
   ["managers", "Managers"],
@@ -247,6 +249,10 @@ export default function Home() {
               );
             })}
           </div>
+        </TabsContent>
+
+        <TabsContent value="analytics" className="page">
+          <LeagueAnalytics />
         </TabsContent>
 
         <TabsContent value="standings" className="page">
