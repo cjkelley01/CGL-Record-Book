@@ -55,6 +55,8 @@ jobs:
         run: python -m scripts.audit_lineup_readiness --start-week 9 --end-week 18
       - name: Rebuild record book data
         run: python scripts/build_core_history.py
+      - name: Recalculate playoff and championship forecasts
+        run: python -m scripts.analytics.weekly_forecast
       - name: Validate generated analytics
         run: |
           python - <<'PY'
@@ -72,7 +74,8 @@ jobs:
           PY
       - name: Save updated data
         run: |
-          git add app/data/core_history.json
+          git add app/data/core_history.json app/data/playoff_forecast.json
+          git add -f data/forecasts/2026-week-*.json
           git add -f data/reports/forecast_projection_coverage.json data/reports/lineup_projection_readiness.json
           if git diff --cached --quiet; then
             echo "ESPN data produced no website changes."
