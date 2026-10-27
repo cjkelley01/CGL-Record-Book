@@ -7,6 +7,8 @@ on:
       - 'scripts/build_core_history.py'
       - 'scripts/analytics/**'
       - 'scripts/fetch_waiver_pool.py'
+      - 'scripts/fetch_nfl_schedule.py'
+      - 'scripts/audit_lineup_readiness.py'
       - '.github/workflows/refresh-season.yml'
   schedule:
     - cron: "0 11 * * 2"
@@ -50,6 +52,8 @@ jobs:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
           ESPN_SWID: ${{ secrets.ESPN_SWID }}
         run: python scripts/discover_espn_history.py --seasons 2024 2025 2026
+      - name: Fetch verified NFL weekly schedule
+        run: python -m scripts.fetch_nfl_schedule --start-week 8 --end-week 18
       - name: Fetch projected ESPN waiver candidates
         env:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
