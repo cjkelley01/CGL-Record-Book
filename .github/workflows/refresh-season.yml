@@ -49,6 +49,8 @@ jobs:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
           ESPN_SWID: ${{ secrets.ESPN_SWID }}
         run: python scripts/discover_espn_history.py --seasons 2024 2025 2026
+      - name: Fetch projected ESPN waiver candidates
+        run: python -m scripts.fetch_waiver_pool --start-week 9 --end-week 18
       - name: Audit future ESPN projection coverage
         run: python scripts/inspect_future_projections.py --start-week 9 --end-week 18
       - name: Audit legal projected lineups
