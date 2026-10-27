@@ -1,5 +1,6 @@
 "use client";
 
+import { PlayoffForecast } from "@/components/record-book/playoff-forecast";
 import { LeagueAnalytics } from "@/components/record-book/league-analytics";
 import { CurrentSeason } from "@/components/record-book/current-season";
 import { DraftHistory } from "@/components/record-book/draft-history";
@@ -23,6 +24,7 @@ const sections = [
   ["overview", "Overview"],
   ["current", "2026 Live"],
   ["analytics", "Analytics"],
+  ["forecast", "Playoff Odds"],
   ["champions", "Champions"],
   ["standings", "Standings"],
   ["managers", "Managers"],
@@ -253,6 +255,10 @@ export default function Home() {
 
         <TabsContent value="analytics" className="page">
           <LeagueAnalytics />
+        </TabsContent>
+
+        <TabsContent value="forecast" className="page">
+          <PlayoffForecast />
         </TabsContent>
 
         <TabsContent value="standings" className="page">

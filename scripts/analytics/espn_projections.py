@@ -53,7 +53,7 @@ def roster_entries(payload):
     return found
 
 
-def normalized_players(entries, week):
+def normalized_players(entries, week, *, skip_missing=False):
     players = []
     for entry in entries:
         pool = entry.get("playerPoolEntry") or {}
@@ -61,11 +61,59 @@ def normalized_players(entries, week):
         pid = player.get("id", entry.get("playerId"))
         if pid is None:
             raise ValueError("Roster entry missing player ID")
+        try:
+            projection = projection_for_week(player, week)
+        except ValueError:
+            if skip_missing:
+                continue  # Bye/injury/unprojected player cannot be selected.
+            raise
         players.append({"player_id": int(pid),
-                        "projection": projection_for_week(player, week),
+                        "projection": projection,
                         "eligible_slots": [int(slot) for slot in player.get("eligibleSlots", [])],
                         "available": True})
     return players
+
+
+def waiver_replacements(pool, week, rostered_ids, slots):
+    """Conservative slot-specific estimates from ESPN-confirmed unrostered players.
+
+    Use the average projection of the three highest eligible available options
+    per slot, rather than assuming the best player is guaranteed.
+    """
+    if not isinstance(pool, list):
+        return []
+    eligible = []
+    for entry in pool:
+        if not isinstance(entry, dict):
+            continue
+        player = entry.get("player") or (entry.get("playerPoolEntry") or {}).get("player") or {}
+        pid = player.get("id")
+        # Explicit ESPN ownership/status confirmation is mandatory.
+        status = entry.get("status")
+        if status not in ("FREEAGENT", "WAIVERS") or entry.get("onTeamId") not in (0, None):
+            continue
+        if pid is None or int(pid) in rostered_ids:
+            continue
+        try:
+            points = projection_for_week(player, week)
+        except ValueError:
+            continue
+        if points < 0:
+            continue
+        eligible.append({"player_id": int(pid), "projection": points,
+                         "eligible_slots": [int(s) for s in player.get("eligibleSlots", [])]})
+    selected = []
+    for slot in sorted(set(slots)):
+        options = sorted((p for p in eligible if slot in p["eligible_slots"]),
+                         key=lambda p: (-p["projection"], p["player_id"]))
+        if len(options) < 3:
+            continue
+        top_three = options[:3]
+        estimate = sum(p["projection"] for p in top_three) / 3
+        # Synthetic projection estimate, not a claimed player acquisition.
+        selected.append({"player_id": -(1000000 + slot), "projection": estimate,
+                         "eligible_slots": [slot]})
+    return selected
 
 
 def extract_weekly_means(data_root, season, weeks, team_ids):
@@ -82,16 +130,33 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
         payload = json.loads(path.read_text())
         rosters = roster_entries(payload)
         successful = 0
+        replacements_used = 0
+        rostered_ids = {int((e.get("playerPoolEntry") or {}).get("player", {}).get("id") or e.get("playerId"))
+                        for entries in rosters.values() for e in entries
+                        if (e.get("playerPoolEntry") or {}).get("player", {}).get("id") or e.get("playerId")}
+        pool_path = root / "weeks" / f"{week:02d}" / "free_agents.json"
+        pool = json.loads(pool_path.read_text()) if pool_path.exists() else None
+        fallback = waiver_replacements(pool, week, rostered_ids, slots)
         for tid in means:
             entries = rosters.get(tid)
             if not entries:
                 continue
             try:
-                means[tid][week] = optimize_lineup(normalized_players(entries, week), slots)["projected_points"]
+                roster_players = normalized_players(entries, week, skip_missing=True)
+                try:
+                    optimized = optimize_lineup(roster_players, slots)
+                except ValueError:
+                    if not fallback:
+                        raise
+                    optimized = optimize_lineup(roster_players + fallback, slots)
+                    replacements_used += 1
+                means[tid][week] = optimized["projected_points"]
                 successful += 1
             except (ValueError, KeyError, TypeError):
                 continue
-        coverage.append({"week": week, "teams_with_valid_lineups": successful,
+        coverage.append({"week": week, "teams_using_waiver_replacements": replacements_used,
+                         "waiver_pool_verified": pool is not None,
+                         "teams_with_valid_lineups": successful,
                          "teams_expected": len(means),
                          "status": "complete" if successful == len(means) else "incomplete"})
     return {"means": means, "coverage": coverage,

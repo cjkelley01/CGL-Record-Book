@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from scripts.analytics.espn_projections import (
-    extract_weekly_means, projection_for_week, starter_slots,
+    extract_weekly_means, projection_for_week, starter_slots, normalized_players, waiver_replacements,
 )
 
 
@@ -30,6 +30,32 @@ class EspnProjectionsTests(unittest.TestCase):
         self.assertEqual(12, projection_for_week(p, 9))
         with self.assertRaises(ValueError):
             projection_for_week(p, 11)
+
+    def test_bye_player_skipped_and_eligible_bench_player_used(self):
+        from scripts.analytics.optimal_lineup import optimize_lineup
+        missing = player(11, 0)
+        missing["playerPoolEntry"]["player"]["stats"] = []
+        bench = player(12, 14)
+        self.assertEqual(
+            optimize_lineup(normalized_players([missing, bench], 9, skip_missing=True), [0])["projected_points"],
+            14,
+        )
+        with self.assertRaises(ValueError):
+            optimize_lineup(normalized_players([missing], 9, skip_missing=True), [0])
+
+    def test_waiver_replacement_requires_confirmed_availability(self):
+        pool = []
+        for pid, score in enumerate([18, 15, 12, 9], start=100):
+            entry = {"status": "FREEAGENT", "onTeamId": 0,
+                     "player": {"id": pid, "eligibleSlots": [0],
+                                "stats": [{"statSourceId": 1, "scoringPeriodId": 9,
+                                           "appliedTotal": score}]}}
+            pool.append(entry)
+        selected = waiver_replacements(pool, 9, set(), [0])
+        self.assertEqual(selected[0]["projection"], 15)
+        self.assertEqual(waiver_replacements(pool[:2], 9, set(), [0]), [])
+        pool[2]["onTeamId"] = 5
+        self.assertEqual(waiver_replacements(pool, 9, {103}, [0]), [])
 
     def test_complete_week_and_missing_future_week(self):
         with tempfile.TemporaryDirectory() as directory:
