@@ -14,7 +14,6 @@ def calculate_all_play(season):
     if len(ids) != len(teams):
         raise ValueError("Duplicate team IDs")
     weeks = defaultdict(dict)
-    actual = defaultdict(lambda: {"wins": 0, "losses": 0, "ties": 0})
     for matchup in season["matchups"]:
         if matchup.get("stage") != "regular_season" or not matchup.get("decided"):
             continue
@@ -28,15 +27,6 @@ def calculate_all_play(season):
         if home in weeks[week] or away in weeks[week]:
             raise ValueError("Duplicate team/week score")
         weeks[week][home], weeks[week][away] = hs, aws
-        if hs > aws:
-            actual[home]["wins"] += 1
-            actual[away]["losses"] += 1
-        elif aws > hs:
-            actual[away]["wins"] += 1
-            actual[home]["losses"] += 1
-        else:
-            actual[home]["ties"] += 1
-            actual[away]["ties"] += 1
 
     results = {team["team_id"]: {
         "team_id": team["team_id"], "team_name": team["team_name"],
