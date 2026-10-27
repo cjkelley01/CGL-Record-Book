@@ -77,8 +77,8 @@ def normalized_players(entries, week, *, skip_missing=False):
 def waiver_replacements(pool, week, rostered_ids, slots):
     """Conservative slot-specific estimates from ESPN-confirmed unrostered players.
 
-    Use the third-best of the top five eligible options per slot, rather than
-    treating the best available player as a guaranteed acquisition.
+    Use the average projection of the three highest eligible available options
+    per slot, rather than assuming the best player is guaranteed.
     """
     if not isinstance(pool, list):
         return []
@@ -103,18 +103,16 @@ def waiver_replacements(pool, week, rostered_ids, slots):
         eligible.append({"player_id": int(pid), "projection": points,
                          "eligible_slots": [int(s) for s in player.get("eligibleSlots", [])]})
     selected = []
-    used = set()
     for slot in sorted(set(slots)):
         options = sorted((p for p in eligible if slot in p["eligible_slots"]),
                          key=lambda p: (-p["projection"], p["player_id"]))
         if len(options) < 3:
             continue
-        # Third-ranked candidate is a conservative, actually available player.
-        for candidate in options[2:]:
-            if candidate["player_id"] not in used:
-                selected.append(candidate)
-                used.add(candidate["player_id"])
-                break
+        top_three = options[:3]
+        estimate = sum(p["projection"] for p in top_three) / 3
+        # Synthetic projection estimate, not a claimed player acquisition.
+        selected.append({"player_id": -(1000000 + slot), "projection": estimate,
+                         "eligible_slots": [slot]})
     return selected
 
 
