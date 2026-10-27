@@ -1,0 +1,50 @@
+name: Validate CGL Record Book
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, feature/cgl-analytics-foundation]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python-tests:
+    name: Python regression tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Python dependencies
+        run: python -m pip install requests
+      - name: Run regression suite
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+
+  website:
+    name: Website typecheck, lint and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: '11.19.0'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: TypeScript validation
+        run: pnpm typecheck
+      - name: Lint
+        run: pnpm lint
+      - name: Production build
+        run: pnpm build
