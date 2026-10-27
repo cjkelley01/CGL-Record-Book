@@ -14,18 +14,13 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: refresh-season
+  cancel-in-progress: false
 
 jobs:
   refresh-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -82,25 +77,3 @@ jobs:
             git commit -m "Update 2026 results"
             git push
           fi
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 11.19.0
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-      - name: Install website dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Build static site
-        run: pnpm build
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-      - name: Upload site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist-pages
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
