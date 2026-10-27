@@ -31,16 +31,32 @@ type ScheduleRow = {
 };
 type ScheduleSeason = { season: number; completed_weeks: number[]; teams: ScheduleRow[] };
 
+type PowerRow = {
+  team_id: number; team_name: string; rank: number; rank_change: number | null;
+  power_score: number; points_per_week: number; all_play_rate: number;
+  recent_form: number; scoring_stddev: number;
+  components: { scoring: number; all_play: number; recent: number; consistency: number };
+};
+type PowerSeason = {
+  season: number; completed_weeks: number[]; method: string;
+  weekly_rankings: { week: number; teams: PowerRow[] }[];
+};
+
 export function LeagueAnalytics() {
   const analytics = (data as unknown as { analytics?: { all_play?: AnalyticsSeason[] } }).analytics?.all_play ?? [];
   const schedules = (data as unknown as { analytics?: { schedule_luck?: ScheduleSeason[] } }).analytics?.schedule_luck ?? [];
-  const [view, setView] = useState<"all_play" | "schedule">("all_play");
+  const power = (data as unknown as { analytics?: { power_rankings?: PowerSeason[] } }).analytics?.power_rankings ?? [];
+  const [view, setView] = useState<"all_play" | "schedule" | "power">("all_play");
+  const [selectedWeek, setSelectedWeek] = useState<number | null>(null);
   const [scheduleSort, setScheduleSort] = useState<"points_against_per_week" | "schedule_luck" | "average_schedule_wins">("points_against_per_week");
   const [expandedTeam, setExpandedTeam] = useState<number | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [sort, setSort] = useState<"expected_wins" | "luck_differential" | "all_play_wins">("expected_wins");
   const years = [...analytics].sort((a, b) => b.season - a.season);
   const season = years.find((entry) => entry.season === selectedYear) ?? years[0];
+  const powerSeason = power.find((entry) => entry.season === season?.season);
+  const powerWeeks = powerSeason?.weekly_rankings ?? [];
+  const powerWeek = powerWeeks.find(entry => entry.week === selectedWeek) ?? powerWeeks[powerWeeks.length - 1];
   const scheduleSeason = schedules.find((entry) => entry.season === season?.season);
   const scheduleRows = [...(scheduleSeason?.teams ?? [])].sort((a, b) =>
     b[scheduleSort] - a[scheduleSort] || a.team_name.localeCompare(b.team_name));
@@ -61,6 +77,7 @@ export function LeagueAnalytics() {
               <select value={view} onChange={(event) => setView(event.target.value as typeof view)}>
                 <option value="all_play">All-play &amp; expected wins</option>
                 <option value="schedule">Schedule difficulty &amp; luck</option>
+                <option value="power">Power rankings</option>
               </select>
             </label>
             <label>Season
@@ -68,7 +85,13 @@ export function LeagueAnalytics() {
                 {years.map((entry) => <option key={entry.season} value={entry.season}>{entry.season}</option>)}
               </select>
             </label>
-            {view === "all_play" ? (
+            {view === "power" ? (
+              <label>Through week
+                <select value={powerWeek?.week ?? ""} onChange={(event) => setSelectedWeek(Number(event.target.value))}>
+                  {powerWeeks.map(entry => <option key={entry.week} value={entry.week}>Week {entry.week}</option>)}
+                </select>
+              </label>
+            ) : view === "all_play" ? (
               <label>Rank by
                 <select value={sort} onChange={(event) => setSort(event.target.value as typeof sort)}>
                   <option value="expected_wins">Expected wins</option>
@@ -107,6 +130,29 @@ export function LeagueAnalytics() {
               </tbody>
             </table>
           </div>
+          ) : view === "power" ? (
+            powerWeek ? (
+              <>
+                <div className="table-shell analytics-table-wrap">
+                  <table className="analytics-table">
+                    <thead><tr><th>Rank</th><th>Change</th><th>Team</th><th>Power score</th><th>Pts/week</th><th>All-play %</th><th>Recent form %</th><th>Scoring SD</th></tr></thead>
+                    <tbody>{powerWeek.teams.map(row => (
+                      <tr key={row.team_id}>
+                        <td>{row.rank}</td>
+                        <td>{row.rank_change === null ? "—" : row.rank_change > 0 ? `↑${row.rank_change}` : row.rank_change < 0 ? `↓${Math.abs(row.rank_change)}` : "—"}</td>
+                        <td><strong>{row.team_name}</strong></td>
+                        <td><strong>{fmt.format(row.power_score)}</strong></td>
+                        <td>{fmt.format(row.points_per_week)}</td>
+                        <td>{fmt.format(row.all_play_rate * 100)}%</td>
+                        <td>{fmt.format(row.recent_form * 100)}%</td>
+                        <td>{fmt.format(row.scoring_stddev)}</td>
+                      </tr>
+                    ))}</tbody>
+                  </table>
+                </div>
+                <p className="analytics-note">Power scores are relative to the teams in that season, not projected win probabilities. {powerSeason?.method}. Recent form uses up to the latest three completed weeks; lower scoring standard deviation means more consistent scoring. Rank change is versus the previous completed week. Ties in power score break by points per week, then team name.</p>
+              </>
+            ) : <p className="analytics-note">Power rankings are not generated yet. Run the ESPN refresh workflow.</p>
           ) : scheduleSeason ? (
             <>
               <div className="table-shell analytics-table-wrap">
