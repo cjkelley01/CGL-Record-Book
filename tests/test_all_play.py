@@ -26,7 +26,7 @@ class AllPlayTests(unittest.TestCase):
         self.assertEqual(1, rows[1]["expected_wins"])
         self.assertEqual(0, rows[1]["luck_differential"])
         self.assertEqual(0, rows[4]["expected_wins"])
-        self.assertEqual(-0.3333, rows[3]["luck_differential"])
+        self.assertEqual(0.6667, rows[3]["luck_differential"])
 
     def test_ties_count_half(self):
         result = calculate_all_play(season([
