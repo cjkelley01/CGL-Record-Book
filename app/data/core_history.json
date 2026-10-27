@@ -26533,7 +26533,7 @@
               "7": 1
             },
             "misc": 0,
-            "moveToActive": 24,
+            "moveToActive": 27,
             "moveToIR": 1,
             "paid": 0.0,
             "teamCharges": 0.0,
@@ -26572,7 +26572,7 @@
               "6": 1
             },
             "misc": 0,
-            "moveToActive": 12,
+            "moveToActive": 14,
             "moveToIR": 1,
             "paid": 0.0,
             "teamCharges": 0.0,
@@ -26896,7 +26896,7 @@
               "7": 1
             },
             "misc": 0,
-            "moveToActive": 29,
+            "moveToActive": 31,
             "moveToIR": 1,
             "paid": 0.0,
             "teamCharges": 0.0,
@@ -39806,6 +39806,484 @@
       ]
     }
   },
+  "analytics": {
+    "all_play": [
+      {
+        "season": 2024,
+        "completed_weeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "teams": [
+          {
+            "team_id": 1,
+            "team_name": "Charley's Angels",
+            "weeks": 14,
+            "all_play_wins": 117,
+            "all_play_losses": 37,
+            "all_play_ties": 0,
+            "expected_wins": 10.6364,
+            "actual_win_equivalents": 13.0,
+            "luck_differential": 2.3636
+          },
+          {
+            "team_id": 18,
+            "team_name": "Timberwolves",
+            "weeks": 14,
+            "all_play_wins": 91,
+            "all_play_losses": 63,
+            "all_play_ties": 0,
+            "expected_wins": 8.2727,
+            "actual_win_equivalents": 9.0,
+            "luck_differential": 0.7273
+          },
+          {
+            "team_id": 8,
+            "team_name": "Alex's Astounding Team",
+            "weeks": 14,
+            "all_play_wins": 89,
+            "all_play_losses": 65,
+            "all_play_ties": 0,
+            "expected_wins": 8.0909,
+            "actual_win_equivalents": 7.0,
+            "luck_differential": -1.0909
+          },
+          {
+            "team_id": 4,
+            "team_name": "Who Shot JR",
+            "weeks": 14,
+            "all_play_wins": 88,
+            "all_play_losses": 66,
+            "all_play_ties": 0,
+            "expected_wins": 8.0,
+            "actual_win_equivalents": 9.0,
+            "luck_differential": 1.0
+          },
+          {
+            "team_id": 9,
+            "team_name": "2015 Flux Capacitors",
+            "weeks": 14,
+            "all_play_wins": 85,
+            "all_play_losses": 69,
+            "all_play_ties": 0,
+            "expected_wins": 7.7273,
+            "actual_win_equivalents": 8.0,
+            "luck_differential": 0.2727
+          },
+          {
+            "team_id": 3,
+            "team_name": "Mike's Magic",
+            "weeks": 14,
+            "all_play_wins": 81,
+            "all_play_losses": 73,
+            "all_play_ties": 0,
+            "expected_wins": 7.3636,
+            "actual_win_equivalents": 5.0,
+            "luck_differential": -2.3636
+          },
+          {
+            "team_id": 5,
+            "team_name": "No Refills",
+            "weeks": 14,
+            "all_play_wins": 81,
+            "all_play_losses": 73,
+            "all_play_ties": 0,
+            "expected_wins": 7.3636,
+            "actual_win_equivalents": 10.0,
+            "luck_differential": 2.6364
+          },
+          {
+            "team_id": 17,
+            "team_name": "Ed's Plus 1 Team",
+            "weeks": 14,
+            "all_play_wins": 69,
+            "all_play_losses": 85,
+            "all_play_ties": 0,
+            "expected_wins": 6.2727,
+            "actual_win_equivalents": 6.0,
+            "luck_differential": -0.2727
+          },
+          {
+            "team_id": 13,
+            "team_name": "SOS (Susan, Only Serendipity)",
+            "weeks": 14,
+            "all_play_wins": 69,
+            "all_play_losses": 85,
+            "all_play_ties": 0,
+            "expected_wins": 6.2727,
+            "actual_win_equivalents": 4.0,
+            "luck_differential": -2.2727
+          },
+          {
+            "team_id": 10,
+            "team_name": "Pandamonium",
+            "weeks": 14,
+            "all_play_wins": 64,
+            "all_play_losses": 90,
+            "all_play_ties": 0,
+            "expected_wins": 5.8182,
+            "actual_win_equivalents": 7.0,
+            "luck_differential": 1.1818
+          },
+          {
+            "team_id": 2,
+            "team_name": "Quy's Tremendous Team",
+            "weeks": 14,
+            "all_play_wins": 46,
+            "all_play_losses": 108,
+            "all_play_ties": 0,
+            "expected_wins": 4.1818,
+            "actual_win_equivalents": 3.0,
+            "luck_differential": -1.1818
+          },
+          {
+            "team_id": 14,
+            "team_name": "CB's Bulls",
+            "weeks": 14,
+            "all_play_wins": 44,
+            "all_play_losses": 110,
+            "all_play_ties": 0,
+            "expected_wins": 4.0,
+            "actual_win_equivalents": 3.0,
+            "luck_differential": -1.0
+          }
+        ]
+      },
+      {
+        "season": 2025,
+        "completed_weeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "teams": [
+          {
+            "team_id": 8,
+            "team_name": "Alex's Astounding Team",
+            "weeks": 14,
+            "all_play_wins": 109,
+            "all_play_losses": 45,
+            "all_play_ties": 0,
+            "expected_wins": 9.9091,
+            "actual_win_equivalents": 9.0,
+            "luck_differential": -0.9091
+          },
+          {
+            "team_id": 14,
+            "team_name": "CB's Bulls",
+            "weeks": 14,
+            "all_play_wins": 102,
+            "all_play_losses": 52,
+            "all_play_ties": 0,
+            "expected_wins": 9.2727,
+            "actual_win_equivalents": 10.0,
+            "luck_differential": 0.7273
+          },
+          {
+            "team_id": 9,
+            "team_name": "Flux Capacitors",
+            "weeks": 14,
+            "all_play_wins": 102,
+            "all_play_losses": 52,
+            "all_play_ties": 0,
+            "expected_wins": 9.2727,
+            "actual_win_equivalents": 9.0,
+            "luck_differential": -0.2727
+          },
+          {
+            "team_id": 10,
+            "team_name": "Big Joe",
+            "weeks": 14,
+            "all_play_wins": 100,
+            "all_play_losses": 54,
+            "all_play_ties": 0,
+            "expected_wins": 9.0909,
+            "actual_win_equivalents": 10.0,
+            "luck_differential": 0.9091
+          },
+          {
+            "team_id": 3,
+            "team_name": "Mike's Magic",
+            "weeks": 14,
+            "all_play_wins": 83,
+            "all_play_losses": 71,
+            "all_play_ties": 0,
+            "expected_wins": 7.5455,
+            "actual_win_equivalents": 8.0,
+            "luck_differential": 0.4545
+          },
+          {
+            "team_id": 13,
+            "team_name": "SOS (Susan, Only Serendipity)",
+            "weeks": 14,
+            "all_play_wins": 81,
+            "all_play_losses": 73,
+            "all_play_ties": 0,
+            "expected_wins": 7.3636,
+            "actual_win_equivalents": 7.0,
+            "luck_differential": -0.3636
+          },
+          {
+            "team_id": 18,
+            "team_name": "Timberwolves",
+            "weeks": 14,
+            "all_play_wins": 75,
+            "all_play_losses": 79,
+            "all_play_ties": 0,
+            "expected_wins": 6.8182,
+            "actual_win_equivalents": 9.0,
+            "luck_differential": 2.1818
+          },
+          {
+            "team_id": 1,
+            "team_name": "Charley's Angels",
+            "weeks": 14,
+            "all_play_wins": 73,
+            "all_play_losses": 81,
+            "all_play_ties": 0,
+            "expected_wins": 6.6364,
+            "actual_win_equivalents": 6.0,
+            "luck_differential": -0.6364
+          },
+          {
+            "team_id": 2,
+            "team_name": "Kinda Mid",
+            "weeks": 14,
+            "all_play_wins": 69,
+            "all_play_losses": 85,
+            "all_play_ties": 0,
+            "expected_wins": 6.2727,
+            "actual_win_equivalents": 4.0,
+            "luck_differential": -2.2727
+          },
+          {
+            "team_id": 5,
+            "team_name": "No Refills",
+            "weeks": 14,
+            "all_play_wins": 60,
+            "all_play_losses": 94,
+            "all_play_ties": 0,
+            "expected_wins": 5.4545,
+            "actual_win_equivalents": 6.0,
+            "luck_differential": 0.5455
+          },
+          {
+            "team_id": 4,
+            "team_name": "All the way to the Em-zone",
+            "weeks": 14,
+            "all_play_wins": 47,
+            "all_play_losses": 107,
+            "all_play_ties": 0,
+            "expected_wins": 4.2727,
+            "actual_win_equivalents": 5.0,
+            "luck_differential": 0.7273
+          },
+          {
+            "team_id": 17,
+            "team_name": "Ed's Plus 1 Team",
+            "weeks": 14,
+            "all_play_wins": 23,
+            "all_play_losses": 131,
+            "all_play_ties": 0,
+            "expected_wins": 2.0909,
+            "actual_win_equivalents": 1.0,
+            "luck_differential": -1.0909
+          }
+        ]
+      },
+      {
+        "season": 2026,
+        "completed_weeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "teams": [
+          {
+            "team_id": 13,
+            "team_name": "SOS (Susan, Only Serendipity)",
+            "weeks": 7,
+            "all_play_wins": 74,
+            "all_play_losses": 17,
+            "all_play_ties": 0,
+            "expected_wins": 5.6923,
+            "actual_win_equivalents": 4.0,
+            "luck_differential": -1.6923
+          },
+          {
+            "team_id": 17,
+            "team_name": "Ed's Plus 1 Team",
+            "weeks": 7,
+            "all_play_wins": 71,
+            "all_play_losses": 20,
+            "all_play_ties": 0,
+            "expected_wins": 5.4615,
+            "actual_win_equivalents": 5.0,
+            "luck_differential": -0.4615
+          },
+          {
+            "team_id": 1,
+            "team_name": "Charley's Angels",
+            "weeks": 7,
+            "all_play_wins": 68,
+            "all_play_losses": 23,
+            "all_play_ties": 0,
+            "expected_wins": 5.2308,
+            "actual_win_equivalents": 7.0,
+            "luck_differential": 1.7692
+          },
+          {
+            "team_id": 9,
+            "team_name": "Flux Capacitors",
+            "weeks": 7,
+            "all_play_wins": 59,
+            "all_play_losses": 32,
+            "all_play_ties": 0,
+            "expected_wins": 4.5385,
+            "actual_win_equivalents": 5.0,
+            "luck_differential": 0.4615
+          },
+          {
+            "team_id": 8,
+            "team_name": "Kaitlyn's Deluxe Team",
+            "weeks": 7,
+            "all_play_wins": 55,
+            "all_play_losses": 36,
+            "all_play_ties": 0,
+            "expected_wins": 4.2308,
+            "actual_win_equivalents": 5.0,
+            "luck_differential": 0.7692
+          },
+          {
+            "team_id": 3,
+            "team_name": "Mike's Magic",
+            "weeks": 7,
+            "all_play_wins": 50,
+            "all_play_losses": 41,
+            "all_play_ties": 0,
+            "expected_wins": 3.8462,
+            "actual_win_equivalents": 4.0,
+            "luck_differential": 0.1538
+          },
+          {
+            "team_id": 10,
+            "team_name": "Big Joe",
+            "weeks": 7,
+            "all_play_wins": 43,
+            "all_play_losses": 48,
+            "all_play_ties": 0,
+            "expected_wins": 3.3077,
+            "actual_win_equivalents": 3.0,
+            "luck_differential": -0.3077
+          },
+          {
+            "team_id": 14,
+            "team_name": "CB's Bulls",
+            "weeks": 7,
+            "all_play_wins": 42,
+            "all_play_losses": 49,
+            "all_play_ties": 0,
+            "expected_wins": 3.2308,
+            "actual_win_equivalents": 4.0,
+            "luck_differential": 0.7692
+          },
+          {
+            "team_id": 18,
+            "team_name": "Timberwolves",
+            "weeks": 7,
+            "all_play_wins": 42,
+            "all_play_losses": 49,
+            "all_play_ties": 0,
+            "expected_wins": 3.2308,
+            "actual_win_equivalents": 3.0,
+            "luck_differential": -0.2308
+          },
+          {
+            "team_id": 4,
+            "team_name": "All the way to the Em-zone",
+            "weeks": 7,
+            "all_play_wins": 38,
+            "all_play_losses": 53,
+            "all_play_ties": 0,
+            "expected_wins": 2.9231,
+            "actual_win_equivalents": 3.0,
+            "luck_differential": 0.0769
+          },
+          {
+            "team_id": 20,
+            "team_name": "BK Have It Your Way",
+            "weeks": 7,
+            "all_play_wins": 34,
+            "all_play_losses": 57,
+            "all_play_ties": 0,
+            "expected_wins": 2.6154,
+            "actual_win_equivalents": 1.0,
+            "luck_differential": -1.6154
+          },
+          {
+            "team_id": 5,
+            "team_name": "No Refills",
+            "weeks": 7,
+            "all_play_wins": 26,
+            "all_play_losses": 65,
+            "all_play_ties": 0,
+            "expected_wins": 2.0,
+            "actual_win_equivalents": 2.0,
+            "luck_differential": 0.0
+          },
+          {
+            "team_id": 2,
+            "team_name": "Kinda Mid",
+            "weeks": 7,
+            "all_play_wins": 23,
+            "all_play_losses": 68,
+            "all_play_ties": 0,
+            "expected_wins": 1.7692,
+            "actual_win_equivalents": 1.0,
+            "luck_differential": -0.7692
+          },
+          {
+            "team_id": 19,
+            "team_name": "Cardiac Comebacks",
+            "weeks": 7,
+            "all_play_wins": 12,
+            "all_play_losses": 79,
+            "all_play_ties": 0,
+            "expected_wins": 0.9231,
+            "actual_win_equivalents": 2.0,
+            "luck_differential": 1.0769
+          }
+        ]
+      }
+    ]
+  },
   "head_to_head": [
     {
       "manager_1_id": "aaron_t",
@@ -41081,10 +41559,10 @@
       {
         "season": 2026,
         "player_cards": 1055,
-        "unique_transactions": 354,
-        "completed_transactions": 354,
+        "unique_transactions": 369,
+        "completed_transactions": 369,
         "duplicate_player_card_references_removed": 94,
-        "activity_feed_topics": 422,
+        "activity_feed_topics": 426,
         "limitations": "Player cards expose completed transactions only; rejected, canceled, and failed historical moves are unavailable."
       }
     ],
@@ -41322,7 +41800,7 @@
         0,
         0,
         0,
-        0,
+        0.0,
         0,
         0,
         0,
@@ -42156,51 +42634,16 @@
                 "position": 3,
                 "contribution": {
                   "regular_points": 2.6,
-                  "regular_starts": 8,
+                  "regular_starts": 1,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 2.6,
-                  "total_starts": 8,
+                  "total_starts": 1,
                   "weekly": [
                     {
                       "week": 7,
                       "stage": "regular_season",
                       "points": 2.6
-                    },
-                    {
-                      "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
-                      "stage": "regular_season",
-                      "points": 0.0
                     }
                   ]
                 }
@@ -42215,11 +42658,11 @@
             ],
             "contribution": {
               "regular_points": 2.6,
-              "regular_starts": 8,
+              "regular_starts": 1,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 2.6,
-              "total_starts": 8
+              "total_starts": 1
             }
           }
         ],
@@ -44918,11 +45361,11 @@
                 "position": 16,
                 "contribution": {
                   "regular_points": 6.0,
-                  "regular_starts": 9,
+                  "regular_starts": 2,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 6.0,
-                  "total_starts": 9,
+                  "total_starts": 2,
                   "weekly": [
                     {
                       "week": 6,
@@ -44933,41 +45376,6 @@
                       "week": 7,
                       "stage": "regular_season",
                       "points": -2.0
-                    },
-                    {
-                      "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
-                      "stage": "regular_season",
-                      "points": 0.0
                     }
                   ]
                 }
@@ -44976,11 +45384,11 @@
             "outgoing": [],
             "contribution": {
               "regular_points": 6.0,
-              "regular_starts": 9,
+              "regular_starts": 2,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 6.0,
-              "total_starts": 9
+              "total_starts": 2
             }
           }
         ],
@@ -45089,11 +45497,11 @@
                 "position": 2,
                 "contribution": {
                   "regular_points": 30.0,
-                  "regular_starts": 10,
+                  "regular_starts": 3,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 30.0,
-                  "total_starts": 10,
+                  "total_starts": 3,
                   "weekly": [
                     {
                       "week": 5,
@@ -45109,41 +45517,6 @@
                       "week": 7,
                       "stage": "regular_season",
                       "points": 11.8
-                    },
-                    {
-                      "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
-                      "stage": "regular_season",
-                      "points": 0.0
                     }
                   ]
                 }
@@ -45152,11 +45525,11 @@
             "outgoing": [],
             "contribution": {
               "regular_points": 30.0,
-              "regular_starts": 10,
+              "regular_starts": 3,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 30.0,
-              "total_starts": 10
+              "total_starts": 3
             }
           }
         ],
@@ -47103,24 +47476,60 @@
                 "player_name": "AJ Barner",
                 "position": 4,
                 "contribution": {
-                  "regular_points": 0,
-                  "regular_starts": 0,
+                  "regular_points": 0.0,
+                  "regular_starts": 7,
                   "playoff_points": 0,
                   "playoff_starts": 0,
-                  "total_points": 0,
-                  "total_starts": 0,
-                  "weekly": []
+                  "total_points": 0.0,
+                  "total_starts": 7,
+                  "weekly": [
+                    {
+                      "week": 8,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 10,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 12,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 13,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 14,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    }
+                  ]
                 }
               }
             ],
             "outgoing": [],
             "contribution": {
-              "regular_points": 0,
-              "regular_starts": 0,
+              "regular_points": 0.0,
+              "regular_starts": 7,
               "playoff_points": 0,
               "playoff_starts": 0,
-              "total_points": 0,
-              "total_starts": 0
+              "total_points": 0.0,
+              "total_starts": 7
             }
           }
         ],
@@ -47705,16 +48114,21 @@
                 "position": 4,
                 "contribution": {
                   "regular_points": 6.6,
-                  "regular_starts": 1,
+                  "regular_starts": 2,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 6.6,
-                  "total_starts": 1,
+                  "total_starts": 2,
                   "weekly": [
                     {
                       "week": 4,
                       "stage": "regular_season",
                       "points": 6.6
+                    },
+                    {
+                      "week": 10,
+                      "stage": "regular_season",
+                      "points": 0.0
                     }
                   ]
                 }
@@ -47729,11 +48143,11 @@
             ],
             "contribution": {
               "regular_points": 6.6,
-              "regular_starts": 1,
+              "regular_starts": 2,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 6.6,
-              "total_starts": 1
+              "total_starts": 2
             }
           }
         ],
@@ -47812,11 +48226,11 @@
                 "subsequent_team": "Mike's Magic",
                 "subsequent_contribution": {
                   "regular_points": 6.0,
-                  "regular_starts": 9,
+                  "regular_starts": 2,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 6.0,
-                  "total_starts": 9,
+                  "total_starts": 2,
                   "weekly": [
                     {
                       "week": 6,
@@ -47827,41 +48241,6 @@
                       "week": 7,
                       "stage": "regular_season",
                       "points": -2.0
-                    },
-                    {
-                      "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
-                      "stage": "regular_season",
-                      "points": 0.0
                     }
                   ]
                 },
@@ -48733,16 +49112,21 @@
                 "position": 3,
                 "contribution": {
                   "regular_points": 11.0,
-                  "regular_starts": 1,
+                  "regular_starts": 2,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 11.0,
-                  "total_starts": 1,
+                  "total_starts": 2,
                   "weekly": [
                     {
                       "week": 4,
                       "stage": "regular_season",
                       "points": 11.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
                     }
                   ]
                 }
@@ -48768,11 +49152,11 @@
             ],
             "contribution": {
               "regular_points": 11.0,
-              "regular_starts": 1,
+              "regular_starts": 2,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 11.0,
-              "total_starts": 1
+              "total_starts": 2
             }
           }
         ],
@@ -49331,16 +49715,21 @@
                 "subsequent_team": "Charley's Angels",
                 "subsequent_contribution": {
                   "regular_points": 11.0,
-                  "regular_starts": 1,
+                  "regular_starts": 2,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 11.0,
-                  "total_starts": 1,
+                  "total_starts": 2,
                   "weekly": [
                     {
                       "week": 4,
                       "stage": "regular_season",
                       "points": 11.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
                     }
                   ]
                 },
@@ -50274,11 +50663,11 @@
                 "position": 3,
                 "contribution": {
                   "regular_points": 30.2,
-                  "regular_starts": 10,
+                  "regular_starts": 3,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 30.2,
-                  "total_starts": 10,
+                  "total_starts": 3,
                   "weekly": [
                     {
                       "week": 5,
@@ -50294,41 +50683,6 @@
                       "week": 7,
                       "stage": "regular_season",
                       "points": 16.4
-                    },
-                    {
-                      "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
-                      "stage": "regular_season",
-                      "points": 0.0
                     }
                   ]
                 }
@@ -50354,11 +50708,11 @@
             ],
             "contribution": {
               "regular_points": 30.2,
-              "regular_starts": 10,
+              "regular_starts": 3,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 30.2,
-              "total_starts": 10
+              "total_starts": 3
             }
           }
         ],
@@ -51059,11 +51413,11 @@
                 "subsequent_team": "Timberwolves",
                 "subsequent_contribution": {
                   "regular_points": 30.2,
-                  "regular_starts": 10,
+                  "regular_starts": 3,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 30.2,
-                  "total_starts": 10,
+                  "total_starts": 3,
                   "weekly": [
                     {
                       "week": 5,
@@ -51079,41 +51433,6 @@
                       "week": 7,
                       "stage": "regular_season",
                       "points": 16.4
-                    },
-                    {
-                      "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
-                      "stage": "regular_season",
-                      "points": 0.0
                     }
                   ]
                 },
