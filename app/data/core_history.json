@@ -26406,7 +26406,7 @@
       "season": 2026,
       "league_id": 1877457250,
       "is_complete": false,
-      "through_week": 6,
+      "through_week": 7,
       "settings": {
         "team_count": 14,
         "regular_season_matchup_periods": 14,
@@ -26434,11 +26434,11 @@
           ],
           "logo": "https://mystique-api.fantasy.espn.com/apis/v1/domains/lm/images/96801e40-ade9-11f1-a12f-2b44c2a1875d",
           "regular_season": {
-            "wins": 6,
+            "wins": 7,
             "losses": 0,
             "ties": 0,
-            "points_for": 777.52,
-            "points_against": 609.5
+            "points_for": 901.1,
+            "points_against": 703.52
           },
           "playoff_seed": 1,
           "final_rank": 0,
@@ -26478,10 +26478,10 @@
           "logo": "https://g.espncdn.com/lm-static/logo-packs/ffl/BlitznBears-MartinLaksman/bears-06.svg",
           "regular_season": {
             "wins": 1,
-            "losses": 5,
+            "losses": 6,
             "ties": 0,
-            "points_for": 544.56,
-            "points_against": 706.54
+            "points_for": 626.3399999999999,
+            "points_against": 836.52
           },
           "playoff_seed": 14,
           "final_rank": 0,
@@ -26515,13 +26515,13 @@
           ],
           "logo": "https://g.espncdn.com/lm-static/logo-packs/ffl/Blockparty-RobbHars/blockplayers-03.svg",
           "regular_season": {
-            "wins": 3,
+            "wins": 4,
             "losses": 3,
             "ties": 0,
-            "points_for": 703.12,
-            "points_against": 689.92
+            "points_for": 808.06,
+            "points_against": 772.0999999999999
           },
-          "playoff_seed": 7,
+          "playoff_seed": 6,
           "final_rank": 0,
           "activity_totals": {
             "acquisitionBudgetSpent": 0,
@@ -26556,12 +26556,12 @@
           "logo": "https://g.espncdn.com/lm-static/ffl/images/default_logos/19.svg",
           "regular_season": {
             "wins": 3,
-            "losses": 3,
+            "losses": 4,
             "ties": 0,
-            "points_for": 642.26,
-            "points_against": 623.64
+            "points_for": 721.44,
+            "points_against": 750.5
           },
-          "playoff_seed": 8,
+          "playoff_seed": 10,
           "final_rank": 0,
           "activity_totals": {
             "acquisitionBudgetSpent": 0,
@@ -26595,10 +26595,10 @@
           "logo": "https://g.espncdn.com/lm-static/logo-packs/core/AnimalHeads/animal_heads-1.svg",
           "regular_season": {
             "wins": 2,
-            "losses": 4,
+            "losses": 5,
             "ties": 0,
-            "points_for": 590.8,
-            "points_against": 603.9599999999999
+            "points_for": 680.7199999999999,
+            "points_against": 768.8799999999999
           },
           "playoff_seed": 11,
           "final_rank": 0,
@@ -26633,11 +26633,11 @@
           ],
           "logo": "https://g.espncdn.com/lm-static/logo-packs/core/BobsBurgers/Tina_Happy.svg",
           "regular_season": {
-            "wins": 4,
+            "wins": 5,
             "losses": 2,
             "ties": 0,
-            "points_for": 696.02,
-            "points_against": 604.48
+            "points_for": 834.54,
+            "points_against": 677.1
           },
           "playoff_seed": 3,
           "final_rank": 0,
@@ -26671,11 +26671,11 @@
           ],
           "logo": "https://mystique-api.fantasy.espn.com/apis/v1/domains/lm/images/a0b63b90-7138-11f0-aec8-aff79ae45af9",
           "regular_season": {
-            "wins": 4,
+            "wins": 5,
             "losses": 2,
             "ties": 0,
-            "points_for": 691.4599999999999,
-            "points_against": 659.9200000000001
+            "points_for": 821.4399999999999,
+            "points_against": 741.7
           },
           "playoff_seed": 4,
           "final_rank": 0,
@@ -26712,13 +26712,13 @@
           ],
           "logo": "https://g.espncdn.com/lm-static/ffl/images/default_logos/20.svg",
           "regular_season": {
-            "wins": 2,
+            "wins": 3,
             "losses": 4,
             "ties": 0,
-            "points_for": 656.52,
-            "points_against": 711.4200000000001
+            "points_for": 783.38,
+            "points_against": 790.6000000000001
           },
-          "playoff_seed": 10,
+          "playoff_seed": 8,
           "final_rank": 0,
           "activity_totals": {
             "acquisitionBudgetSpent": 0,
@@ -26753,13 +26753,13 @@
           ],
           "logo": "https://g.espncdn.com/lm-static/logo-packs/ffl/CrazyHelmets-ToddDetwiler/Helmets_03.svg",
           "regular_season": {
-            "wins": 3,
+            "wins": 4,
             "losses": 3,
             "ties": 0,
-            "points_for": 774.3600000000001,
-            "points_against": 693.9199999999998
+            "points_for": 939.2800000000001,
+            "points_against": 783.8399999999998
           },
-          "playoff_seed": 6,
+          "playoff_seed": 5,
           "final_rank": 0,
           "activity_totals": {
             "acquisitionBudgetSpent": 0,
@@ -26792,12 +26792,12 @@
           "logo": "https://g.espncdn.com/lm-static/logo-packs/core/Mascots/mascots-1.svg",
           "regular_season": {
             "wins": 4,
-            "losses": 2,
+            "losses": 3,
             "ties": 0,
-            "points_for": 677.96,
-            "points_against": 654.54
+            "points_for": 753.0400000000001,
+            "points_against": 758.9399999999999
           },
-          "playoff_seed": 5,
+          "playoff_seed": 7,
           "final_rank": 0,
           "activity_totals": {
             "acquisitionBudgetSpent": 0,
@@ -26835,11 +26835,11 @@
           ],
           "logo": "https://g.espncdn.com/lm-static/ffl/images/default_logos/3.svg",
           "regular_season": {
-            "wins": 4,
+            "wins": 5,
             "losses": 2,
             "ties": 0,
-            "points_for": 866.08,
-            "points_against": 768.78
+            "points_for": 970.48,
+            "points_against": 843.86
           },
           "playoff_seed": 2,
           "final_rank": 0,
@@ -26876,10 +26876,10 @@
           "logo": "https://i.postimg.cc/X7rPWdHV/DALL-E-2024-06-22-17-18-32-A-fierce-and-confident-logo-featuring-a-powerful-wolf-head-with-pierci.jpg",
           "regular_season": {
             "wins": 3,
-            "losses": 3,
+            "losses": 4,
             "ties": 0,
-            "points_for": 642.26,
-            "points_against": 725.0
+            "points_for": 736.28,
+            "points_against": 848.58
           },
           "playoff_seed": 9,
           "final_rank": 0,
@@ -26919,10 +26919,10 @@
           "logo": "https://g.espncdn.com/lm-static/logo-packs/core/BobsBurgers/Bob_Shocked.svg",
           "regular_season": {
             "wins": 2,
-            "losses": 4,
+            "losses": 5,
             "ties": 0,
-            "points_for": 538.22,
-            "points_against": 644.2800000000001
+            "points_for": 610.84,
+            "points_against": 782.8000000000001
           },
           "playoff_seed": 12,
           "final_rank": 0,
@@ -26961,10 +26961,10 @@
           "logo": "https://g.espncdn.com/lm-static/ffl/images/default_logos/6.svg",
           "regular_season": {
             "wins": 1,
-            "losses": 5,
+            "losses": 6,
             "ties": 0,
-            "points_for": 602.24,
-            "points_against": 707.48
+            "points_for": 684.4200000000001,
+            "points_against": 812.4200000000001
           },
           "playoff_seed": 13,
           "final_rank": 0,
@@ -26977,7 +26977,7 @@
               "7": 1
             },
             "misc": 0,
-            "moveToActive": 22,
+            "moveToActive": 25,
             "moveToIR": 1,
             "paid": 0.0,
             "teamCharges": 0.0,
@@ -28519,7 +28519,7 @@
           "home_manager_names": [
             "Ed B. & Carolyn B."
           ],
-          "home_score": 0.0,
+          "home_score": 104.4,
           "away_team_id": 14,
           "away_team_name": "CB's Bulls",
           "away_manager_ids": [
@@ -28528,11 +28528,11 @@
           "away_manager_names": [
             "Charley B."
           ],
-          "away_score": 0.0,
-          "winner": "UNDECIDED",
-          "decided": false,
-          "margin": null,
-          "combined_score": 0.0,
+          "away_score": 75.08,
+          "winner": "HOME",
+          "decided": true,
+          "margin": 29.32,
+          "combined_score": 179.48,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -28555,7 +28555,7 @@
           "home_manager_names": [
             "Charley K."
           ],
-          "home_score": 0.0,
+          "home_score": 123.58,
           "away_team_id": 18,
           "away_team_name": "Timberwolves",
           "away_manager_ids": [
@@ -28564,11 +28564,11 @@
           "away_manager_names": [
             "Timmy K."
           ],
-          "away_score": 0.0,
-          "winner": "UNDECIDED",
-          "decided": false,
-          "margin": null,
-          "combined_score": 0.0,
+          "away_score": 94.02,
+          "winner": "HOME",
+          "decided": true,
+          "margin": 29.56,
+          "combined_score": 217.6,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -28591,7 +28591,7 @@
           "home_manager_names": [
             "Kaitlyn K."
           ],
-          "home_score": 0.0,
+          "home_score": 138.52,
           "away_team_id": 19,
           "away_team_name": "Cardiac Comebacks",
           "away_manager_ids": [
@@ -28600,11 +28600,11 @@
           "away_manager_names": [
             "Airel G."
           ],
-          "away_score": 0.0,
-          "winner": "UNDECIDED",
-          "decided": false,
-          "margin": null,
-          "combined_score": 0.0,
+          "away_score": 72.62,
+          "winner": "HOME",
+          "decided": true,
+          "margin": 65.9,
+          "combined_score": 211.14,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -28627,7 +28627,7 @@
           "home_manager_names": [
             "Tony R."
           ],
-          "home_score": 0.0,
+          "home_score": 129.98,
           "away_team_id": 2,
           "away_team_name": "Kinda Mid",
           "away_manager_ids": [
@@ -28636,11 +28636,11 @@
           "away_manager_names": [
             "Aaron T."
           ],
-          "away_score": 0.0,
-          "winner": "UNDECIDED",
-          "decided": false,
-          "margin": null,
-          "combined_score": 0.0,
+          "away_score": 81.78,
+          "winner": "HOME",
+          "decided": true,
+          "margin": 48.2,
+          "combined_score": 211.76,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -28663,7 +28663,7 @@
           "home_manager_names": [
             "Burke K."
           ],
-          "home_score": 0.0,
+          "home_score": 82.18,
           "away_team_id": 3,
           "away_team_name": "Mike's Magic",
           "away_manager_ids": [
@@ -28672,11 +28672,11 @@
           "away_manager_names": [
             "Mike K."
           ],
-          "away_score": 0.0,
-          "winner": "UNDECIDED",
-          "decided": false,
-          "margin": null,
-          "combined_score": 0.0,
+          "away_score": 104.94,
+          "winner": "AWAY",
+          "decided": true,
+          "margin": 22.76,
+          "combined_score": 187.12,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -28699,7 +28699,7 @@
           "home_manager_names": [
             "JJ K."
           ],
-          "home_score": 0.0,
+          "home_score": 89.92,
           "away_team_id": 13,
           "away_team_name": "SOS (Susan, Only Serendipity)",
           "away_manager_ids": [
@@ -28708,11 +28708,11 @@
           "away_manager_names": [
             "Susan H."
           ],
-          "away_score": 0.0,
-          "winner": "UNDECIDED",
-          "decided": false,
-          "margin": null,
-          "combined_score": 0.0,
+          "away_score": 164.92,
+          "winner": "AWAY",
+          "decided": true,
+          "margin": 75.0,
+          "combined_score": 254.84,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -28735,7 +28735,7 @@
           "home_manager_names": [
             "Joseph E."
           ],
-          "home_score": 0.0,
+          "home_score": 126.86,
           "away_team_id": 4,
           "away_team_name": "All the way to the Em-zone",
           "away_manager_ids": [
@@ -28744,11 +28744,11 @@
           "away_manager_names": [
             "Emma T."
           ],
-          "away_score": 0.0,
-          "winner": "UNDECIDED",
-          "decided": false,
-          "margin": null,
-          "combined_score": 0.0,
+          "away_score": 79.18,
+          "winner": "HOME",
+          "decided": true,
+          "margin": 47.68,
+          "combined_score": 206.04,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -28756,7 +28756,9 @@
           "matchup_id": 50,
           "matchup_key": "2026:50",
           "matchup_period": 8,
-          "scoring_periods": [],
+          "scoring_periods": [
+            8
+          ],
           "is_multiweek_series": false,
           "stage": "regular_season",
           "playoff_tier": "NONE",
@@ -28790,7 +28792,9 @@
           "matchup_id": 51,
           "matchup_key": "2026:51",
           "matchup_period": 8,
-          "scoring_periods": [],
+          "scoring_periods": [
+            8
+          ],
           "is_multiweek_series": false,
           "stage": "regular_season",
           "playoff_tier": "NONE",
@@ -28824,7 +28828,9 @@
           "matchup_id": 52,
           "matchup_key": "2026:52",
           "matchup_period": 8,
-          "scoring_periods": [],
+          "scoring_periods": [
+            8
+          ],
           "is_multiweek_series": false,
           "stage": "regular_season",
           "playoff_tier": "NONE",
@@ -28858,7 +28864,9 @@
           "matchup_id": 53,
           "matchup_key": "2026:53",
           "matchup_period": 8,
-          "scoring_periods": [],
+          "scoring_periods": [
+            8
+          ],
           "is_multiweek_series": false,
           "stage": "regular_season",
           "playoff_tier": "NONE",
@@ -28892,7 +28900,9 @@
           "matchup_id": 54,
           "matchup_key": "2026:54",
           "matchup_period": 8,
-          "scoring_periods": [],
+          "scoring_periods": [
+            8
+          ],
           "is_multiweek_series": false,
           "stage": "regular_season",
           "playoff_tier": "NONE",
@@ -28926,7 +28936,9 @@
           "matchup_id": 55,
           "matchup_key": "2026:55",
           "matchup_period": 8,
-          "scoring_periods": [],
+          "scoring_periods": [
+            8
+          ],
           "is_multiweek_series": false,
           "stage": "regular_season",
           "playoff_tier": "NONE",
@@ -28960,7 +28972,9 @@
           "matchup_id": 56,
           "matchup_key": "2026:56",
           "matchup_period": 8,
-          "scoring_periods": [],
+          "scoring_periods": [
+            8
+          ],
           "is_multiweek_series": false,
           "stage": "regular_season",
           "playoff_tier": "NONE",
@@ -32156,7 +32170,7 @@
           ],
           "opponent_team_id": 20,
           "opponent_team_name": "BK Have It Your Way",
-          "points": 93.14,
+          "points": 104.94,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -32176,7 +32190,7 @@
           ],
           "opponent_team_id": 10,
           "opponent_team_name": "Big Joe",
-          "points": 61.9,
+          "points": 79.18,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -32256,7 +32270,7 @@
           ],
           "opponent_team_id": 4,
           "opponent_team_name": "All the way to the Em-zone",
-          "points": 102.46,
+          "points": 126.86,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -32276,7 +32290,7 @@
           ],
           "opponent_team_id": 5,
           "opponent_team_name": "No Refills",
-          "points": 132.42,
+          "points": 164.92,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -32336,7 +32350,7 @@
           ],
           "opponent_team_id": 1,
           "opponent_team_name": "Charley's Angels",
-          "points": 78.32,
+          "points": 94.02,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -32356,7 +32370,7 @@
           ],
           "opponent_team_id": 8,
           "opponent_team_name": "Kaitlyn's Deluxe Team",
-          "points": 58.62,
+          "points": 72.62,
           "source": "data/raw/2026/league/mMatchupScore.json"
         },
         {
@@ -32376,7 +32390,287 @@
           ],
           "opponent_team_id": 3,
           "opponent_team_name": "Mike's Magic",
-          "points": 57.28,
+          "points": 82.18,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 52,
+          "team_id": 1,
+          "team_name": "Charley's Angels",
+          "manager_ids": [
+            "charley_k"
+          ],
+          "manager_names": [
+            "Charley K."
+          ],
+          "opponent_team_id": 2,
+          "opponent_team_name": "Kinda Mid",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 52,
+          "team_id": 2,
+          "team_name": "Kinda Mid",
+          "manager_ids": [
+            "aaron_t"
+          ],
+          "manager_names": [
+            "Aaron T."
+          ],
+          "opponent_team_id": 1,
+          "opponent_team_name": "Charley's Angels",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 53,
+          "team_id": 3,
+          "team_name": "Mike's Magic",
+          "manager_ids": [
+            "mike_k"
+          ],
+          "manager_names": [
+            "Mike K."
+          ],
+          "opponent_team_id": 8,
+          "opponent_team_name": "Kaitlyn's Deluxe Team",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 55,
+          "team_id": 4,
+          "team_name": "All the way to the Em-zone",
+          "manager_ids": [
+            "emma_t"
+          ],
+          "manager_names": [
+            "Emma T."
+          ],
+          "opponent_team_id": 20,
+          "opponent_team_name": "BK Have It Your Way",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 56,
+          "team_id": 5,
+          "team_name": "No Refills",
+          "manager_ids": [
+            "jj_k"
+          ],
+          "manager_names": [
+            "JJ K."
+          ],
+          "opponent_team_id": 10,
+          "opponent_team_name": "Big Joe",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 53,
+          "team_id": 8,
+          "team_name": "Kaitlyn's Deluxe Team",
+          "manager_ids": [
+            "kaitlyn_k"
+          ],
+          "manager_names": [
+            "Kaitlyn K."
+          ],
+          "opponent_team_id": 3,
+          "opponent_team_name": "Mike's Magic",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 54,
+          "team_id": 9,
+          "team_name": "Flux Capacitors",
+          "manager_ids": [
+            "tony_r"
+          ],
+          "manager_names": [
+            "Tony R."
+          ],
+          "opponent_team_id": 13,
+          "opponent_team_name": "SOS (Susan, Only Serendipity)",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 56,
+          "team_id": 10,
+          "team_name": "Big Joe",
+          "manager_ids": [
+            "joseph_e"
+          ],
+          "manager_names": [
+            "Joseph E."
+          ],
+          "opponent_team_id": 5,
+          "opponent_team_name": "No Refills",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 54,
+          "team_id": 13,
+          "team_name": "SOS (Susan, Only Serendipity)",
+          "manager_ids": [
+            "susan_h"
+          ],
+          "manager_names": [
+            "Susan H."
+          ],
+          "opponent_team_id": 9,
+          "opponent_team_name": "Flux Capacitors",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 50,
+          "team_id": 14,
+          "team_name": "CB's Bulls",
+          "manager_ids": [
+            "charley_b"
+          ],
+          "manager_names": [
+            "Charley B."
+          ],
+          "opponent_team_id": 18,
+          "opponent_team_name": "Timberwolves",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 51,
+          "team_id": 17,
+          "team_name": "Ed's Plus 1 Team",
+          "manager_ids": [
+            "ed_carolyn_b"
+          ],
+          "manager_names": [
+            "Ed B. & Carolyn B."
+          ],
+          "opponent_team_id": 19,
+          "opponent_team_name": "Cardiac Comebacks",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 50,
+          "team_id": 18,
+          "team_name": "Timberwolves",
+          "manager_ids": [
+            "timmy_k"
+          ],
+          "manager_names": [
+            "Timmy K."
+          ],
+          "opponent_team_id": 14,
+          "opponent_team_name": "CB's Bulls",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 51,
+          "team_id": 19,
+          "team_name": "Cardiac Comebacks",
+          "manager_ids": [
+            "airel_g"
+          ],
+          "manager_names": [
+            "Airel G."
+          ],
+          "opponent_team_id": 17,
+          "opponent_team_name": "Ed's Plus 1 Team",
+          "points": 0.0,
+          "source": "data/raw/2026/league/mMatchupScore.json"
+        },
+        {
+          "season": 2026,
+          "scoring_period": 8,
+          "matchup_period": 8,
+          "stage": "regular_season",
+          "playoff_tier": "NONE",
+          "matchup_id": 55,
+          "team_id": 20,
+          "team_name": "BK Have It Your Way",
+          "manager_ids": [
+            "burke_k"
+          ],
+          "manager_names": [
+            "Burke K."
+          ],
+          "opponent_team_id": 4,
+          "opponent_team_name": "All the way to the Em-zone",
+          "points": 0.0,
           "source": "data/raw/2026/league/mMatchupScore.json"
         }
       ],
@@ -37542,7 +37836,7 @@
           "manager_names": [
             "Charley K."
           ],
-          "value": "6\u20130",
+          "value": "7\u20130",
           "detail": "#1 seed"
         },
         {
@@ -37552,7 +37846,7 @@
           "manager_names": [
             "Ed B. & Carolyn B."
           ],
-          "value": "866.08",
+          "value": "970.48",
           "detail": "regular-season points"
         },
         {
@@ -37578,12 +37872,12 @@
         {
           "key": "biggest_blowout",
           "title": "Biggest blowout",
-          "team_name": "Ed's Plus 1 Team",
+          "team_name": "SOS (Susan, Only Serendipity)",
           "manager_names": [
-            "Ed B. & Carolyn B."
+            "Susan H."
           ],
-          "value": "67.60",
-          "detail": "over Timberwolves \u00b7 Week 1"
+          "value": "75.00",
+          "detail": "over No Refills \u00b7 Week 7"
         },
         {
           "key": "closest_game",
@@ -37625,7 +37919,7 @@
         {
           "label": "Split supremacy",
           "title": "Two teams owned the regular season",
-          "text": "Charley's Angels earned the #1 seed, while Ed's Plus 1 Team led scoring with 866.08 points."
+          "text": "Charley's Angels earned the #1 seed, while Ed's Plus 1 Team led scoring with 970.48 points."
         },
         {
           "label": "Heartbreaker",
@@ -37639,8 +37933,8 @@
         },
         {
           "label": "Statement win",
-          "title": "A 67.60-point rout",
-          "text": "Timberwolves and Ed's Plus 1 Team played the season's largest blowout in Week 1."
+          "title": "A 75.00-point rout",
+          "text": "No Refills and SOS (Susan, Only Serendipity) played the season's largest blowout in Week 7."
         }
       ]
     }
@@ -37959,9 +38253,9 @@
     "counts": {
       "seasons": 3,
       "team_seasons": 38,
-      "regular_season_matchups": 210,
+      "regular_season_matchups": 217,
       "championship_playoff_series": 10,
-      "weekly_team_scores": 530,
+      "weekly_team_scores": 544,
       "draft_picks": 608
     },
     "leaderboards": {
@@ -37972,16 +38266,16 @@
             "manager_id": "charley_k",
             "manager_name": "Charley K.",
             "team_name": "Charley's Angels",
-            "value": 25,
-            "games": 34,
+            "value": 26,
+            "games": 35,
             "rank": 1
           },
           {
             "manager_id": "tony_r",
             "manager_name": "Tony R.",
             "team_name": "Flux Capacitors",
-            "value": 21,
-            "games": 34,
+            "value": 22,
+            "games": 35,
             "rank": 2
           },
           {
@@ -37989,23 +38283,31 @@
             "manager_name": "Timmy K.",
             "team_name": "Timberwolves",
             "value": 21,
-            "games": 34,
-            "rank": 2
+            "games": 35,
+            "rank": 3
           },
           {
             "manager_id": "jj_k",
             "manager_name": "JJ K.",
             "team_name": "No Refills",
             "value": 18,
-            "games": 34,
+            "games": 35,
             "rank": 4
+          },
+          {
+            "manager_id": "mike_k",
+            "manager_name": "Mike K.",
+            "team_name": "Mike's Magic",
+            "value": 17,
+            "games": 35,
+            "rank": 5
           },
           {
             "manager_id": "charley_b",
             "manager_name": "Charley B.",
             "team_name": "CB's Bulls",
             "value": 17,
-            "games": 34,
+            "games": 35,
             "rank": 5
           }
         ],
@@ -38014,8 +38316,8 @@
             "manager_id": "charley_k",
             "manager_name": "Charley K.",
             "team_name": "Charley's Angels",
-            "value": 0.7353,
-            "games": 34,
+            "value": 0.7429,
+            "games": 35,
             "rank": 1
           },
           {
@@ -38030,24 +38332,24 @@
             "manager_id": "tony_r",
             "manager_name": "Tony R.",
             "team_name": "Flux Capacitors",
-            "value": 0.6176,
-            "games": 34,
-            "rank": 3
-          },
-          {
-            "manager_id": "timmy_k",
-            "manager_name": "Timmy K.",
-            "team_name": "Timberwolves",
-            "value": 0.6176,
-            "games": 34,
+            "value": 0.6286,
+            "games": 35,
             "rank": 3
           },
           {
             "manager_id": "joseph_e",
             "manager_name": "Joseph E.",
             "team_name": "Big Joe",
+            "value": 0.619,
+            "games": 21,
+            "rank": 4
+          },
+          {
+            "manager_id": "timmy_k",
+            "manager_name": "Timmy K.",
+            "team_name": "Timberwolves",
             "value": 0.6,
-            "games": 20,
+            "games": 35,
             "rank": 5
           }
         ],
@@ -38056,40 +38358,40 @@
             "manager_id": "tony_r",
             "manager_name": "Tony R.",
             "team_name": "Flux Capacitors",
-            "value": 4171.68,
-            "games": 34,
+            "value": 4301.66,
+            "games": 35,
             "rank": 1
           },
           {
             "manager_id": "charley_k",
             "manager_name": "Charley K.",
             "team_name": "Charley's Angels",
-            "value": 4101.52,
-            "games": 34,
+            "value": 4225.1,
+            "games": 35,
             "rank": 2
           },
           {
             "manager_id": "susan_h",
             "manager_name": "Susan H.",
             "team_name": "SOS (Susan, Only Serendipity)",
-            "value": 4008.62,
-            "games": 34,
+            "value": 4173.54,
+            "games": 35,
             "rank": 3
           },
           {
             "manager_id": "mike_k",
             "manager_name": "Mike K.",
             "team_name": "Mike's Magic",
-            "value": 3969.18,
-            "games": 34,
+            "value": 4074.12,
+            "games": 35,
             "rank": 4
           },
           {
             "manager_id": "charley_b",
             "manager_name": "Charley B.",
             "team_name": "CB's Bulls",
-            "value": 3828.74,
-            "games": 34,
+            "value": 3903.82,
+            "games": 35,
             "rank": 5
           }
         ],
@@ -38099,7 +38401,7 @@
             "manager_name": "Charley K.",
             "team_name": "Charley's Angels",
             "value": 1,
-            "games": 34,
+            "games": 35,
             "rank": 1
           },
           {
@@ -38107,7 +38409,7 @@
             "manager_name": "Tony R.",
             "team_name": "Flux Capacitors",
             "value": 1,
-            "games": 34,
+            "games": 35,
             "rank": 1
           }
         ],
@@ -38117,7 +38419,7 @@
             "manager_name": "Tony R.",
             "team_name": "Flux Capacitors",
             "value": 2,
-            "games": 34,
+            "games": 35,
             "rank": 1
           },
           {
@@ -38125,7 +38427,7 @@
             "manager_name": "Timmy K.",
             "team_name": "Timberwolves",
             "value": 2,
-            "games": 34,
+            "games": 35,
             "rank": 1
           },
           {
@@ -38141,7 +38443,7 @@
             "manager_name": "Charley K.",
             "team_name": "Charley's Angels",
             "value": 1,
-            "games": 34,
+            "games": 35,
             "rank": 4
           },
           {
@@ -38149,15 +38451,7 @@
             "manager_name": "JJ K.",
             "team_name": "No Refills",
             "value": 1,
-            "games": 34,
-            "rank": 4
-          },
-          {
-            "manager_id": "charley_b",
-            "manager_name": "Charley B.",
-            "team_name": "CB's Bulls",
-            "value": 1,
-            "games": 34,
+            "games": 35,
             "rank": 4
           },
           {
@@ -38165,7 +38459,15 @@
             "manager_name": "Mike K.",
             "team_name": "Mike's Magic",
             "value": 1,
-            "games": 34,
+            "games": 35,
+            "rank": 4
+          },
+          {
+            "manager_id": "charley_b",
+            "manager_name": "Charley B.",
+            "team_name": "CB's Bulls",
+            "value": 1,
+            "games": 35,
             "rank": 4
           },
           {
@@ -38173,7 +38475,7 @@
             "manager_name": "Joseph E.",
             "team_name": "Big Joe",
             "value": 1,
-            "games": 20,
+            "games": 21,
             "rank": 4
           },
           {
@@ -38190,40 +38492,40 @@
             "manager_id": "ed_carolyn_b",
             "manager_name": "Ed B. & Carolyn B.",
             "team_name": "Ed's Plus 1 Team",
-            "value": 4157.02,
-            "games": 34,
+            "value": 4232.1,
+            "games": 35,
             "rank": 1
           },
           {
             "manager_id": "susan_h",
             "manager_name": "Susan H.",
             "team_name": "SOS (Susan, Only Serendipity)",
-            "value": 3955.96,
-            "games": 34,
+            "value": 4045.88,
+            "games": 35,
             "rank": 2
-          },
-          {
-            "manager_id": "charley_b",
-            "manager_name": "Charley B.",
-            "team_name": "CB's Bulls",
-            "value": 3917.48,
-            "games": 34,
-            "rank": 3
           },
           {
             "manager_id": "timmy_k",
             "manager_name": "Timmy K.",
             "team_name": "Timberwolves",
-            "value": 3907.94,
-            "games": 34,
+            "value": 4031.52,
+            "games": 35,
+            "rank": 3
+          },
+          {
+            "manager_id": "charley_b",
+            "manager_name": "Charley B.",
+            "team_name": "CB's Bulls",
+            "value": 4021.88,
+            "games": 35,
             "rank": 4
           },
           {
             "manager_id": "mike_k",
             "manager_name": "Mike K.",
             "team_name": "Mike's Magic",
-            "value": 3888.8,
-            "games": 34,
+            "value": 3970.98,
+            "games": 35,
             "rank": 5
           }
         ]
@@ -38755,6 +39057,15 @@
             "rank": 4
           },
           {
+            "manager_id": "burke_k",
+            "manager_name": "Burke K.",
+            "team_name": "BK Have It Your Way",
+            "winning": 1,
+            "losing": 5,
+            "value": 5,
+            "rank": 4
+          },
+          {
             "manager_id": "mike_k",
             "manager_name": "Mike K.",
             "team_name": "Mike's Magic",
@@ -38791,11 +39102,11 @@
         "manager_id": "charley_k",
         "manager_name": "Charley K.",
         "seasons": 3,
-        "wins": 25,
+        "wins": 26,
         "losses": 9,
         "ties": 0,
-        "points_for": 4101.52,
-        "points_against": 3646.78,
+        "points_for": 4225.1,
+        "points_against": 3740.8,
         "playoff_appearances": 1,
         "championships": 1,
         "runner_up_finishes": 0,
@@ -38816,17 +39127,17 @@
             "team_name": "Charley's Angels"
           }
         ],
-        "winning_percentage": 0.7353
+        "winning_percentage": 0.7429
       },
       {
         "manager_id": "kaitlyn_k",
         "manager_name": "Kaitlyn K.",
         "seasons": 1,
-        "wins": 4,
+        "wins": 5,
         "losses": 2,
         "ties": 0,
-        "points_for": 696.02,
-        "points_against": 604.48,
+        "points_for": 834.54,
+        "points_against": 677.1,
         "playoff_appearances": 0,
         "championships": 0,
         "runner_up_finishes": 0,
@@ -38837,7 +39148,7 @@
             "team_name": "Kaitlyn's Deluxe Team"
           }
         ],
-        "winning_percentage": 0.6667
+        "winning_percentage": 0.7143
       },
       {
         "manager_id": "robin_h",
@@ -38864,11 +39175,11 @@
         "manager_id": "tony_r",
         "manager_name": "Tony R.",
         "seasons": 3,
-        "wins": 21,
+        "wins": 22,
         "losses": 13,
         "ties": 0,
-        "points_for": 4171.68,
-        "points_against": 3748.0,
+        "points_for": 4301.66,
+        "points_against": 3829.78,
         "playoff_appearances": 2,
         "championships": 1,
         "runner_up_finishes": 0,
@@ -38889,17 +39200,43 @@
             "team_name": "Flux Capacitors"
           }
         ],
-        "winning_percentage": 0.6176
+        "winning_percentage": 0.6286
+      },
+      {
+        "manager_id": "joseph_e",
+        "manager_name": "Joseph E.",
+        "seasons": 2,
+        "wins": 13,
+        "losses": 8,
+        "ties": 0,
+        "points_for": 2485.06,
+        "points_against": 2280.62,
+        "playoff_appearances": 1,
+        "championships": 0,
+        "runner_up_finishes": 0,
+        "team_names": [
+          {
+            "season": 2025,
+            "team_id": 10,
+            "team_name": "Big Joe"
+          },
+          {
+            "season": 2026,
+            "team_id": 10,
+            "team_name": "Big Joe"
+          }
+        ],
+        "winning_percentage": 0.619
       },
       {
         "manager_id": "timmy_k",
         "manager_name": "Timmy K.",
         "seasons": 3,
         "wins": 21,
-        "losses": 13,
+        "losses": 14,
         "ties": 0,
-        "points_for": 3806.14,
-        "points_against": 3907.94,
+        "points_for": 3900.16,
+        "points_against": 4031.52,
         "playoff_appearances": 2,
         "championships": 0,
         "runner_up_finishes": 0,
@@ -38918,32 +39255,6 @@
             "season": 2026,
             "team_id": 18,
             "team_name": "Timberwolves"
-          }
-        ],
-        "winning_percentage": 0.6176
-      },
-      {
-        "manager_id": "joseph_e",
-        "manager_name": "Joseph E.",
-        "seasons": 2,
-        "wins": 12,
-        "losses": 8,
-        "ties": 0,
-        "points_for": 2358.2,
-        "points_against": 2201.44,
-        "playoff_appearances": 1,
-        "championships": 0,
-        "runner_up_finishes": 0,
-        "team_names": [
-          {
-            "season": 2025,
-            "team_id": 10,
-            "team_name": "Big Joe"
-          },
-          {
-            "season": 2026,
-            "team_id": 10,
-            "team_name": "Big Joe"
           }
         ],
         "winning_percentage": 0.6
@@ -38979,10 +39290,10 @@
         "manager_name": "JJ K.",
         "seasons": 3,
         "wins": 18,
-        "losses": 16,
+        "losses": 17,
         "ties": 0,
-        "points_for": 3592.6,
-        "points_against": 3751.98,
+        "points_for": 3682.52,
+        "points_against": 3916.9,
         "playoff_appearances": 1,
         "championships": 0,
         "runner_up_finishes": 1,
@@ -39003,38 +39314,7 @@
             "team_name": "No Refills"
           }
         ],
-        "winning_percentage": 0.5294
-      },
-      {
-        "manager_id": "charley_b",
-        "manager_name": "Charley B.",
-        "seasons": 3,
-        "wins": 17,
-        "losses": 17,
-        "ties": 0,
-        "points_for": 3828.74,
-        "points_against": 3917.48,
-        "playoff_appearances": 1,
-        "championships": 0,
-        "runner_up_finishes": 0,
-        "team_names": [
-          {
-            "season": 2024,
-            "team_id": 14,
-            "team_name": "CB's Bulls"
-          },
-          {
-            "season": 2025,
-            "team_id": 14,
-            "team_name": "CB's Bulls"
-          },
-          {
-            "season": 2026,
-            "team_id": 14,
-            "team_name": "CB's Bulls"
-          }
-        ],
-        "winning_percentage": 0.5
+        "winning_percentage": 0.5143
       },
       {
         "manager_id": "kelley_h",
@@ -39061,11 +39341,11 @@
         "manager_id": "mike_k",
         "manager_name": "Mike K.",
         "seasons": 3,
-        "wins": 16,
+        "wins": 17,
         "losses": 18,
         "ties": 0,
-        "points_for": 3969.18,
-        "points_against": 3888.8,
+        "points_for": 4074.12,
+        "points_against": 3970.98,
         "playoff_appearances": 1,
         "championships": 0,
         "runner_up_finishes": 0,
@@ -39086,17 +39366,48 @@
             "team_name": "Mike's Magic"
           }
         ],
-        "winning_percentage": 0.4706
+        "winning_percentage": 0.4857
+      },
+      {
+        "manager_id": "charley_b",
+        "manager_name": "Charley B.",
+        "seasons": 3,
+        "wins": 17,
+        "losses": 18,
+        "ties": 0,
+        "points_for": 3903.82,
+        "points_against": 4021.88,
+        "playoff_appearances": 1,
+        "championships": 0,
+        "runner_up_finishes": 0,
+        "team_names": [
+          {
+            "season": 2024,
+            "team_id": 14,
+            "team_name": "CB's Bulls"
+          },
+          {
+            "season": 2025,
+            "team_id": 14,
+            "team_name": "CB's Bulls"
+          },
+          {
+            "season": 2026,
+            "team_id": 14,
+            "team_name": "CB's Bulls"
+          }
+        ],
+        "winning_percentage": 0.4857
       },
       {
         "manager_id": "susan_h",
         "manager_name": "Susan H.",
         "seasons": 3,
-        "wins": 14,
+        "wins": 15,
         "losses": 20,
         "ties": 0,
-        "points_for": 4008.62,
-        "points_against": 3955.96,
+        "points_for": 4173.54,
+        "points_against": 4045.88,
         "playoff_appearances": 0,
         "championships": 0,
         "runner_up_finishes": 0,
@@ -39117,17 +39428,17 @@
             "team_name": "SOS (Susan, Only Serendipity)"
           }
         ],
-        "winning_percentage": 0.4118
+        "winning_percentage": 0.4286
       },
       {
         "manager_id": "emma_t",
         "manager_name": "Emma T.",
         "seasons": 2,
         "wins": 8,
-        "losses": 12,
+        "losses": 13,
         "ties": 0,
-        "points_for": 1992.06,
-        "points_against": 2094.1,
+        "points_for": 2071.24,
+        "points_against": 2220.96,
         "playoff_appearances": 0,
         "championships": 0,
         "runner_up_finishes": 0,
@@ -39143,17 +39454,48 @@
             "team_name": "All the way to the Em-zone"
           }
         ],
-        "winning_percentage": 0.4
+        "winning_percentage": 0.381
+      },
+      {
+        "manager_id": "ed_carolyn_b",
+        "manager_name": "Ed B. & Carolyn B.",
+        "seasons": 3,
+        "wins": 12,
+        "losses": 23,
+        "ties": 0,
+        "points_for": 3735.38,
+        "points_against": 4232.1,
+        "playoff_appearances": 0,
+        "championships": 0,
+        "runner_up_finishes": 0,
+        "team_names": [
+          {
+            "season": 2024,
+            "team_id": 17,
+            "team_name": "Ed's Plus 1 Team"
+          },
+          {
+            "season": 2025,
+            "team_id": 17,
+            "team_name": "Ed's Plus 1 Team"
+          },
+          {
+            "season": 2026,
+            "team_id": 17,
+            "team_name": "Ed's Plus 1 Team"
+          }
+        ],
+        "winning_percentage": 0.3429
       },
       {
         "manager_id": "airel_g",
         "manager_name": "Airel G.",
         "seasons": 1,
         "wins": 2,
-        "losses": 4,
+        "losses": 5,
         "ties": 0,
-        "points_for": 538.22,
-        "points_against": 644.28,
+        "points_for": 610.84,
+        "points_against": 782.8,
         "playoff_appearances": 0,
         "championships": 0,
         "runner_up_finishes": 0,
@@ -39164,48 +39506,17 @@
             "team_name": "Cardiac Comebacks"
           }
         ],
-        "winning_percentage": 0.3333
-      },
-      {
-        "manager_id": "ed_carolyn_b",
-        "manager_name": "Ed B. & Carolyn B.",
-        "seasons": 3,
-        "wins": 11,
-        "losses": 23,
-        "ties": 0,
-        "points_for": 3630.98,
-        "points_against": 4157.02,
-        "playoff_appearances": 0,
-        "championships": 0,
-        "runner_up_finishes": 0,
-        "team_names": [
-          {
-            "season": 2024,
-            "team_id": 17,
-            "team_name": "Ed's Plus 1 Team"
-          },
-          {
-            "season": 2025,
-            "team_id": 17,
-            "team_name": "Ed's Plus 1 Team"
-          },
-          {
-            "season": 2026,
-            "team_id": 17,
-            "team_name": "Ed's Plus 1 Team"
-          }
-        ],
-        "winning_percentage": 0.3235
+        "winning_percentage": 0.2857
       },
       {
         "manager_id": "aaron_t",
         "manager_name": "Aaron T.",
         "seasons": 2,
         "wins": 5,
-        "losses": 15,
+        "losses": 16,
         "ties": 0,
-        "points_for": 2055.9,
-        "points_against": 2325.92,
+        "points_for": 2137.68,
+        "points_against": 2455.9,
         "playoff_appearances": 0,
         "championships": 0,
         "runner_up_finishes": 0,
@@ -39221,7 +39532,7 @@
             "team_name": "Kinda Mid"
           }
         ],
-        "winning_percentage": 0.25
+        "winning_percentage": 0.2381
       },
       {
         "manager_id": "quy_h",
@@ -39249,10 +39560,10 @@
         "manager_name": "Burke K.",
         "seasons": 1,
         "wins": 1,
-        "losses": 5,
+        "losses": 6,
         "ties": 0,
-        "points_for": 602.24,
-        "points_against": 707.48,
+        "points_for": 684.42,
+        "points_against": 812.42,
         "playoff_appearances": 0,
         "championships": 0,
         "runner_up_finishes": 0,
@@ -39263,7 +39574,7 @@
             "team_name": "BK Have It Your Way"
           }
         ],
-        "winning_percentage": 0.1667
+        "winning_percentage": 0.1429
       }
     ],
     "team_name_history": {
@@ -39622,9 +39933,9 @@
       "manager_2_id": "tony_r",
       "manager_2_name": "Tony R.",
       "manager_1_wins": 0,
-      "manager_2_wins": 1,
+      "manager_2_wins": 2,
       "ties": 0,
-      "games": 1
+      "games": 2
     },
     {
       "manager_1_id": "airel_g",
@@ -39653,6 +39964,16 @@
       "manager_2_name": "Joseph E.",
       "manager_1_wins": 1,
       "manager_2_wins": 0,
+      "ties": 0,
+      "games": 1
+    },
+    {
+      "manager_1_id": "airel_g",
+      "manager_1_name": "Airel G.",
+      "manager_2_id": "kaitlyn_k",
+      "manager_2_name": "Kaitlyn K.",
+      "manager_1_wins": 0,
+      "manager_2_wins": 1,
       "ties": 0,
       "games": 1
     },
@@ -39849,6 +40170,16 @@
     {
       "manager_1_id": "burke_k",
       "manager_1_name": "Burke K.",
+      "manager_2_id": "mike_k",
+      "manager_2_name": "Mike K.",
+      "manager_1_wins": 0,
+      "manager_2_wins": 1,
+      "ties": 0,
+      "games": 1
+    },
+    {
+      "manager_1_id": "burke_k",
+      "manager_1_name": "Burke K.",
       "manager_2_id": "susan_h",
       "manager_2_name": "Susan H.",
       "manager_1_wins": 0,
@@ -39872,9 +40203,9 @@
       "manager_2_id": "ed_carolyn_b",
       "manager_2_name": "Ed B. & Carolyn B.",
       "manager_1_wins": 1,
-      "manager_2_wins": 1,
+      "manager_2_wins": 2,
       "ties": 0,
-      "games": 2
+      "games": 3
     },
     {
       "manager_1_id": "charley_b",
@@ -40081,10 +40412,10 @@
       "manager_1_name": "Charley K.",
       "manager_2_id": "timmy_k",
       "manager_2_name": "Timmy K.",
-      "manager_1_wins": 1,
+      "manager_1_wins": 2,
       "manager_2_wins": 1,
       "ties": 0,
-      "games": 2
+      "games": 3
     },
     {
       "manager_1_id": "charley_k",
@@ -40222,9 +40553,9 @@
       "manager_2_id": "joseph_e",
       "manager_2_name": "Joseph E.",
       "manager_1_wins": 0,
-      "manager_2_wins": 1,
+      "manager_2_wins": 2,
       "ties": 0,
-      "games": 1
+      "games": 2
     },
     {
       "manager_1_id": "emma_t",
@@ -40322,9 +40653,9 @@
       "manager_2_id": "susan_h",
       "manager_2_name": "Susan H.",
       "manager_1_wins": 1,
-      "manager_2_wins": 1,
+      "manager_2_wins": 2,
       "ties": 0,
-      "games": 2
+      "games": 3
     },
     {
       "manager_1_id": "jj_k",
@@ -40640,7 +40971,7 @@
       "manager_id": "burke_k",
       "manager_name": "Burke K.",
       "longest_winning_streak": 1,
-      "longest_losing_streak": 4
+      "longest_losing_streak": 5
     },
     {
       "manager_id": "charley_b",
@@ -40749,11 +41080,11 @@
       },
       {
         "season": 2026,
-        "player_cards": 1054,
-        "unique_transactions": 409,
-        "completed_transactions": 407,
+        "player_cards": 1055,
+        "unique_transactions": 354,
+        "completed_transactions": 354,
         "duplicate_player_card_references_removed": 94,
-        "activity_feed_topics": 421,
+        "activity_feed_topics": 422,
         "limitations": "Player cards expose completed transactions only; rejected, canceled, and failed historical moves are unavailable."
       }
     ],
@@ -41234,7 +41565,6 @@
         18.0,
         18.0,
         18.1,
-        18.2,
         18.3,
         18.3,
         18.6,
@@ -41295,6 +41625,7 @@
         29.0,
         29.0,
         29.9,
+        30.0,
         30.0,
         30.0,
         30.0,
@@ -43294,11 +43625,11 @@
                 "position": 2,
                 "contribution": {
                   "regular_points": 7.3,
-                  "regular_starts": 9,
+                  "regular_starts": 3,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 7.3,
-                  "total_starts": 9,
+                  "total_starts": 3,
                   "weekly": [
                     {
                       "week": 6,
@@ -43311,37 +43642,7 @@
                       "points": 4.3
                     },
                     {
-                      "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
                       "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
                       "stage": "regular_season",
                       "points": 0.0
                     }
@@ -43352,11 +43653,11 @@
             "outgoing": [],
             "contribution": {
               "regular_points": 7.3,
-              "regular_starts": 9,
+              "regular_starts": 3,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 7.3,
-              "total_starts": 9
+              "total_starts": 3
             }
           }
         ],
@@ -43627,11 +43928,11 @@
                 "subsequent_team": "BK Have It Your Way",
                 "subsequent_contribution": {
                   "regular_points": 7.3,
-                  "regular_starts": 9,
+                  "regular_starts": 3,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 7.3,
-                  "total_starts": 9,
+                  "total_starts": 3,
                   "weekly": [
                     {
                       "week": 6,
@@ -43644,37 +43945,7 @@
                       "points": 4.3
                     },
                     {
-                      "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
                       "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
                       "stage": "regular_season",
                       "points": 0.0
                     }
@@ -43796,7 +44067,26 @@
         "counterfactual": {
           "potential_swings": 0,
           "robust_swings": 0,
-          "comparisons": [],
+          "comparisons": [
+            {
+              "matchup_id": 45,
+              "team_id": 8,
+              "weeks": [
+                7
+              ],
+              "opponent": "Cardiac Comebacks",
+              "acquired_players": [
+                "Ryan Fitzgerald"
+              ],
+              "alternatives": [
+                "Jake Bates"
+              ],
+              "comparison_delta": -8.0,
+              "matchup_margin": 65.9,
+              "potentially_swung": false,
+              "robust_across_top_three": false
+            }
+          ],
           "supports_causal_story": true,
           "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
         }
@@ -44698,7 +44988,26 @@
         "counterfactual": {
           "potential_swings": 0,
           "robust_swings": 0,
-          "comparisons": [],
+          "comparisons": [
+            {
+              "matchup_id": 47,
+              "team_id": 3,
+              "weeks": [
+                7
+              ],
+              "opponent": "BK Have It Your Way",
+              "acquired_players": [
+                "49ers D/ST"
+              ],
+              "alternatives": [
+                "Lions D/ST"
+              ],
+              "comparison_delta": -11.0,
+              "matchup_margin": 22.75999999999999,
+              "potentially_swung": false,
+              "robust_across_top_three": false
+            }
+          ],
           "supports_causal_story": true,
           "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
         }
@@ -44779,11 +45088,11 @@
                 "player_name": "Dameon Pierce",
                 "position": 2,
                 "contribution": {
-                  "regular_points": 18.2,
+                  "regular_points": 30.0,
                   "regular_starts": 10,
                   "playoff_points": 0,
                   "playoff_starts": 0,
-                  "total_points": 18.2,
+                  "total_points": 30.0,
                   "total_starts": 10,
                   "weekly": [
                     {
@@ -44799,7 +45108,7 @@
                     {
                       "week": 7,
                       "stage": "regular_season",
-                      "points": 0.0
+                      "points": 11.8
                     },
                     {
                       "week": 8,
@@ -44842,11 +45151,11 @@
             ],
             "outgoing": [],
             "contribution": {
-              "regular_points": 18.2,
+              "regular_points": 30.0,
               "regular_starts": 10,
               "playoff_points": 0,
               "playoff_starts": 0,
-              "total_points": 18.2,
+              "total_points": 30.0,
               "total_starts": 10
             }
           }
@@ -45858,11 +46167,11 @@
                 "position": 2,
                 "contribution": {
                   "regular_points": 18.7,
-                  "regular_starts": 2,
+                  "regular_starts": 9,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 18.7,
-                  "total_starts": 2,
+                  "total_starts": 9,
                   "weekly": [
                     {
                       "week": 5,
@@ -45873,6 +46182,41 @@
                       "week": 6,
                       "stage": "regular_season",
                       "points": 15.7
+                    },
+                    {
+                      "week": 8,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 10,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 12,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 13,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 14,
+                      "stage": "regular_season",
+                      "points": 0.0
                     }
                   ]
                 }
@@ -45887,11 +46231,11 @@
             ],
             "contribution": {
               "regular_points": 18.7,
-              "regular_starts": 2,
+              "regular_starts": 9,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 18.7,
-              "total_starts": 2
+              "total_starts": 9
             }
           }
         ],
@@ -46712,7 +47056,26 @@
         "counterfactual": {
           "potential_swings": 0,
           "robust_swings": 0,
-          "comparisons": [],
+          "comparisons": [
+            {
+              "matchup_id": 43,
+              "team_id": 17,
+              "weeks": [
+                7
+              ],
+              "opponent": "CB's Bulls",
+              "acquired_players": [
+                "Kirk Cousins"
+              ],
+              "alternatives": [
+                "Patrick Mahomes"
+              ],
+              "comparison_delta": 14.4,
+              "matchup_margin": 29.320000000000007,
+              "potentially_swung": false,
+              "robust_across_top_three": false
+            }
+          ],
           "supports_causal_story": true,
           "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
         }
