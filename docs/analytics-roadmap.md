@@ -22,9 +22,9 @@ Never treat unplayed games as zero scores. Regular season only for these metrics
 
 ## Phase 2 — probabilistic forecast
 - Simulate remaining *regular-season* matchups from a team-strength model calibrated to completed scores; sample scores with a defensible uncertainty distribution and document all assumptions.
-- Determine final standings using the actual league tiebreaker hierarchy, not an assumed one.
+- Determine final standings by win-loss record, breaking equal records by total regular-season points for (confirmed by commissioner).
 - Report playoff qualification (top 6), bye qualification (top 2), expected seed, and projected record for all 14 teams.
-- Model the actual four-week postseason, including two-week championship, before reporting title odds.
+- Model Round 1 in Week 15, Round 2 in Week 16, and the championship as the sum of Weeks 17 and 18 (confirmed by commissioner), before reporting title odds. Top two seeds receive Week 15 byes. Playoff matchup tie resolution remains unverified; do not invent it.
 - Add Monte Carlo seed stability checks and reproducible random seeds.
 - Distinguish mathematical clinch/elimination from probabilistic near-certainty.
 
@@ -36,7 +36,7 @@ Never treat unplayed games as zero scores. Regular season only for these metrics
 ## Data validation gates
 - Validate 14 current-season teams, schedule completeness, unique matchup identities, no duplicate week scores, no future games treated as decided.
 - Cross-check calculated completed records and points against ESPN standings.
-- Confirm regular-season length and playoff settings from archived league settings before forecasting.
+- League format confirmed by commissioner: 14 teams, regular season Weeks 1–14, six playoff qualifiers, seeds 1–2 receive byes, points-for seeding tiebreaker, postseason Weeks 15/16/17–18. Cross-check archived ESPN settings; playoff matchup tie resolution remains open.
 - Handle tied scores, byes, missing weeks, and ESPN corrections.
 - No displayed odds until these checks pass.
 
