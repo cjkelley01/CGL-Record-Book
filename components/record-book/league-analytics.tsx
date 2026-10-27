@@ -147,7 +147,7 @@ export function LeagueAnalytics() {
               <p className="analytics-note">*Opponent rank within that week's league scores (1 = highest scoring). Higher opponent points means a tougher schedule. Schedule luck = actual wins minus average wins if the same weekly scores were played against each other team's schedule. Positive means a more favorable schedule. Ties count as half. When a swap would face a team against itself, the original schedule owner takes the opposing slot. Only complete weeks count.</p>
             </>
           ) : <p className="analytics-note">Schedule data has not been generated yet. Run the ESPN refresh workflow.</p>}
-          <p className="analytics-note">*Wins plus half of ties. Expected wins = sum of weekly all-play winning percentages (ties count as half). Luck ± = actual minus expected wins. These are descriptive statistics, not future-win predictions.</p>
+          {view === "all_play" && <p className="analytics-note">*Wins plus half of ties. Expected wins = sum of weekly all-play winning percentages (ties count as half). Luck ± = actual minus expected wins. These are descriptive statistics, not future-win predictions.</p>}
         </>
       )}
     </>
