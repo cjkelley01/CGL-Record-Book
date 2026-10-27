@@ -74,6 +74,50 @@ def normalized_players(entries, week, *, skip_missing=False):
     return players
 
 
+def waiver_replacements(pool, week, rostered_ids, slots):
+    """Conservative slot-specific estimates from ESPN-confirmed unrostered players.
+
+    Use the third-best of the top five eligible options per slot, rather than
+    treating the best available player as a guaranteed acquisition.
+    """
+    if not isinstance(pool, list):
+        return []
+    eligible = []
+    for entry in pool:
+        if not isinstance(entry, dict):
+            continue
+        player = entry.get("player") or (entry.get("playerPoolEntry") or {}).get("player") or {}
+        pid = player.get("id")
+        # Explicit ESPN ownership/status confirmation is mandatory.
+        status = entry.get("status")
+        if status not in ("FREEAGENT", "WAIVERS") or entry.get("onTeamId") not in (0, None):
+            continue
+        if pid is None or int(pid) in rostered_ids:
+            continue
+        try:
+            points = projection_for_week(player, week)
+        except ValueError:
+            continue
+        if points < 0:
+            continue
+        eligible.append({"player_id": int(pid), "projection": points,
+                         "eligible_slots": [int(s) for s in player.get("eligibleSlots", [])]})
+    selected = []
+    used = set()
+    for slot in sorted(set(slots)):
+        options = sorted((p for p in eligible if slot in p["eligible_slots"]),
+                         key=lambda p: (-p["projection"], p["player_id"]))
+        if len(options) < 3:
+            continue
+        # Third-ranked candidate is a conservative, actually available player.
+        for candidate in options[2:]:
+            if candidate["player_id"] not in used:
+                selected.append(candidate)
+                used.add(candidate["player_id"])
+                break
+    return selected
+
+
 def extract_weekly_means(data_root, season, weeks, team_ids):
     root = Path(data_root) / "raw" / str(season)
     settings = json.loads((root / "league" / "mSettings.json").read_text())
@@ -88,16 +132,33 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
         payload = json.loads(path.read_text())
         rosters = roster_entries(payload)
         successful = 0
+        replacements_used = 0
+        rostered_ids = {int((e.get("playerPoolEntry") or {}).get("player", {}).get("id") or e.get("playerId"))
+                        for entries in rosters.values() for e in entries
+                        if (e.get("playerPoolEntry") or {}).get("player", {}).get("id") or e.get("playerId")}
+        pool_path = root / "weeks" / f"{week:02d}" / "free_agents.json"
+        pool = json.loads(pool_path.read_text()) if pool_path.exists() else None
+        fallback = waiver_replacements(pool, week, rostered_ids, slots)
         for tid in means:
             entries = rosters.get(tid)
             if not entries:
                 continue
             try:
-                means[tid][week] = optimize_lineup(normalized_players(entries, week, skip_missing=True), slots)["projected_points"]
+                roster_players = normalized_players(entries, week, skip_missing=True)
+                try:
+                    optimized = optimize_lineup(roster_players, slots)
+                except ValueError:
+                    if not fallback:
+                        raise
+                    optimized = optimize_lineup(roster_players + fallback, slots)
+                    replacements_used += 1
+                means[tid][week] = optimized["projected_points"]
                 successful += 1
             except (ValueError, KeyError, TypeError):
                 continue
-        coverage.append({"week": week, "teams_with_valid_lineups": successful,
+        coverage.append({"week": week, "teams_using_waiver_replacements": replacements_used,
+                         "waiver_pool_verified": pool is not None,
+                         "teams_with_valid_lineups": successful,
                          "teams_expected": len(means),
                          "status": "complete" if successful == len(means) else "incomplete"})
     return {"means": means, "coverage": coverage,
