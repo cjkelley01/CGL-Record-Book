@@ -14,6 +14,7 @@ import requests
 from moves_analysis import build_moves
 from analytics.all_play import calculate_all_play
 from analytics.schedule_luck import calculate_schedule_luck
+from analytics.power_rankings import calculate_power_rankings
 
 
 MANAGERS = {
@@ -652,7 +653,8 @@ def main() -> int:
         "managers": [{"manager_id": mid, "manager_name": name} for mid, name in MANAGERS.items()],
         "seasons": seasons, "records": records, "manager_history": manager_history,
         "analytics": {"all_play": [calculate_all_play(season) for season in seasons],
-                      "schedule_luck": [calculate_schedule_luck(season) for season in seasons]},
+                      "schedule_luck": [calculate_schedule_luck(season) for season in seasons],
+                      "power_rankings": [calculate_power_rankings(season) for season in seasons]},
         "head_to_head": build_head_to_head(seasons), "streaks": streaks, "moves": moves,
         "notes": ["Ed B. & Carolyn B. are one permanent joint ownership unit for Ed's Plus 1 Team.",
                   "Kelley H. receives sole credit for Pandamonium despite ESPN's misleading 2024 owner listing.",
