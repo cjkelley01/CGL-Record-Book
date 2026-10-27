@@ -50,6 +50,9 @@ jobs:
           ESPN_SWID: ${{ secrets.ESPN_SWID }}
         run: python scripts/discover_espn_history.py --seasons 2024 2025 2026
       - name: Fetch projected ESPN waiver candidates
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
         run: python -m scripts.fetch_waiver_pool --start-week 9 --end-week 18
       - name: Audit future ESPN projection coverage
         run: python scripts/inspect_future_projections.py --start-week 9 --end-week 18
@@ -77,7 +80,7 @@ jobs:
       - name: Save updated data
         run: |
           git add app/data/core_history.json app/data/playoff_forecast.json
-          git add -f data/forecasts/2026-week-*.json
+          git add -f data/forecasts/2026-*.json
           git add -f data/reports/forecast_projection_coverage.json data/reports/lineup_projection_readiness.json
           if git diff --cached --quiet; then
             echo "ESPN data produced no website changes."
