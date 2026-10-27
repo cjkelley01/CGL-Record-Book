@@ -1,0 +1,97 @@
+{
+  "season": 2026,
+  "starting_slots": [
+    0,
+    2,
+    2,
+    4,
+    4,
+    6,
+    16,
+    17,
+    23
+  ],
+  "weeks": [
+    {
+      "week": 9,
+      "expected_teams": 14,
+      "valid_lineups": 13,
+      "errors": {
+        "missing_or_ambiguous_player_projection": 1
+      }
+    },
+    {
+      "week": 10,
+      "expected_teams": 14,
+      "valid_lineups": 13,
+      "errors": {
+        "missing_or_ambiguous_player_projection": 1
+      }
+    },
+    {
+      "week": 11,
+      "expected_teams": 14,
+      "valid_lineups": 13,
+      "errors": {
+        "missing_or_ambiguous_player_projection": 1
+      }
+    },
+    {
+      "week": 12,
+      "expected_teams": 14,
+      "valid_lineups": 13,
+      "errors": {
+        "missing_or_ambiguous_player_projection": 1
+      }
+    },
+    {
+      "week": 13,
+      "expected_teams": 14,
+      "valid_lineups": 13,
+      "errors": {
+        "missing_or_ambiguous_player_projection": 1
+      }
+    },
+    {
+      "week": 14,
+      "expected_teams": 14,
+      "valid_lineups": 13,
+      "errors": {
+        "missing_or_ambiguous_player_projection": 1
+      }
+    },
+    {
+      "week": 15,
+      "expected_teams": 14,
+      "valid_lineups": 13,
+      "errors": {
+        "missing_or_ambiguous_player_projection": 1
+      }
+    },
+    {
+      "week": 16,
+      "expected_teams": 14,
+      "valid_lineups": 13,
+      "errors": {
+        "missing_or_ambiguous_player_projection": 1
+      }
+    },
+    {
+      "week": 17,
+      "expected_teams": 14,
+      "valid_lineups": 13,
+      "errors": {
+        "missing_or_ambiguous_player_projection": 1
+      }
+    },
+    {
+      "week": 18,
+      "expected_teams": 14,
+      "valid_lineups": 13,
+      "errors": {
+        "missing_or_ambiguous_player_projection": 1
+      }
+    }
+  ],
+  "ready": false
+}
