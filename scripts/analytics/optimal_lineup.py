@@ -6,7 +6,7 @@ starter slots; position eligibility must come from ESPN's eligibleSlots.
 """
 from functools import lru_cache
 
-NON_STARTER_SLOTS = {20, 21, 22, 23, 24, 25}
+NON_STARTER_SLOTS = {20, 21}  # ESPN bench (20) and IR (21); 23 is FLEX
 
 
 def optimize_lineup(players, starting_slots):
@@ -41,7 +41,7 @@ def optimize_lineup(players, starting_slots):
     options = [tuple(i for i, player in enumerate(clean) if slot in player[2])
                for _, slot in ordered_slots]
     if any(not candidates for candidates in options):
-        raise ValueError("A required lineup position has no eligible player")
+        raise ValueError("No legal lineup: a required position has no eligible player")
 
     @lru_cache(None)
     def solve(slot_index, used):
