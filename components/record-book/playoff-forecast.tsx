@@ -11,7 +11,7 @@ type TeamOdds = {
   seed_probabilities: Record<string, number>;
 };
 type Model = { status: string; reason?: string; simulations?: number; teams?: TeamOdds[] };
-const models = forecast.models as Record<string, Model>;
+const models = forecast.models as unknown as Record<string, Model>;
 const labels: Record<string, string> = {
   historical: "Historical", roster_aware: "Roster-Aware", blended: "Blended"
 };

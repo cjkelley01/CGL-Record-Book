@@ -43,6 +43,15 @@ class EspnProjectionsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             optimize_lineup(normalized_players([missing], 9, skip_missing=True), [0])
 
+    def test_ed_week_nine_defense_on_bye_does_not_count_as_valid(self):
+        from scripts.analytics.optimal_lineup import optimize_lineup
+        bye_defense = player(99, 0, week=9, slots=[16])
+        with self.assertRaises(ValueError):
+            optimize_lineup(normalized_players([bye_defense], 9, skip_missing=True), [16])
+        replacement = player(100, 7, week=9, slots=[16])
+        result = optimize_lineup(normalized_players([bye_defense, replacement], 9, skip_missing=True), [16])
+        self.assertEqual(result["projected_points"], 7)
+
     def test_waiver_replacement_requires_confirmed_availability(self):
         pool = []
         for pid, score in enumerate([18, 15, 12, 9], start=100):
