@@ -1,0 +1,235 @@
+{
+  "season": 2026,
+  "weeks": [
+    {
+      "week": 9,
+      "files": {
+        "mRoster": "available",
+        "mBoxscore": "available"
+      },
+      "projection_records": 466,
+      "projected_player_ids": 233,
+      "slot_ids": [
+        "0",
+        "16",
+        "17",
+        "2",
+        "20",
+        "21",
+        "23",
+        "4",
+        "6"
+      ],
+      "stat_sources": [
+        "1"
+      ]
+    },
+    {
+      "week": 10,
+      "files": {
+        "mRoster": "available",
+        "mBoxscore": "available"
+      },
+      "projection_records": 466,
+      "projected_player_ids": 233,
+      "slot_ids": [
+        "0",
+        "16",
+        "17",
+        "2",
+        "20",
+        "21",
+        "23",
+        "4",
+        "6"
+      ],
+      "stat_sources": [
+        "1"
+      ]
+    },
+    {
+      "week": 11,
+      "files": {
+        "mRoster": "available",
+        "mBoxscore": "available"
+      },
+      "projection_records": 466,
+      "projected_player_ids": 233,
+      "slot_ids": [
+        "0",
+        "16",
+        "17",
+        "2",
+        "20",
+        "21",
+        "23",
+        "4",
+        "6"
+      ],
+      "stat_sources": [
+        "1"
+      ]
+    },
+    {
+      "week": 12,
+      "files": {
+        "mRoster": "available",
+        "mBoxscore": "available"
+      },
+      "projection_records": 466,
+      "projected_player_ids": 233,
+      "slot_ids": [
+        "0",
+        "16",
+        "17",
+        "2",
+        "20",
+        "21",
+        "23",
+        "4",
+        "6"
+      ],
+      "stat_sources": [
+        "1"
+      ]
+    },
+    {
+      "week": 13,
+      "files": {
+        "mRoster": "available",
+        "mBoxscore": "available"
+      },
+      "projection_records": 466,
+      "projected_player_ids": 233,
+      "slot_ids": [
+        "0",
+        "16",
+        "17",
+        "2",
+        "20",
+        "21",
+        "23",
+        "4",
+        "6"
+      ],
+      "stat_sources": [
+        "1"
+      ]
+    },
+    {
+      "week": 14,
+      "files": {
+        "mRoster": "available",
+        "mBoxscore": "available"
+      },
+      "projection_records": 466,
+      "projected_player_ids": 233,
+      "slot_ids": [
+        "0",
+        "16",
+        "17",
+        "2",
+        "20",
+        "21",
+        "23",
+        "4",
+        "6"
+      ],
+      "stat_sources": [
+        "1"
+      ]
+    },
+    {
+      "week": 15,
+      "files": {
+        "mRoster": "available",
+        "mBoxscore": "available"
+      },
+      "projection_records": 233,
+      "projected_player_ids": 233,
+      "slot_ids": [
+        "0",
+        "16",
+        "17",
+        "2",
+        "20",
+        "21",
+        "23",
+        "4",
+        "6"
+      ],
+      "stat_sources": [
+        "1"
+      ]
+    },
+    {
+      "week": 16,
+      "files": {
+        "mRoster": "available",
+        "mBoxscore": "available"
+      },
+      "projection_records": 233,
+      "projected_player_ids": 233,
+      "slot_ids": [
+        "0",
+        "16",
+        "17",
+        "2",
+        "20",
+        "21",
+        "23",
+        "4",
+        "6"
+      ],
+      "stat_sources": [
+        "1"
+      ]
+    },
+    {
+      "week": 17,
+      "files": {
+        "mRoster": "available",
+        "mBoxscore": "available"
+      },
+      "projection_records": 233,
+      "projected_player_ids": 233,
+      "slot_ids": [
+        "0",
+        "16",
+        "17",
+        "2",
+        "20",
+        "21",
+        "23",
+        "4",
+        "6"
+      ],
+      "stat_sources": [
+        "1"
+      ]
+    },
+    {
+      "week": 18,
+      "files": {
+        "mRoster": "available",
+        "mBoxscore": "available"
+      },
+      "projection_records": 233,
+      "projected_player_ids": 233,
+      "slot_ids": [
+        "0",
+        "16",
+        "17",
+        "2",
+        "20",
+        "21",
+        "23",
+        "4",
+        "6"
+      ],
+      "stat_sources": [
+        "1"
+      ]
+    }
+  ]
+}
