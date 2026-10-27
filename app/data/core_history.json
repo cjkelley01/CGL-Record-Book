@@ -40282,6 +40282,2978 @@
           }
         ]
       }
+    ],
+    "schedule_luck": [
+      {
+        "season": 2024,
+        "completed_weeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "teams": [
+          {
+            "team_id": 17,
+            "team_name": "Ed's Plus 1 Team",
+            "weeks": 14,
+            "points_against": 1701.04,
+            "points_against_per_week": 121.5,
+            "average_opponent_weekly_rank": 5.29,
+            "actual_wins": 6.0,
+            "average_schedule_wins": 6.25,
+            "schedule_luck": -0.25,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 7.0
+              }
+            ]
+          },
+          {
+            "team_id": 14,
+            "team_name": "CB's Bulls",
+            "weeks": 14,
+            "points_against": 1700.1,
+            "points_against_per_week": 121.44,
+            "average_opponent_weekly_rank": 5.57,
+            "actual_wins": 3.0,
+            "average_schedule_wins": 3.9167,
+            "schedule_luck": -0.9167,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 7.0
+              }
+            ]
+          },
+          {
+            "team_id": 3,
+            "team_name": "Mike's Magic",
+            "weeks": 14,
+            "points_against": 1688.74,
+            "points_against_per_week": 120.62,
+            "average_opponent_weekly_rank": 5.79,
+            "actual_wins": 5.0,
+            "average_schedule_wins": 7.1667,
+            "schedule_luck": -2.1667,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 9.0
+              }
+            ]
+          },
+          {
+            "team_id": 13,
+            "team_name": "SOS (Susan, Only Serendipity)",
+            "weeks": 14,
+            "points_against": 1686.14,
+            "points_against_per_week": 120.44,
+            "average_opponent_weekly_rank": 5.14,
+            "actual_wins": 4.0,
+            "average_schedule_wins": 6.0833,
+            "schedule_luck": -2.0833,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 7.0
+              }
+            ]
+          },
+          {
+            "team_id": 2,
+            "team_name": "Quy's Tremendous Team",
+            "weeks": 14,
+            "points_against": 1630.4,
+            "points_against_per_week": 116.46,
+            "average_opponent_weekly_rank": 5.71,
+            "actual_wins": 3.0,
+            "average_schedule_wins": 4.0833,
+            "schedule_luck": -1.0833,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 7.0
+              }
+            ]
+          },
+          {
+            "team_id": 8,
+            "team_name": "Alex's Astounding Team",
+            "weeks": 14,
+            "points_against": 1613.38,
+            "points_against_per_week": 115.24,
+            "average_opponent_weekly_rank": 6.21,
+            "actual_wins": 7.0,
+            "average_schedule_wins": 8.0,
+            "schedule_luck": -1.0,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 8.0
+              }
+            ]
+          },
+          {
+            "team_id": 4,
+            "team_name": "Who Shot JR",
+            "weeks": 14,
+            "points_against": 1576.58,
+            "points_against_per_week": 112.61,
+            "average_opponent_weekly_rank": 6.36,
+            "actual_wins": 9.0,
+            "average_schedule_wins": 8.0833,
+            "schedule_luck": 0.9167,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 9.0
+              }
+            ]
+          },
+          {
+            "team_id": 5,
+            "team_name": "No Refills",
+            "weeks": 14,
+            "points_against": 1536.54,
+            "points_against_per_week": 109.75,
+            "average_opponent_weekly_rank": 7.79,
+            "actual_wins": 10.0,
+            "average_schedule_wins": 7.5833,
+            "schedule_luck": 2.4167,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 8.0
+              }
+            ]
+          },
+          {
+            "team_id": 18,
+            "team_name": "Timberwolves",
+            "weeks": 14,
+            "points_against": 1526.56,
+            "points_against_per_week": 109.04,
+            "average_opponent_weekly_rank": 7.79,
+            "actual_wins": 9.0,
+            "average_schedule_wins": 8.3333,
+            "schedule_luck": 0.6667,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 9.0
+              }
+            ]
+          },
+          {
+            "team_id": 9,
+            "team_name": "2015 Flux Capacitors",
+            "weeks": 14,
+            "points_against": 1522.12,
+            "points_against_per_week": 108.72,
+            "average_opponent_weekly_rank": 7.14,
+            "actual_wins": 8.0,
+            "average_schedule_wins": 7.75,
+            "schedule_luck": 0.25,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 11.0
+              }
+            ]
+          },
+          {
+            "team_id": 1,
+            "team_name": "Charley's Angels",
+            "weeks": 14,
+            "points_against": 1506.72,
+            "points_against_per_week": 107.62,
+            "average_opponent_weekly_rank": 7.57,
+            "actual_wins": 13.0,
+            "average_schedule_wins": 10.8333,
+            "schedule_luck": 2.1667,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 13.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 12.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 12.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 12.0
+              }
+            ]
+          },
+          {
+            "team_id": 10,
+            "team_name": "Pandamonium",
+            "weeks": 14,
+            "points_against": 1464.58,
+            "points_against_per_week": 104.61,
+            "average_opponent_weekly_rank": 7.64,
+            "actual_wins": 7.0,
+            "average_schedule_wins": 5.9167,
+            "schedule_luck": 1.0833,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Quy's Tremendous Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "Who Shot JR",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "2015 Flux Capacitors",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Pandamonium",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 6.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "season": 2025,
+        "completed_weeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "teams": [
+          {
+            "team_id": 17,
+            "team_name": "Ed's Plus 1 Team",
+            "weeks": 14,
+            "points_against": 1687.2,
+            "points_against_per_week": 120.51,
+            "average_opponent_weekly_rank": 4.93,
+            "actual_wins": 1.0,
+            "average_schedule_wins": 2.0,
+            "schedule_luck": -1.0,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 4.0
+              }
+            ]
+          },
+          {
+            "team_id": 18,
+            "team_name": "Timberwolves",
+            "weeks": 14,
+            "points_against": 1656.38,
+            "points_against_per_week": 118.31,
+            "average_opponent_weekly_rank": 6.71,
+            "actual_wins": 9.0,
+            "average_schedule_wins": 7.0,
+            "schedule_luck": 2.0,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 9.0
+              }
+            ]
+          },
+          {
+            "team_id": 2,
+            "team_name": "Kinda Mid",
+            "weeks": 14,
+            "points_against": 1619.38,
+            "points_against_per_week": 115.67,
+            "average_opponent_weekly_rank": 5.57,
+            "actual_wins": 4.0,
+            "average_schedule_wins": 6.0833,
+            "schedule_luck": -2.0833,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 7.0
+              }
+            ]
+          },
+          {
+            "team_id": 5,
+            "team_name": "No Refills",
+            "weeks": 14,
+            "points_against": 1611.48,
+            "points_against_per_week": 115.11,
+            "average_opponent_weekly_rank": 5.57,
+            "actual_wins": 6.0,
+            "average_schedule_wins": 5.5,
+            "schedule_luck": 0.5,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 3.0
+              }
+            ]
+          },
+          {
+            "team_id": 13,
+            "team_name": "SOS (Susan, Only Serendipity)",
+            "weeks": 14,
+            "points_against": 1575.9,
+            "points_against_per_week": 112.56,
+            "average_opponent_weekly_rank": 6.5,
+            "actual_wins": 7.0,
+            "average_schedule_wins": 7.3333,
+            "schedule_luck": -0.3333,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 7.0
+              }
+            ]
+          },
+          {
+            "team_id": 9,
+            "team_name": "Flux Capacitors",
+            "weeks": 14,
+            "points_against": 1565.96,
+            "points_against_per_week": 111.85,
+            "average_opponent_weekly_rank": 6.36,
+            "actual_wins": 9.0,
+            "average_schedule_wins": 9.25,
+            "schedule_luck": -0.25,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 10.0
+              }
+            ]
+          },
+          {
+            "team_id": 14,
+            "team_name": "CB's Bulls",
+            "weeks": 14,
+            "points_against": 1562.84,
+            "points_against_per_week": 111.63,
+            "average_opponent_weekly_rank": 6.86,
+            "actual_wins": 10.0,
+            "average_schedule_wins": 9.3333,
+            "schedule_luck": 0.6667,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 9.0
+              }
+            ]
+          },
+          {
+            "team_id": 8,
+            "team_name": "Alex's Astounding Team",
+            "weeks": 14,
+            "points_against": 1531.34,
+            "points_against_per_week": 109.38,
+            "average_opponent_weekly_rank": 6.5,
+            "actual_wins": 9.0,
+            "average_schedule_wins": 9.8333,
+            "schedule_luck": -0.8333,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 12.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 12.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 8.0
+              }
+            ]
+          },
+          {
+            "team_id": 1,
+            "team_name": "Charley's Angels",
+            "weeks": 14,
+            "points_against": 1530.56,
+            "points_against_per_week": 109.33,
+            "average_opponent_weekly_rank": 6.64,
+            "actual_wins": 6.0,
+            "average_schedule_wins": 6.5833,
+            "schedule_luck": -0.5833,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 7.0
+              }
+            ]
+          },
+          {
+            "team_id": 3,
+            "team_name": "Mike's Magic",
+            "weeks": 14,
+            "points_against": 1510.14,
+            "points_against_per_week": 107.87,
+            "average_opponent_weekly_rank": 7.5,
+            "actual_wins": 8.0,
+            "average_schedule_wins": 7.5833,
+            "schedule_luck": 0.4167,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 8.0
+              }
+            ]
+          },
+          {
+            "team_id": 10,
+            "team_name": "Big Joe",
+            "weeks": 14,
+            "points_against": 1490.02,
+            "points_against_per_week": 106.43,
+            "average_opponent_weekly_rank": 7.07,
+            "actual_wins": 10.0,
+            "average_schedule_wins": 9.1667,
+            "schedule_luck": 0.8333,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 11.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 12.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 8.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 10.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 9.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 9.0
+              }
+            ]
+          },
+          {
+            "team_id": 4,
+            "team_name": "All the way to the Em-zone",
+            "weeks": 14,
+            "points_against": 1470.46,
+            "points_against_per_week": 105.03,
+            "average_opponent_weekly_rank": 7.79,
+            "actual_wins": 5.0,
+            "average_schedule_wins": 4.3333,
+            "schedule_luck": 0.6667,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Alex's Astounding Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "season": 2026,
+        "completed_weeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "teams": [
+          {
+            "team_id": 18,
+            "team_name": "Timberwolves",
+            "weeks": 7,
+            "points_against": 848.58,
+            "points_against_per_week": 121.23,
+            "average_opponent_weekly_rank": 7.57,
+            "actual_wins": 3.0,
+            "average_schedule_wins": 3.2143,
+            "schedule_luck": -0.2143,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 2.0
+              }
+            ]
+          },
+          {
+            "team_id": 17,
+            "team_name": "Ed's Plus 1 Team",
+            "weeks": 7,
+            "points_against": 843.86,
+            "points_against_per_week": 120.55,
+            "average_opponent_weekly_rank": 6.43,
+            "actual_wins": 5.0,
+            "average_schedule_wins": 5.4286,
+            "schedule_luck": -0.4286,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 5.0
+              }
+            ]
+          },
+          {
+            "team_id": 2,
+            "team_name": "Kinda Mid",
+            "weeks": 7,
+            "points_against": 836.52,
+            "points_against_per_week": 119.5,
+            "average_opponent_weekly_rank": 6.14,
+            "actual_wins": 1.0,
+            "average_schedule_wins": 1.7143,
+            "schedule_luck": -0.7143,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 1.0
+              }
+            ]
+          },
+          {
+            "team_id": 20,
+            "team_name": "BK Have It Your Way",
+            "weeks": 7,
+            "points_against": 812.42,
+            "points_against_per_week": 116.06,
+            "average_opponent_weekly_rank": 6.29,
+            "actual_wins": 1.0,
+            "average_schedule_wins": 2.5,
+            "schedule_luck": -1.5,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 1.0
+              }
+            ]
+          },
+          {
+            "team_id": 10,
+            "team_name": "Big Joe",
+            "weeks": 7,
+            "points_against": 790.6,
+            "points_against_per_week": 112.94,
+            "average_opponent_weekly_rank": 6.71,
+            "actual_wins": 3.0,
+            "average_schedule_wins": 3.2857,
+            "schedule_luck": -0.2857,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 3.0
+              }
+            ]
+          },
+          {
+            "team_id": 13,
+            "team_name": "SOS (Susan, Only Serendipity)",
+            "weeks": 7,
+            "points_against": 783.84,
+            "points_against_per_week": 111.98,
+            "average_opponent_weekly_rank": 7.0,
+            "actual_wins": 4.0,
+            "average_schedule_wins": 5.5714,
+            "schedule_luck": -1.5714,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 6.0
+              }
+            ]
+          },
+          {
+            "team_id": 19,
+            "team_name": "Cardiac Comebacks",
+            "weeks": 7,
+            "points_against": 782.8,
+            "points_against_per_week": 111.83,
+            "average_opponent_weekly_rank": 7.14,
+            "actual_wins": 2.0,
+            "average_schedule_wins": 1.0,
+            "schedule_luck": 1.0,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 0.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 0.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 0.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 0.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 1.0
+              }
+            ]
+          },
+          {
+            "team_id": 3,
+            "team_name": "Mike's Magic",
+            "weeks": 7,
+            "points_against": 772.1,
+            "points_against_per_week": 110.3,
+            "average_opponent_weekly_rank": 6.86,
+            "actual_wins": 4.0,
+            "average_schedule_wins": 3.8571,
+            "schedule_luck": 0.1429,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 4.0
+              }
+            ]
+          },
+          {
+            "team_id": 5,
+            "team_name": "No Refills",
+            "weeks": 7,
+            "points_against": 768.88,
+            "points_against_per_week": 109.84,
+            "average_opponent_weekly_rank": 7.43,
+            "actual_wins": 2.0,
+            "average_schedule_wins": 2.0,
+            "schedule_luck": 0.0,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 0.0
+              }
+            ]
+          },
+          {
+            "team_id": 14,
+            "team_name": "CB's Bulls",
+            "weeks": 7,
+            "points_against": 758.94,
+            "points_against_per_week": 108.42,
+            "average_opponent_weekly_rank": 8.14,
+            "actual_wins": 4.0,
+            "average_schedule_wins": 3.2857,
+            "schedule_luck": 0.7143,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 3.0
+              }
+            ]
+          },
+          {
+            "team_id": 4,
+            "team_name": "All the way to the Em-zone",
+            "weeks": 7,
+            "points_against": 750.5,
+            "points_against_per_week": 107.21,
+            "average_opponent_weekly_rank": 7.43,
+            "actual_wins": 3.0,
+            "average_schedule_wins": 2.9286,
+            "schedule_luck": 0.0714,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 1.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 2.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 3.0
+              }
+            ]
+          },
+          {
+            "team_id": 9,
+            "team_name": "Flux Capacitors",
+            "weeks": 7,
+            "points_against": 741.7,
+            "points_against_per_week": 105.96,
+            "average_opponent_weekly_rank": 8.43,
+            "actual_wins": 5.0,
+            "average_schedule_wins": 4.5714,
+            "schedule_luck": 0.4286,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 5.0
+              }
+            ]
+          },
+          {
+            "team_id": 1,
+            "team_name": "Charley's Angels",
+            "weeks": 7,
+            "points_against": 703.52,
+            "points_against_per_week": 100.5,
+            "average_opponent_weekly_rank": 9.14,
+            "actual_wins": 7.0,
+            "average_schedule_wins": 5.3571,
+            "schedule_luck": 1.6429,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 7.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 5.0
+              }
+            ]
+          },
+          {
+            "team_id": 8,
+            "team_name": "Kaitlyn's Deluxe Team",
+            "weeks": 7,
+            "points_against": 677.1,
+            "points_against_per_week": 96.73,
+            "average_opponent_weekly_rank": 10.29,
+            "actual_wins": 5.0,
+            "average_schedule_wins": 4.2857,
+            "schedule_luck": 0.7143,
+            "schedule_swap": [
+              {
+                "schedule_team_id": 1,
+                "schedule_team_name": "Charley's Angels",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 2,
+                "schedule_team_name": "Kinda Mid",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 3,
+                "schedule_team_name": "Mike's Magic",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 4,
+                "schedule_team_name": "All the way to the Em-zone",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 5,
+                "schedule_team_name": "No Refills",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 8,
+                "schedule_team_name": "Kaitlyn's Deluxe Team",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 9,
+                "schedule_team_name": "Flux Capacitors",
+                "wins": 6.0
+              },
+              {
+                "schedule_team_id": 10,
+                "schedule_team_name": "Big Joe",
+                "wins": 3.0
+              },
+              {
+                "schedule_team_id": 13,
+                "schedule_team_name": "SOS (Susan, Only Serendipity)",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 14,
+                "schedule_team_name": "CB's Bulls",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 17,
+                "schedule_team_name": "Ed's Plus 1 Team",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 18,
+                "schedule_team_name": "Timberwolves",
+                "wins": 4.0
+              },
+              {
+                "schedule_team_id": 19,
+                "schedule_team_name": "Cardiac Comebacks",
+                "wins": 5.0
+              },
+              {
+                "schedule_team_id": 20,
+                "schedule_team_name": "BK Have It Your Way",
+                "wins": 4.0
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
   "head_to_head": [
