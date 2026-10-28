@@ -10,7 +10,7 @@ from scripts.analytics.espn_projections import (
 
 def player(pid, points, week=9, slots=None):
     return {"playerPoolEntry": {"player": {
-        "id": pid, "eligibleSlots": slots or [0],
+        "id": pid, "proTeamId": 1, "eligibleSlots": slots or [0],
         "stats": [{"statSourceId": 1, "scoringPeriodId": week, "appliedTotal": points}],
     }}}
 
@@ -66,11 +66,30 @@ class EspnProjectionsTests(unittest.TestCase):
         pool[2]["onTeamId"] = 5
         self.assertEqual(waiver_replacements(pool, 9, {103}, [0]), [])
 
+    def test_nfl_schedule_excludes_bye_team_even_with_positive_projection(self):
+        from scripts.analytics.espn_projections import is_playable
+        p = player(55, 12)["playerPoolEntry"]["player"]
+        self.assertTrue(is_playable(p, 9, {1, 2}))
+        self.assertFalse(is_playable(p, 9, {2, 3}))
+        self.assertFalse(is_playable({"id": 55, "stats": p["stats"]}, 9, {1, 2}))
+
+    def test_multiple_waiver_replacements_for_same_position(self):
+        pool = [{"status": "FREEAGENT", "onTeamId": 0,
+                 "player": {"id": pid, "eligibleSlots": [2],
+                            "stats": [{"statSourceId": 1, "scoringPeriodId": 9,
+                                       "appliedTotal": score}]}}
+                for pid, score in [(101, 18), (102, 15), (103, 12)]]
+        selected = waiver_replacements(pool, 9, set(), [2, 2])
+        self.assertEqual(len(selected), 2)
+        self.assertEqual(len({p["player_id"] for p in selected}), 2)
+        self.assertTrue(all(p["projection"] == 15 for p in selected))
+
     def test_complete_week_and_missing_future_week(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory) / "raw" / "2026"
             (root / "league").mkdir(parents=True)
             (root / "weeks" / "09").mkdir(parents=True)
+            (root / "nfl_schedule.json").write_text(json.dumps({"9": list(range(1, 27))}))
             (root / "league" / "mSettings.json").write_text(json.dumps({
                 "settings": {"rosterSettings": {"lineupSlotCounts": {"0": 1, "20": 4}}}
             }))
@@ -81,7 +100,7 @@ class EspnProjectionsTests(unittest.TestCase):
             result = extract_weekly_means(directory, 2026, [9, 10], [1, 2])
             self.assertEqual(19, result["means"][1][9])
             self.assertFalse(result["ready"])
-            self.assertEqual("missing_file", result["coverage"][1]["status"])
+            self.assertEqual("missing_verified_nfl_schedule", result["coverage"][1]["status"])
 
 
 if __name__ == "__main__":
