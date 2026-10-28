@@ -1,0 +1,37 @@
+name: ESPN Projection Probe (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      week:
+        description: Future scoring period to inspect
+        required: true
+        default: '9'
+      research_ref:
+        description: Research branch containing the diagnostic script
+        required: true
+        default: 'research/espn-future-week-projections'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out research branch (never production code)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.research_ref }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install requests
+      - name: Inspect ESPN future projection response
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+          WEEK: ${{ inputs.week }}
+        run: python -m scripts.diagnose_espn_future_projections --week "$WEEK"
