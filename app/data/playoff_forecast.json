@@ -1,12 +1,28 @@
 {
   "season": 2026,
-  "generated_at": "2026-10-28T01:08:24.859411+00:00",
+  "generated_at": "2026-10-28T01:14:14.542687+00:00",
   "completed_through_week": 7,
   "projection_coverage": [
     {
       "week": 8,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": false,
+      "waiver_diagnostics": {
+        "total": 0,
+        "status_confirmed": 0,
+        "unrostered": 0,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -34,6 +50,22 @@
       "week": 9,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": true,
+      "waiver_diagnostics": {
+        "total": 1055,
+        "status_confirmed": 821,
+        "unrostered": 821,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -49,6 +81,22 @@
       "week": 10,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": true,
+      "waiver_diagnostics": {
+        "total": 1055,
+        "status_confirmed": 821,
+        "unrostered": 821,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -84,6 +132,22 @@
       "week": 11,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": true,
+      "waiver_diagnostics": {
+        "total": 1055,
+        "status_confirmed": 821,
+        "unrostered": 821,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -111,6 +175,22 @@
       "week": 12,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": true,
+      "waiver_diagnostics": {
+        "total": 1055,
+        "status_confirmed": 821,
+        "unrostered": 821,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [],
       "teams_with_valid_lineups": 14,
@@ -121,6 +201,22 @@
       "week": 13,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": true,
+      "waiver_diagnostics": {
+        "total": 1055,
+        "status_confirmed": 821,
+        "unrostered": 821,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -148,6 +244,22 @@
       "week": 14,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": true,
+      "waiver_diagnostics": {
+        "total": 1055,
+        "status_confirmed": 821,
+        "unrostered": 821,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -175,6 +287,22 @@
       "week": 15,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": true,
+      "waiver_diagnostics": {
+        "total": 1055,
+        "status_confirmed": 821,
+        "unrostered": 821,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [],
       "teams_with_valid_lineups": 14,
@@ -185,6 +313,22 @@
       "week": 16,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": true,
+      "waiver_diagnostics": {
+        "total": 1055,
+        "status_confirmed": 821,
+        "unrostered": 821,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [],
       "teams_with_valid_lineups": 14,
@@ -195,6 +339,22 @@
       "week": 17,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": true,
+      "waiver_diagnostics": {
+        "total": 1055,
+        "status_confirmed": 821,
+        "unrostered": 821,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [],
       "teams_with_valid_lineups": 14,
@@ -205,6 +365,22 @@
       "week": 18,
       "teams_using_waiver_replacements": 0,
       "waiver_pool_verified": true,
+      "waiver_diagnostics": {
+        "total": 1055,
+        "status_confirmed": 821,
+        "unrostered": 821,
+        "weekly_projection": 0,
+        "playable": 0,
+        "eligible_by_slot": {
+          "0": 0,
+          "2": 0,
+          "4": 0,
+          "6": 0,
+          "16": 0,
+          "17": 0,
+          "23": 0
+        }
+      },
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [],
       "teams_with_valid_lineups": 14,
