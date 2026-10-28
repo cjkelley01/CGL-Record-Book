@@ -6,6 +6,8 @@ strictDepBuilds: true
 allowBuilds:
   esbuild: true
   unrs-resolver: true
+  # Optional macOS watcher; never run its build script on Windows.
+  fsevents: false
 storeDir: .sites-runtime/pnpm-store
 cacheDir: .sites-runtime/pnpm-store/policy-cache
 enableGlobalVirtualStore: false
