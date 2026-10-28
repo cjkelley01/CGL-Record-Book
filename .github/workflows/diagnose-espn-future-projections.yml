@@ -1,0 +1,29 @@
+name: Diagnose ESPN Future Projections (manual only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      week:
+        description: ESPN scoring period to inspect
+        required: true
+        default: '9'
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install requests
+      - name: Inspect ESPN projection response (aggregates only)
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+          WEEK: ${{ inputs.week }}
+        run: python -m scripts.diagnose_espn_future_projections --week "$WEEK"
