@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "generated_at": "2026-10-28T01:14:14.542687+00:00",
+  "generated_at": "2026-10-28T01:21:05.419107+00:00",
   "completed_through_week": 7,
   "projection_coverage": [
     {
@@ -13,6 +13,17 @@
         "unrostered": 0,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 0,
+          "players_without_stats": 0,
+          "projected_source_records": 0,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 0,
+          "target_week_missing_total": 0,
+          "source_ids": {},
+          "scoring_periods_for_projection": {},
+          "stat_key_sets": {}
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
@@ -52,10 +63,30 @@
       "waiver_pool_verified": true,
       "waiver_diagnostics": {
         "total": 1055,
-        "status_confirmed": 821,
-        "unrostered": 821,
+        "status_confirmed": 822,
+        "unrostered": 822,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 822,
+          "players_without_stats": 0,
+          "projected_source_records": 1804,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 1804,
+          "target_week_missing_total": 0,
+          "source_ids": {
+            "0": 1548,
+            "1": 1804
+          },
+          "scoring_periods_for_projection": {
+            "0": 1366,
+            "8": 438
+          },
+          "stat_key_sets": {
+            "appliedAverage,appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 2914,
+            "appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 438
+          }
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
@@ -83,10 +114,30 @@
       "waiver_pool_verified": true,
       "waiver_diagnostics": {
         "total": 1055,
-        "status_confirmed": 821,
-        "unrostered": 821,
+        "status_confirmed": 822,
+        "unrostered": 822,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 822,
+          "players_without_stats": 0,
+          "projected_source_records": 1804,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 1804,
+          "target_week_missing_total": 0,
+          "source_ids": {
+            "0": 1548,
+            "1": 1804
+          },
+          "scoring_periods_for_projection": {
+            "0": 1366,
+            "8": 438
+          },
+          "stat_key_sets": {
+            "appliedAverage,appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 2914,
+            "appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 438
+          }
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
@@ -134,10 +185,30 @@
       "waiver_pool_verified": true,
       "waiver_diagnostics": {
         "total": 1055,
-        "status_confirmed": 821,
-        "unrostered": 821,
+        "status_confirmed": 822,
+        "unrostered": 822,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 822,
+          "players_without_stats": 0,
+          "projected_source_records": 1804,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 1804,
+          "target_week_missing_total": 0,
+          "source_ids": {
+            "0": 1548,
+            "1": 1804
+          },
+          "scoring_periods_for_projection": {
+            "0": 1366,
+            "8": 438
+          },
+          "stat_key_sets": {
+            "appliedAverage,appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 2914,
+            "appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 438
+          }
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
@@ -177,10 +248,30 @@
       "waiver_pool_verified": true,
       "waiver_diagnostics": {
         "total": 1055,
-        "status_confirmed": 821,
-        "unrostered": 821,
+        "status_confirmed": 822,
+        "unrostered": 822,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 822,
+          "players_without_stats": 0,
+          "projected_source_records": 1804,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 1804,
+          "target_week_missing_total": 0,
+          "source_ids": {
+            "0": 1548,
+            "1": 1804
+          },
+          "scoring_periods_for_projection": {
+            "0": 1366,
+            "8": 438
+          },
+          "stat_key_sets": {
+            "appliedAverage,appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 2914,
+            "appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 438
+          }
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
@@ -203,10 +294,30 @@
       "waiver_pool_verified": true,
       "waiver_diagnostics": {
         "total": 1055,
-        "status_confirmed": 821,
-        "unrostered": 821,
+        "status_confirmed": 822,
+        "unrostered": 822,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 822,
+          "players_without_stats": 0,
+          "projected_source_records": 1804,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 1804,
+          "target_week_missing_total": 0,
+          "source_ids": {
+            "0": 1548,
+            "1": 1804
+          },
+          "scoring_periods_for_projection": {
+            "0": 1366,
+            "8": 438
+          },
+          "stat_key_sets": {
+            "appliedAverage,appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 2914,
+            "appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 438
+          }
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
@@ -246,10 +357,30 @@
       "waiver_pool_verified": true,
       "waiver_diagnostics": {
         "total": 1055,
-        "status_confirmed": 821,
-        "unrostered": 821,
+        "status_confirmed": 822,
+        "unrostered": 822,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 822,
+          "players_without_stats": 0,
+          "projected_source_records": 1804,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 1804,
+          "target_week_missing_total": 0,
+          "source_ids": {
+            "0": 1548,
+            "1": 1804
+          },
+          "scoring_periods_for_projection": {
+            "0": 1366,
+            "8": 438
+          },
+          "stat_key_sets": {
+            "appliedAverage,appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 2914,
+            "appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 438
+          }
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
@@ -289,10 +420,30 @@
       "waiver_pool_verified": true,
       "waiver_diagnostics": {
         "total": 1055,
-        "status_confirmed": 821,
-        "unrostered": 821,
+        "status_confirmed": 822,
+        "unrostered": 822,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 822,
+          "players_without_stats": 0,
+          "projected_source_records": 1804,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 1804,
+          "target_week_missing_total": 0,
+          "source_ids": {
+            "0": 1548,
+            "1": 1804
+          },
+          "scoring_periods_for_projection": {
+            "0": 1366,
+            "8": 438
+          },
+          "stat_key_sets": {
+            "appliedAverage,appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 2914,
+            "appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 438
+          }
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
@@ -315,10 +466,30 @@
       "waiver_pool_verified": true,
       "waiver_diagnostics": {
         "total": 1055,
-        "status_confirmed": 821,
-        "unrostered": 821,
+        "status_confirmed": 822,
+        "unrostered": 822,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 822,
+          "players_without_stats": 0,
+          "projected_source_records": 1804,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 1804,
+          "target_week_missing_total": 0,
+          "source_ids": {
+            "0": 1548,
+            "1": 1804
+          },
+          "scoring_periods_for_projection": {
+            "0": 1366,
+            "8": 438
+          },
+          "stat_key_sets": {
+            "appliedAverage,appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 2914,
+            "appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 438
+          }
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
@@ -341,10 +512,30 @@
       "waiver_pool_verified": true,
       "waiver_diagnostics": {
         "total": 1055,
-        "status_confirmed": 821,
-        "unrostered": 821,
+        "status_confirmed": 822,
+        "unrostered": 822,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 822,
+          "players_without_stats": 0,
+          "projected_source_records": 1804,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 1804,
+          "target_week_missing_total": 0,
+          "source_ids": {
+            "0": 1548,
+            "1": 1804
+          },
+          "scoring_periods_for_projection": {
+            "0": 1366,
+            "8": 438
+          },
+          "stat_key_sets": {
+            "appliedAverage,appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 2914,
+            "appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 438
+          }
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
@@ -367,10 +558,30 @@
       "waiver_pool_verified": true,
       "waiver_diagnostics": {
         "total": 1055,
-        "status_confirmed": 821,
-        "unrostered": 821,
+        "status_confirmed": 822,
+        "unrostered": 822,
         "weekly_projection": 0,
         "playable": 0,
+        "stat_shapes": {
+          "players_with_stats": 822,
+          "players_without_stats": 0,
+          "projected_source_records": 1804,
+          "projected_target_week_records": 0,
+          "projected_other_week_records": 1804,
+          "target_week_missing_total": 0,
+          "source_ids": {
+            "0": 1548,
+            "1": 1804
+          },
+          "scoring_periods_for_projection": {
+            "0": 1366,
+            "8": 438
+          },
+          "stat_key_sets": {
+            "appliedAverage,appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 2914,
+            "appliedTotal,externalId,id,proTeamId,scoringPeriodId,seasonId,statSourceId,statSplitTypeId,stats": 438
+          }
+        },
         "eligible_by_slot": {
           "0": 0,
           "2": 0,
