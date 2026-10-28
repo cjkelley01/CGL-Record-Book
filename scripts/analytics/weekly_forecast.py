@@ -128,8 +128,18 @@ def build_forecast(season, data_root, *, trials=10000):
     weeks = sorted(set(future) | {15, 16, 17, 18})
     ids = [int(t["team_id"]) for t in season["teams"]]
     history = historical_means(season, weeks)
-    roster_result = extract_weekly_means(data_root, season["season"], weeks, ids)
-    roster = roster_result["means"] if roster_result["ready"] else None
+    # ESPN week-specific roster projections are available for the remaining
+    # regular season, but not necessarily for playoff weeks 15-18.
+    # Use the final verified regular-season projected lineup as an explicitly
+    # modeled playoff baseline rather than mislabeling it as ESPN W15-18 data.
+    roster_result = extract_weekly_means(data_root, season["season"], future, ids)
+    roster = roster_result["means"] if roster_result["ready"] and future else None
+    playoff_baseline_week = max(future) if future else None
+    if roster is not None:
+        for tid in ids:
+            baseline = roster[tid][playoff_baseline_week]
+            for week in (15, 16, 17, 18):
+                roster[tid][week] = baseline
     models = {}
     for name, means in (("historical", history), ("roster_aware", roster),
                         ("blended", blended_means(history, roster))):
@@ -143,7 +153,14 @@ def build_forecast(season, data_root, *, trials=10000):
     return {"season": season["season"], "generated_at": datetime.now(timezone.utc).isoformat(),
             "completed_through_week": max((int(m["matchup_period"]) for m in season["matchups"]
                 if m.get("stage") == "regular_season" and m.get("decided")), default=0),
-            "projection_coverage": roster_result["coverage"], "models": models}
+            "projection_coverage": roster_result["coverage"],
+            "projection_methodology": {
+                "regular_season": "ESPN week-specific optimal legal rosters; missing starters use mean of top three current-week projected free agents",
+                "playoffs": "Modeled carry-forward of final remaining regular-season projected team lineup; NOT ESPN playoff-week projections",
+                "playoff_baseline_week": playoff_baseline_week,
+                "blended_historical_weight": 0.4,
+                "blended_roster_weight": 0.6,
+            }, "models": models}
 
 
 def main():
