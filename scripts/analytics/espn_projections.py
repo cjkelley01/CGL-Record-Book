@@ -103,6 +103,39 @@ def normalized_players(entries, week, *, skip_missing=False, playing_teams=None)
     return players
 
 
+def waiver_pool_diagnostics(pool, week, rostered_ids, slots, playing_teams=None):
+    """Aggregate eligibility counters without exposing private player data."""
+    counts = {"total": len(pool) if isinstance(pool, list) else 0,
+              "status_confirmed": 0, "unrostered": 0,
+              "weekly_projection": 0, "playable": 0,
+              "eligible_by_slot": {str(slot): 0 for slot in sorted(set(slots))}}
+    for entry in pool if isinstance(pool, list) else []:
+        if not isinstance(entry, dict):
+            continue
+        nested = entry.get("playerPoolEntry") or {}
+        player = entry.get("player") or nested.get("player") or {}
+        status = entry.get("status") or nested.get("status")
+        owner = entry.get("onTeamId", nested.get("onTeamId"))
+        if status not in ("FREEAGENT", "WAIVERS") or owner not in (0, None, -1):
+            continue
+        counts["status_confirmed"] += 1
+        pid = player.get("id")
+        if pid is None or int(pid) in rostered_ids:
+            continue
+        counts["unrostered"] += 1
+        try:
+            projection_for_week(player, week)
+        except ValueError:
+            continue
+        counts["weekly_projection"] += 1
+        if not is_playable(player, week, playing_teams):
+            continue
+        counts["playable"] += 1
+        for slot in set(slots).intersection(int(s) for s in player.get("eligibleSlots", [])):
+            counts["eligible_by_slot"][str(slot)] += 1
+    return counts
+
+
 def waiver_replacements(pool, week, rostered_ids, slots, playing_teams=None):
     """Conservative slot-specific estimates from ESPN-confirmed unrostered players.
 
@@ -179,6 +212,7 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
         pool_path = root / "weeks" / f"{week:02d}" / "free_agents.json"
         pool = json.loads(pool_path.read_text()) if pool_path.exists() else None
         fallback = waiver_replacements(pool, week, rostered_ids, slots, playing)
+        diagnostics = waiver_pool_diagnostics(pool, week, rostered_ids, slots, playing)
         for tid in means:
             entries = rosters.get(tid)
             if not entries:
@@ -200,6 +234,7 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
                 continue
         coverage.append({"week": week, "teams_using_waiver_replacements": replacements_used,
                          "waiver_pool_verified": pool is not None,
+                         "waiver_diagnostics": diagnostics,
                          "teams_requiring_replacements": replacement_teams,
                          "teams_without_valid_lineups": failed_teams,
                          "teams_with_valid_lineups": successful,
