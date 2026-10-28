@@ -10,6 +10,7 @@ from scripts.analytics.espn_projections import (
     normalized_players, roster_entries, starter_slots,
 )
 from scripts.analytics.optimal_lineup import optimize_lineup
+from collections import Counter
 
 
 def main():
@@ -45,7 +46,10 @@ def main():
                 valid += 1
                 total_valid += 1
             except ValueError as exc:
-                failures.append(f"{team_id} ({str(exc)[:65]})")
+                eligible = Counter(slot for player in players for slot in set(player["eligible_slots"]))
+                shortages = [f"{slot}:{count - eligible[slot]}" for slot, count in Counter(slots).items() if eligible[slot] < count]
+                detail = "missing slot(s) " + ",".join(shortages) if shortages else "eligibility conflict / insufficient distinct players"
+                failures.append(f"{team_id} ({detail})")
         print(f"Week {week}: {valid}/{len(rosters)} legal lineups"
               + (f"; need replacements: {', '.join(failures)}" if failures else ""))
     print(f"TOTAL: {total_valid}/{total_checked} legal team-weeks")
