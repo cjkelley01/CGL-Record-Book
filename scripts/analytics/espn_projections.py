@@ -29,6 +29,7 @@ def projection_for_week(player, week):
     matches = [s["appliedTotal"] for s in stats
                if isinstance(s, dict) and s.get("statSourceId") == 1
                and s.get("scoringPeriodId") == week
+               and s.get("statSplitTypeId", 1) == 1
                and isinstance(s.get("appliedTotal"), (int, float))
                and not isinstance(s.get("appliedTotal"), bool)]
     if len(matches) != 1:
@@ -71,7 +72,8 @@ def is_playable(player, week, playing_teams=None):
         return False
     stats = player.get("stats") or []
     projected = [s for s in stats if isinstance(s, dict) and
-                 s.get("statSourceId") == 1 and s.get("scoringPeriodId") == week]
+                 s.get("statSourceId") == 1 and s.get("scoringPeriodId") == week
+                 and s.get("statSplitTypeId", 1) == 1]
     if not projected:
         return False
     # A positive projection is strong evidence of an actual game; zero alone
