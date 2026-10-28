@@ -11,87 +11,177 @@
     17,
     23
   ],
-  "failure_patterns": [],
   "weeks": [
     {
       "week": 9,
       "expected_teams": 14,
-      "valid_lineups": 3,
-      "errors": {
-        "other_lineup_validation_error": 11
-      }
+      "valid_lineups": 13,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 17,
+          "reason": "No legal lineup: a required position has no eligible player"
+        }
+      ],
+      "status": "incomplete"
     },
     {
       "week": 10,
       "expected_teams": 14,
-      "valid_lineups": 0,
-      "errors": {
-        "other_lineup_validation_error": 14
-      }
+      "valid_lineups": 8,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 2,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 4,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 5,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 10,
+          "reason": "No legal lineup exists for available players"
+        },
+        {
+          "team_id": 18,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 19,
+          "reason": "No legal lineup: a required position has no eligible player"
+        }
+      ],
+      "status": "incomplete"
     },
     {
       "week": 11,
       "expected_teams": 14,
-      "valid_lineups": 0,
-      "errors": {
-        "other_lineup_validation_error": 14
-      }
+      "valid_lineups": 10,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 2,
+          "reason": "No legal lineup exists for available players"
+        },
+        {
+          "team_id": 3,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 13,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 20,
+          "reason": "No legal lineup: a required position has no eligible player"
+        }
+      ],
+      "status": "incomplete"
     },
     {
       "week": 12,
       "expected_teams": 14,
-      "valid_lineups": 5,
-      "errors": {
-        "other_lineup_validation_error": 9
-      }
+      "valid_lineups": 14,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [],
+      "status": "complete"
     },
     {
       "week": 13,
       "expected_teams": 14,
-      "valid_lineups": 2,
-      "errors": {
-        "other_lineup_validation_error": 12
-      }
+      "valid_lineups": 10,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 2,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 9,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 10,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 17,
+          "reason": "No legal lineup: a required position has no eligible player"
+        }
+      ],
+      "status": "incomplete"
     },
     {
       "week": 14,
       "expected_teams": 14,
-      "valid_lineups": 2,
-      "errors": {
-        "other_lineup_validation_error": 12
-      }
+      "valid_lineups": 10,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 4,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 10,
+          "reason": "No legal lineup exists for available players"
+        },
+        {
+          "team_id": 19,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 20,
+          "reason": "No legal lineup exists for available players"
+        }
+      ],
+      "status": "incomplete"
     },
     {
       "week": 15,
       "expected_teams": 14,
-      "valid_lineups": 5,
-      "errors": {
-        "other_lineup_validation_error": 9
-      }
+      "valid_lineups": 14,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [],
+      "status": "complete"
     },
     {
       "week": 16,
       "expected_teams": 14,
-      "valid_lineups": 5,
-      "errors": {
-        "other_lineup_validation_error": 9
-      }
+      "valid_lineups": 14,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [],
+      "status": "complete"
     },
     {
       "week": 17,
       "expected_teams": 14,
-      "valid_lineups": 5,
-      "errors": {
-        "other_lineup_validation_error": 9
-      }
+      "valid_lineups": 14,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [],
+      "status": "complete"
     },
     {
       "week": 18,
       "expected_teams": 14,
-      "valid_lineups": 5,
-      "errors": {
-        "other_lineup_validation_error": 9
-      }
+      "valid_lineups": 14,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [],
+      "status": "complete"
     }
   ],
   "ready": false

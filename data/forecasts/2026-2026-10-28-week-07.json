@@ -1,0 +1,543 @@
+{
+  "season": 2026,
+  "generated_at": "2026-10-28T00:55:40.108987+00:00",
+  "completed_through_week": 7,
+  "projection_coverage": [
+    {
+      "week": 8,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 4,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 13,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 17,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 18,
+          "reason": "No legal lineup: a required position has no eligible player"
+        }
+      ],
+      "teams_with_valid_lineups": 10,
+      "teams_expected": 14,
+      "status": "incomplete"
+    },
+    {
+      "week": 9,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 17,
+          "reason": "No legal lineup: a required position has no eligible player"
+        }
+      ],
+      "teams_with_valid_lineups": 13,
+      "teams_expected": 14,
+      "status": "incomplete"
+    },
+    {
+      "week": 10,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 2,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 4,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 5,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 10,
+          "reason": "No legal lineup exists for available players"
+        },
+        {
+          "team_id": 18,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 19,
+          "reason": "No legal lineup: a required position has no eligible player"
+        }
+      ],
+      "teams_with_valid_lineups": 8,
+      "teams_expected": 14,
+      "status": "incomplete"
+    },
+    {
+      "week": 11,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 2,
+          "reason": "No legal lineup exists for available players"
+        },
+        {
+          "team_id": 3,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 13,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 20,
+          "reason": "No legal lineup: a required position has no eligible player"
+        }
+      ],
+      "teams_with_valid_lineups": 10,
+      "teams_expected": 14,
+      "status": "incomplete"
+    },
+    {
+      "week": 12,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [],
+      "teams_with_valid_lineups": 14,
+      "teams_expected": 14,
+      "status": "complete"
+    },
+    {
+      "week": 13,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 2,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 9,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 10,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 17,
+          "reason": "No legal lineup: a required position has no eligible player"
+        }
+      ],
+      "teams_with_valid_lineups": 10,
+      "teams_expected": 14,
+      "status": "incomplete"
+    },
+    {
+      "week": 14,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [
+        {
+          "team_id": 4,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 10,
+          "reason": "No legal lineup exists for available players"
+        },
+        {
+          "team_id": 19,
+          "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 20,
+          "reason": "No legal lineup exists for available players"
+        }
+      ],
+      "teams_with_valid_lineups": 10,
+      "teams_expected": 14,
+      "status": "incomplete"
+    },
+    {
+      "week": 15,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [],
+      "teams_with_valid_lineups": 14,
+      "teams_expected": 14,
+      "status": "complete"
+    },
+    {
+      "week": 16,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [],
+      "teams_with_valid_lineups": 14,
+      "teams_expected": 14,
+      "status": "complete"
+    },
+    {
+      "week": 17,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [],
+      "teams_with_valid_lineups": 14,
+      "teams_expected": 14,
+      "status": "complete"
+    },
+    {
+      "week": 18,
+      "teams_using_waiver_replacements": 0,
+      "waiver_pool_verified": false,
+      "teams_requiring_replacements": [],
+      "teams_without_valid_lineups": [],
+      "teams_with_valid_lineups": 14,
+      "teams_expected": 14,
+      "status": "complete"
+    }
+  ],
+  "models": {
+    "historical": {
+      "status": "available",
+      "simulations": 10000,
+      "seed": 2026,
+      "assumptions": {
+        "weekly_score_sd": 18.0,
+        "tiebreak": "points_for",
+        "bracket": "6 teams; 1-2 byes; W15 quarterfinal, W16 semifinal, W17-18 final"
+      },
+      "teams": [
+        {
+          "team_id": 1,
+          "team_name": "Charley's Angels",
+          "playoff_probability": 1.0,
+          "bye_probability": 0.8588,
+          "championship_probability": 0.2026,
+          "final_probability": 0.5425,
+          "expected_seed": 1.61,
+          "expected_wins": 11.94,
+          "seed_probabilities": {
+            "1": 0.5654,
+            "2": 0.2934,
+            "3": 0.1099,
+            "4": 0.0281,
+            "5": 0.0029,
+            "6": 0.0003
+          }
+        },
+        {
+          "team_id": 2,
+          "team_name": "Kinda Mid",
+          "playoff_probability": 0.0,
+          "bye_probability": 0.0,
+          "championship_probability": 0.0,
+          "final_probability": 0.0,
+          "expected_seed": 13.39,
+          "expected_wins": 2.29,
+          "seed_probabilities": {
+            "7": 0.0001,
+            "9": 0.0012,
+            "10": 0.0046,
+            "11": 0.0266,
+            "12": 0.1218,
+            "13": 0.2574,
+            "14": 0.5883
+          }
+        },
+        {
+          "team_id": 3,
+          "team_name": "Mike's Magic",
+          "playoff_probability": 0.6491,
+          "bye_probability": 0.0064,
+          "championship_probability": 0.0082,
+          "final_probability": 0.0573,
+          "expected_seed": 6.02,
+          "expected_wins": 8.02,
+          "seed_probabilities": {
+            "1": 0.0003,
+            "2": 0.0061,
+            "3": 0.0309,
+            "4": 0.1024,
+            "5": 0.2238,
+            "6": 0.2856,
+            "7": 0.2025,
+            "8": 0.0951,
+            "9": 0.0377,
+            "10": 0.0136,
+            "11": 0.0018,
+            "12": 0.0002
+          }
+        },
+        {
+          "team_id": 4,
+          "team_name": "All the way to the Em-zone",
+          "playoff_probability": 0.0384,
+          "bye_probability": 0.0,
+          "championship_probability": 0.0,
+          "final_probability": 0.001,
+          "expected_seed": 9.19,
+          "expected_wins": 5.98,
+          "seed_probabilities": {
+            "3": 0.0001,
+            "4": 0.0012,
+            "5": 0.0078,
+            "6": 0.0293,
+            "7": 0.08,
+            "8": 0.1591,
+            "9": 0.2893,
+            "10": 0.28,
+            "11": 0.1141,
+            "12": 0.0312,
+            "13": 0.0074,
+            "14": 0.0005
+          }
+        },
+        {
+          "team_id": 5,
+          "team_name": "No Refills",
+          "playoff_probability": 0.0013,
+          "bye_probability": 0.0,
+          "championship_probability": 0.0,
+          "final_probability": 0.0,
+          "expected_seed": 11.19,
+          "expected_wins": 4.32,
+          "seed_probabilities": {
+            "5": 0.0002,
+            "6": 0.0011,
+            "7": 0.0061,
+            "8": 0.0183,
+            "9": 0.0588,
+            "10": 0.1375,
+            "11": 0.4082,
+            "12": 0.2387,
+            "13": 0.1035,
+            "14": 0.0276
+          }
+        },
+        {
+          "team_id": 8,
+          "team_name": "Kaitlyn's Deluxe Team",
+          "playoff_probability": 0.9532,
+          "bye_probability": 0.0836,
+          "championship_probability": 0.0339,
+          "final_probability": 0.1554,
+          "expected_seed": 4.15,
+          "expected_wins": 9.58,
+          "seed_probabilities": {
+            "1": 0.014,
+            "2": 0.0696,
+            "3": 0.2162,
+            "4": 0.3541,
+            "5": 0.2019,
+            "6": 0.0974,
+            "7": 0.0351,
+            "8": 0.0088,
+            "9": 0.0024,
+            "10": 0.0005
+          }
+        },
+        {
+          "team_id": 9,
+          "team_name": "Flux Capacitors",
+          "playoff_probability": 0.8413,
+          "bye_probability": 0.0285,
+          "championship_probability": 0.0192,
+          "final_probability": 0.098,
+          "expected_seed": 5.14,
+          "expected_wins": 8.7,
+          "seed_probabilities": {
+            "1": 0.0023,
+            "2": 0.0262,
+            "3": 0.0932,
+            "4": 0.1921,
+            "5": 0.3105,
+            "6": 0.217,
+            "7": 0.1048,
+            "8": 0.0419,
+            "9": 0.0096,
+            "10": 0.0021,
+            "11": 0.0003
+          }
+        },
+        {
+          "team_id": 10,
+          "team_name": "Big Joe",
+          "playoff_probability": 0.1656,
+          "bye_probability": 0.0002,
+          "championship_probability": 0.0017,
+          "final_probability": 0.0108,
+          "expected_seed": 7.87,
+          "expected_wins": 6.58,
+          "seed_probabilities": {
+            "2": 0.0002,
+            "3": 0.002,
+            "4": 0.0085,
+            "5": 0.0431,
+            "6": 0.1118,
+            "7": 0.2283,
+            "8": 0.2877,
+            "9": 0.1836,
+            "10": 0.0996,
+            "11": 0.0303,
+            "12": 0.0045,
+            "13": 0.0004
+          }
+        },
+        {
+          "team_id": 13,
+          "team_name": "SOS (Susan, Only Serendipity)",
+          "playoff_probability": 0.9838,
+          "bye_probability": 0.2039,
+          "championship_probability": 0.2497,
+          "final_probability": 0.439,
+          "expected_seed": 3.38,
+          "expected_wins": 9.74,
+          "seed_probabilities": {
+            "1": 0.0287,
+            "2": 0.1752,
+            "3": 0.4085,
+            "4": 0.2383,
+            "5": 0.0958,
+            "6": 0.0373,
+            "7": 0.0103,
+            "8": 0.0044,
+            "9": 0.0013,
+            "10": 0.0002
+          }
+        },
+        {
+          "team_id": 14,
+          "team_name": "CB's Bulls",
+          "playoff_probability": 0.3402,
+          "bye_probability": 0.0011,
+          "championship_probability": 0.001,
+          "final_probability": 0.0133,
+          "expected_seed": 7.1,
+          "expected_wins": 7.62,
+          "seed_probabilities": {
+            "2": 0.0011,
+            "3": 0.011,
+            "4": 0.0348,
+            "5": 0.0985,
+            "6": 0.1948,
+            "7": 0.2651,
+            "8": 0.2144,
+            "9": 0.1168,
+            "10": 0.0564,
+            "11": 0.0063,
+            "12": 0.0008
+          }
+        },
+        {
+          "team_id": 17,
+          "team_name": "Ed's Plus 1 Team",
+          "playoff_probability": 0.9993,
+          "bye_probability": 0.8175,
+          "championship_probability": 0.4836,
+          "final_probability": 0.6814,
+          "expected_seed": 1.87,
+          "expected_wins": 11.02,
+          "seed_probabilities": {
+            "1": 0.3893,
+            "2": 0.4282,
+            "3": 0.1281,
+            "4": 0.0395,
+            "5": 0.0113,
+            "6": 0.0029,
+            "7": 0.0006,
+            "8": 0.0001
+          }
+        },
+        {
+          "team_id": 18,
+          "team_name": "Timberwolves",
+          "playoff_probability": 0.0277,
+          "bye_probability": 0.0,
+          "championship_probability": 0.0001,
+          "final_probability": 0.0013,
+          "expected_seed": 9.26,
+          "expected_wins": 5.71,
+          "seed_probabilities": {
+            "3": 0.0001,
+            "4": 0.001,
+            "5": 0.0042,
+            "6": 0.0224,
+            "7": 0.0665,
+            "8": 0.1664,
+            "9": 0.2742,
+            "10": 0.325,
+            "11": 0.1033,
+            "12": 0.0305,
+            "13": 0.0058,
+            "14": 0.0006
+          }
+        },
+        {
+          "team_id": 19,
+          "team_name": "Cardiac Comebacks",
+          "playoff_probability": 0.0,
+          "bye_probability": 0.0,
+          "championship_probability": 0.0,
+          "final_probability": 0.0,
+          "expected_seed": 12.82,
+          "expected_wins": 3.15,
+          "seed_probabilities": {
+            "7": 0.0001,
+            "8": 0.0009,
+            "9": 0.0055,
+            "10": 0.0167,
+            "11": 0.0809,
+            "12": 0.2094,
+            "13": 0.4195,
+            "14": 0.267
+          }
+        },
+        {
+          "team_id": 20,
+          "team_name": "BK Have It Your Way",
+          "playoff_probability": 0.0001,
+          "bye_probability": 0.0,
+          "championship_probability": 0.0,
+          "final_probability": 0.0,
+          "expected_seed": 12.01,
+          "expected_wins": 3.35,
+          "seed_probabilities": {
+            "6": 0.0001,
+            "7": 0.0005,
+            "8": 0.0029,
+            "9": 0.0196,
+            "10": 0.0638,
+            "11": 0.2282,
+            "12": 0.3629,
+            "13": 0.206,
+            "14": 0.116
+          }
+        }
+      ]
+    },
+    "roster_aware": {
+      "status": "unavailable",
+      "reason": "Incomplete legal ESPN weekly lineup projections"
+    },
+    "blended": {
+      "status": "unavailable",
+      "reason": "Requires both historical and roster-aware inputs"
+    }
+  }
+}
