@@ -11,7 +11,8 @@ import requests
 
 def fetch_schedule(season, weeks, output):
     session = requests.Session()
-    result = {}
+    # Preserve previously verified weeks when fetching a smaller range.
+    result = json.loads(output.read_text(encoding="utf-8")) if output.exists() else {}
     for week in weeks:
         response = session.get(
             "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
@@ -29,7 +30,9 @@ def fetch_schedule(season, weeks, output):
         result[str(week)] = sorted(ids)
         print(f"Week {week}: verified {len(ids)} NFL teams with games")
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(result, indent=2) + "\n")
+    temporary = output.with_suffix(output.suffix + ".tmp")
+    temporary.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(output)
     return result
 
 
