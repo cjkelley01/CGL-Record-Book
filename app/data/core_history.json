@@ -26444,18 +26444,19 @@
           "final_rank": 0,
           "activity_totals": {
             "acquisitionBudgetSpent": 0,
-            "acquisitions": 15,
-            "drops": 17,
+            "acquisitions": 17,
+            "drops": 19,
             "matchupAcquisitionTotals": {
               "2": 3,
               "3": 3,
               "4": 3,
               "5": 2,
               "6": 2,
-              "7": 2
+              "7": 2,
+              "8": 2
             },
             "misc": 0,
-            "moveToActive": 27,
+            "moveToActive": 28,
             "moveToIR": 1,
             "paid": 0.0,
             "teamCharges": 0.0,
@@ -26722,16 +26723,17 @@
           "final_rank": 0,
           "activity_totals": {
             "acquisitionBudgetSpent": 0,
-            "acquisitions": 8,
-            "drops": 8,
+            "acquisitions": 9,
+            "drops": 9,
             "matchupAcquisitionTotals": {
               "4": 4,
               "5": 1,
               "6": 1,
-              "7": 2
+              "7": 2,
+              "8": 1
             },
             "misc": 0,
-            "moveToActive": 11,
+            "moveToActive": 13,
             "moveToIR": 0,
             "paid": 0.0,
             "teamCharges": 0.0,
@@ -26801,8 +26803,8 @@
           "final_rank": 0,
           "activity_totals": {
             "acquisitionBudgetSpent": 0,
-            "acquisitions": 26,
-            "drops": 26,
+            "acquisitions": 28,
+            "drops": 28,
             "matchupAcquisitionTotals": {
               "1": 1,
               "2": 4,
@@ -26810,7 +26812,8 @@
               "4": 2,
               "5": 4,
               "6": 6,
-              "7": 6
+              "7": 6,
+              "8": 2
             },
             "misc": 0,
             "moveToActive": 48,
@@ -26885,18 +26888,19 @@
           "final_rank": 0,
           "activity_totals": {
             "acquisitionBudgetSpent": 0,
-            "acquisitions": 16,
-            "drops": 16,
+            "acquisitions": 19,
+            "drops": 19,
             "matchupAcquisitionTotals": {
               "2": 4,
               "3": 2,
               "4": 4,
               "5": 3,
               "6": 2,
-              "7": 1
+              "7": 1,
+              "8": 3
             },
             "misc": 0,
-            "moveToActive": 32,
+            "moveToActive": 34,
             "moveToIR": 1,
             "paid": 0.0,
             "teamCharges": 0.0,
@@ -37337,7 +37341,7 @@
           "player_id": 4362478,
           "player_name": "Emari Demercado",
           "position": "RB",
-          "pro_team_id": 6,
+          "pro_team_id": 0,
           "player_resolved": true,
           "lineup_slot_id": 20,
           "keeper": false,
@@ -52145,10 +52149,10 @@
       {
         "season": 2026,
         "player_cards": 1055,
-        "unique_transactions": 381,
-        "completed_transactions": 376,
-        "duplicate_player_card_references_removed": 94,
-        "activity_feed_topics": 433,
+        "unique_transactions": 405,
+        "completed_transactions": 387,
+        "duplicate_player_card_references_removed": 102,
+        "activity_feed_topics": 444,
         "limitations": "Player cards expose completed transactions only; rejected, canceled, and failed historical moves are unavailable."
       }
     ],
@@ -52412,6 +52416,14 @@
         0,
         0,
         0,
+        0.0,
+        0,
+        0.0,
+        0.0,
+        0,
+        0,
+        0,
+        0.0,
         0.0,
         0.9,
         1.0,
@@ -52797,40 +52809,94 @@
     },
     "transactions": [
       {
-        "id": "19963306-4979-4f02-a752-140d53a23c14",
+        "id": "39c53b10-afde-4dcc-8b77-866f8a90660c",
         "season": 2026,
-        "kind": "freeagent",
+        "kind": "waiver",
         "status": "completed",
-        "date": "2026-10-25",
-        "week": 7,
+        "date": "2026-10-28",
+        "week": 8,
         "sides": [
           {
-            "team_id": 10,
-            "team_name": "Big Joe",
+            "team_id": 18,
+            "team_name": "Timberwolves",
             "manager_ids": [
-              "joseph_e"
+              "timmy_k"
             ],
             "manager_names": [
-              "Joseph E."
+              "Timmy K."
             ],
             "acquired": [
               {
-                "player_id": 4427728,
-                "player_name": "Bam Knight",
-                "position": 2,
+                "player_id": 4723820,
+                "player_name": "Omar Cooper Jr.",
+                "position": 3,
                 "contribution": {
-                  "regular_points": 9.3,
-                  "regular_starts": 8,
+                  "regular_points": 0,
+                  "regular_starts": 0,
                   "playoff_points": 0,
                   "playoff_starts": 0,
-                  "total_points": 9.3,
-                  "total_starts": 8,
+                  "total_points": 0,
+                  "total_starts": 0,
+                  "weekly": []
+                }
+              }
+            ],
+            "outgoing": [
+              {
+                "player_id": 4430968,
+                "departure_type": "drop",
+                "player_name": "Kimani Vidal"
+              }
+            ],
+            "contribution": {
+              "regular_points": 0,
+              "regular_starts": 0,
+              "playoff_points": 0,
+              "playoff_starts": 0,
+              "total_points": 0,
+              "total_starts": 0
+            }
+          }
+        ],
+        "badges": [],
+        "counterfactual": {
+          "potential_swings": 0,
+          "robust_swings": 0,
+          "comparisons": [],
+          "supports_causal_story": true,
+          "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
+        }
+      },
+      {
+        "id": "4d9b29fc-0847-4ee7-a3d2-71389a105fef",
+        "season": 2026,
+        "kind": "waiver",
+        "status": "completed",
+        "date": "2026-10-28",
+        "week": 8,
+        "sides": [
+          {
+            "team_id": 18,
+            "team_name": "Timberwolves",
+            "manager_ids": [
+              "timmy_k"
+            ],
+            "manager_names": [
+              "Timmy K."
+            ],
+            "acquired": [
+              {
+                "player_id": 4697745,
+                "player_name": "Tyler Loop",
+                "position": 5,
+                "contribution": {
+                  "regular_points": 0.0,
+                  "regular_starts": 7,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0.0,
+                  "total_starts": 7,
                   "weekly": [
-                    {
-                      "week": 7,
-                      "stage": "regular_season",
-                      "points": 9.3
-                    },
                     {
                       "week": 8,
                       "stage": "regular_season",
@@ -52872,6 +52938,533 @@
             ],
             "outgoing": [
               {
+                "player_id": 4635008,
+                "departure_type": "drop",
+                "player_name": "Keon Coleman"
+              }
+            ],
+            "contribution": {
+              "regular_points": 0.0,
+              "regular_starts": 7,
+              "playoff_points": 0,
+              "playoff_starts": 0,
+              "total_points": 0.0,
+              "total_starts": 7
+            }
+          }
+        ],
+        "badges": [],
+        "counterfactual": {
+          "potential_swings": 0,
+          "robust_swings": 0,
+          "comparisons": [],
+          "supports_causal_story": true,
+          "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
+        }
+      },
+      {
+        "id": "5ce50cdc-56a9-499c-8480-8a1ca77e755f",
+        "season": 2026,
+        "kind": "waiver",
+        "status": "completed",
+        "date": "2026-10-28",
+        "week": 8,
+        "sides": [
+          {
+            "team_id": 1,
+            "team_name": "Charley's Angels",
+            "manager_ids": [
+              "charley_k"
+            ],
+            "manager_names": [
+              "Charley K."
+            ],
+            "acquired": [
+              {
+                "player_id": -16004,
+                "player_name": "Bengals D/ST",
+                "position": 16,
+                "contribution": {
+                  "regular_points": 0.0,
+                  "regular_starts": 7,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0.0,
+                  "total_starts": 7,
+                  "weekly": [
+                    {
+                      "week": 8,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 10,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 12,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 13,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 14,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    }
+                  ]
+                }
+              }
+            ],
+            "outgoing": [
+              {
+                "player_id": -16029,
+                "departure_type": "drop",
+                "player_name": "Panthers D/ST"
+              }
+            ],
+            "contribution": {
+              "regular_points": 0.0,
+              "regular_starts": 7,
+              "playoff_points": 0,
+              "playoff_starts": 0,
+              "total_points": 0.0,
+              "total_starts": 7
+            }
+          }
+        ],
+        "badges": [],
+        "counterfactual": {
+          "potential_swings": 0,
+          "robust_swings": 0,
+          "comparisons": [],
+          "supports_causal_story": true,
+          "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
+        }
+      },
+      {
+        "id": "870e3cc9-f541-46e8-a898-68f87b69a784",
+        "season": 2026,
+        "kind": "waiver",
+        "status": "completed",
+        "date": "2026-10-28",
+        "week": 8,
+        "sides": [
+          {
+            "team_id": 1,
+            "team_name": "Charley's Angels",
+            "manager_ids": [
+              "charley_k"
+            ],
+            "manager_names": [
+              "Charley K."
+            ],
+            "acquired": [
+              {
+                "player_id": -16017,
+                "player_name": "Patriots D/ST",
+                "position": 16,
+                "contribution": {
+                  "regular_points": 0,
+                  "regular_starts": 0,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0,
+                  "total_starts": 0,
+                  "weekly": []
+                }
+              }
+            ],
+            "outgoing": [
+              {
+                "player_id": 4832955,
+                "departure_type": "drop",
+                "player_name": "Emmett Johnson"
+              }
+            ],
+            "contribution": {
+              "regular_points": 0,
+              "regular_starts": 0,
+              "playoff_points": 0,
+              "playoff_starts": 0,
+              "total_points": 0,
+              "total_starts": 0
+            }
+          }
+        ],
+        "badges": [],
+        "counterfactual": {
+          "potential_swings": 0,
+          "robust_swings": 0,
+          "comparisons": [],
+          "supports_causal_story": true,
+          "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
+        }
+      },
+      {
+        "id": "a11d3bd1-8d83-4468-9826-18c306da4c3b",
+        "season": 2026,
+        "kind": "waiver",
+        "status": "completed",
+        "date": "2026-10-28",
+        "week": 8,
+        "sides": [
+          {
+            "team_id": 14,
+            "team_name": "CB's Bulls",
+            "manager_ids": [
+              "charley_b"
+            ],
+            "manager_names": [
+              "Charley B."
+            ],
+            "acquired": [
+              {
+                "player_id": -16030,
+                "player_name": "Jaguars D/ST",
+                "position": 16,
+                "contribution": {
+                  "regular_points": 0,
+                  "regular_starts": 0,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0,
+                  "total_starts": 0,
+                  "weekly": []
+                }
+              }
+            ],
+            "outgoing": [
+              {
+                "player_id": 4427095,
+                "departure_type": "drop",
+                "player_name": "DeMario Douglas"
+              }
+            ],
+            "contribution": {
+              "regular_points": 0,
+              "regular_starts": 0,
+              "playoff_points": 0,
+              "playoff_starts": 0,
+              "total_points": 0,
+              "total_starts": 0
+            }
+          }
+        ],
+        "badges": [],
+        "counterfactual": {
+          "potential_swings": 0,
+          "robust_swings": 0,
+          "comparisons": [],
+          "supports_causal_story": true,
+          "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
+        }
+      },
+      {
+        "id": "cba719a7-4dd4-427f-845f-702d94ccc011",
+        "season": 2026,
+        "kind": "waiver",
+        "status": "completed",
+        "date": "2026-10-28",
+        "week": 8,
+        "sides": [
+          {
+            "team_id": 14,
+            "team_name": "CB's Bulls",
+            "manager_ids": [
+              "charley_b"
+            ],
+            "manager_names": [
+              "Charley B."
+            ],
+            "acquired": [
+              {
+                "player_id": 4360423,
+                "player_name": "Michael Penix Jr.",
+                "position": 1,
+                "contribution": {
+                  "regular_points": 0,
+                  "regular_starts": 0,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0,
+                  "total_starts": 0,
+                  "weekly": []
+                }
+              }
+            ],
+            "outgoing": [
+              {
+                "player_id": 4433970,
+                "departure_type": "drop",
+                "player_name": "J.J. McCarthy"
+              }
+            ],
+            "contribution": {
+              "regular_points": 0,
+              "regular_starts": 0,
+              "playoff_points": 0,
+              "playoff_starts": 0,
+              "total_points": 0,
+              "total_starts": 0
+            }
+          }
+        ],
+        "badges": [],
+        "counterfactual": {
+          "potential_swings": 0,
+          "robust_swings": 0,
+          "comparisons": [],
+          "supports_causal_story": true,
+          "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
+        }
+      },
+      {
+        "id": "3d618f49-70ac-4509-aa8e-49ec813b3c76",
+        "season": 2026,
+        "kind": "freeagent",
+        "status": "completed",
+        "date": "2026-10-28",
+        "week": 8,
+        "sides": [
+          {
+            "team_id": 10,
+            "team_name": "Big Joe",
+            "manager_ids": [
+              "joseph_e"
+            ],
+            "manager_names": [
+              "Joseph E."
+            ],
+            "acquired": [
+              {
+                "player_id": -16028,
+                "player_name": "Commanders D/ST",
+                "position": 16,
+                "contribution": {
+                  "regular_points": 0.0,
+                  "regular_starts": 7,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0.0,
+                  "total_starts": 7,
+                  "weekly": [
+                    {
+                      "week": 8,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 10,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 12,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 13,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 14,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    }
+                  ]
+                }
+              }
+            ],
+            "outgoing": [
+              {
+                "player_id": 4360635,
+                "departure_type": "drop",
+                "player_name": "Chig Okonkwo"
+              }
+            ],
+            "contribution": {
+              "regular_points": 0.0,
+              "regular_starts": 7,
+              "playoff_points": 0,
+              "playoff_starts": 0,
+              "total_points": 0.0,
+              "total_starts": 7
+            }
+          }
+        ],
+        "badges": [],
+        "counterfactual": {
+          "potential_swings": 0,
+          "robust_swings": 0,
+          "comparisons": [],
+          "supports_causal_story": true,
+          "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
+        }
+      },
+      {
+        "id": "49d08db8-6a7a-4aa0-8c7f-9c0ed629d338",
+        "season": 2026,
+        "kind": "freeagent",
+        "status": "completed",
+        "date": "2026-10-28",
+        "week": 8,
+        "sides": [
+          {
+            "team_id": 18,
+            "team_name": "Timberwolves",
+            "manager_ids": [
+              "timmy_k"
+            ],
+            "manager_names": [
+              "Timmy K."
+            ],
+            "acquired": [
+              {
+                "player_id": -16001,
+                "player_name": "Falcons D/ST",
+                "position": 16,
+                "contribution": {
+                  "regular_points": 0.0,
+                  "regular_starts": 7,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0.0,
+                  "total_starts": 7,
+                  "weekly": [
+                    {
+                      "week": 8,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 10,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 12,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 13,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 14,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    }
+                  ]
+                }
+              }
+            ],
+            "outgoing": [
+              {
+                "player_id": -16034,
+                "departure_type": "drop",
+                "player_name": "Texans D/ST"
+              }
+            ],
+            "contribution": {
+              "regular_points": 0.0,
+              "regular_starts": 7,
+              "playoff_points": 0,
+              "playoff_starts": 0,
+              "total_points": 0.0,
+              "total_starts": 7
+            }
+          }
+        ],
+        "badges": [],
+        "counterfactual": {
+          "potential_swings": 0,
+          "robust_swings": 0,
+          "comparisons": [],
+          "supports_causal_story": true,
+          "method": "Uses only eligible bench players with a positive archived projection, counts each matchup once, and evaluates multiweek playoff rounds at series level. Trade comparisons are incomplete no-trade scenarios because outgoing assets are not restored."
+        }
+      },
+      {
+        "id": "19963306-4979-4f02-a752-140d53a23c14",
+        "season": 2026,
+        "kind": "freeagent",
+        "status": "completed",
+        "date": "2026-10-25",
+        "week": 7,
+        "sides": [
+          {
+            "team_id": 10,
+            "team_name": "Big Joe",
+            "manager_ids": [
+              "joseph_e"
+            ],
+            "manager_names": [
+              "Joseph E."
+            ],
+            "acquired": [
+              {
+                "player_id": 4427728,
+                "player_name": "Bam Knight",
+                "position": 2,
+                "contribution": {
+                  "regular_points": 9.3,
+                  "regular_starts": 1,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 9.3,
+                  "total_starts": 1,
+                  "weekly": [
+                    {
+                      "week": 7,
+                      "stage": "regular_season",
+                      "points": 9.3
+                    }
+                  ]
+                }
+              }
+            ],
+            "outgoing": [
+              {
                 "player_id": 4429023,
                 "departure_type": "drop",
                 "player_name": "MarShawn Lloyd"
@@ -52879,11 +53472,11 @@
             ],
             "contribution": {
               "regular_points": 9.3,
-              "regular_starts": 8,
+              "regular_starts": 1,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 9.3,
-              "total_starts": 8
+              "total_starts": 1
             }
           }
         ],
@@ -53039,7 +53632,18 @@
               {
                 "player_id": -16030,
                 "departure_type": "drop",
-                "player_name": "Jaguars D/ST"
+                "player_name": "Jaguars D/ST",
+                "subsequent_team": "CB's Bulls",
+                "subsequent_contribution": {
+                  "regular_points": 0,
+                  "regular_starts": 0,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0,
+                  "total_starts": 0,
+                  "weekly": []
+                },
+                "next_move_id": "a11d3bd1-8d83-4468-9826-18c306da4c3b"
               }
             ],
             "contribution": {
@@ -53328,7 +53932,54 @@
               {
                 "player_id": 4697745,
                 "departure_type": "drop",
-                "player_name": "Tyler Loop"
+                "player_name": "Tyler Loop",
+                "subsequent_team": "Timberwolves",
+                "subsequent_contribution": {
+                  "regular_points": 0.0,
+                  "regular_starts": 7,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0.0,
+                  "total_starts": 7,
+                  "weekly": [
+                    {
+                      "week": 8,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 10,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 12,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 13,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 14,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    }
+                  ]
+                },
+                "next_move_id": "4d9b29fc-0847-4ee7-a3d2-71389a105fef"
               }
             ],
             "contribution": {
@@ -53574,51 +54225,16 @@
                 "position": 16,
                 "contribution": {
                   "regular_points": -6.0,
-                  "regular_starts": 8,
+                  "regular_starts": 1,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": -6.0,
-                  "total_starts": 8,
+                  "total_starts": 1,
                   "weekly": [
                     {
                       "week": 7,
                       "stage": "regular_season",
                       "points": -6.0
-                    },
-                    {
-                      "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
-                      "stage": "regular_season",
-                      "points": 0.0
                     }
                   ]
                 }
@@ -53633,11 +54249,11 @@
             ],
             "contribution": {
               "regular_points": -6.0,
-              "regular_starts": 8,
+              "regular_starts": 1,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": -6.0,
-              "total_starts": 8
+              "total_starts": 1
             }
           }
         ],
@@ -53740,7 +54356,18 @@
               {
                 "player_id": -16017,
                 "departure_type": "drop",
-                "player_name": "Patriots D/ST"
+                "player_name": "Patriots D/ST",
+                "subsequent_team": "Charley's Angels",
+                "subsequent_contribution": {
+                  "regular_points": 0,
+                  "regular_starts": 0,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0,
+                  "total_starts": 0,
+                  "weekly": []
+                },
+                "next_move_id": "870e3cc9-f541-46e8-a898-68f87b69a784"
               }
             ],
             "contribution": {
@@ -55163,7 +55790,54 @@
               {
                 "player_id": -16004,
                 "departure_type": "drop",
-                "player_name": "Bengals D/ST"
+                "player_name": "Bengals D/ST",
+                "subsequent_team": "Charley's Angels",
+                "subsequent_contribution": {
+                  "regular_points": 0.0,
+                  "regular_starts": 7,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0.0,
+                  "total_starts": 7,
+                  "weekly": [
+                    {
+                      "week": 8,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 10,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 12,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 13,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 14,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    }
+                  ]
+                },
+                "next_move_id": "5ce50cdc-56a9-499c-8480-8a1ca77e755f"
               }
             ],
             "contribution": {
@@ -57740,51 +58414,16 @@
                 "subsequent_team": "Charley's Angels",
                 "subsequent_contribution": {
                   "regular_points": -6.0,
-                  "regular_starts": 8,
+                  "regular_starts": 1,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": -6.0,
-                  "total_starts": 8,
+                  "total_starts": 1,
                   "weekly": [
                     {
                       "week": 7,
                       "stage": "regular_season",
                       "points": -6.0
-                    },
-                    {
-                      "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
-                      "stage": "regular_season",
-                      "points": 0.0
                     }
                   ]
                 },
@@ -59528,7 +60167,18 @@
               {
                 "player_id": -16017,
                 "departure_type": "drop",
-                "player_name": "Patriots D/ST"
+                "player_name": "Patriots D/ST",
+                "subsequent_team": "Charley's Angels",
+                "subsequent_contribution": {
+                  "regular_points": 0,
+                  "regular_starts": 0,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0,
+                  "total_starts": 0,
+                  "weekly": []
+                },
+                "next_move_id": "870e3cc9-f541-46e8-a898-68f87b69a784"
               }
             ],
             "contribution": {
@@ -60519,7 +61169,54 @@
               {
                 "player_id": -16001,
                 "departure_type": "drop",
-                "player_name": "Falcons D/ST"
+                "player_name": "Falcons D/ST",
+                "subsequent_team": "Timberwolves",
+                "subsequent_contribution": {
+                  "regular_points": 0.0,
+                  "regular_starts": 7,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0.0,
+                  "total_starts": 7,
+                  "weekly": [
+                    {
+                      "week": 8,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 10,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 12,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 13,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 14,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    }
+                  ]
+                },
+                "next_move_id": "49d08db8-6a7a-4aa0-8c7f-9c0ed629d338"
               }
             ],
             "contribution": {
@@ -60578,7 +61275,54 @@
               {
                 "player_id": -16004,
                 "departure_type": "drop",
-                "player_name": "Bengals D/ST"
+                "player_name": "Bengals D/ST",
+                "subsequent_team": "Charley's Angels",
+                "subsequent_contribution": {
+                  "regular_points": 0.0,
+                  "regular_starts": 7,
+                  "playoff_points": 0,
+                  "playoff_starts": 0,
+                  "total_points": 0.0,
+                  "total_starts": 7,
+                  "weekly": [
+                    {
+                      "week": 8,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 10,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 11,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 12,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 13,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    },
+                    {
+                      "week": 14,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    }
+                  ]
+                },
+                "next_move_id": "5ce50cdc-56a9-499c-8480-8a1ca77e755f"
               }
             ],
             "contribution": {
@@ -104907,7 +105651,7 @@
       {
         "manager_id": "timmy_k",
         "manager_name": "Timmy K.",
-        "transaction_volume": 95,
+        "transaction_volume": 98,
         "waiver_hits": [
           "25f45eab-b531-44a8-87b5-546bea6340f2",
           "a460057c-2aa5-416e-82a4-4a847e0ea081"
@@ -104937,7 +105681,7 @@
       {
         "manager_id": "charley_k",
         "manager_name": "Charley K.",
-        "transaction_volume": 87,
+        "transaction_volume": 89,
         "waiver_hits": [],
         "trade_hits": [
           "5fb7fe22-d944-4ada-a2cf-3e0bc4f5bce2",
@@ -104966,7 +105710,7 @@
       {
         "manager_id": "charley_b",
         "manager_name": "Charley B.",
-        "transaction_volume": 100,
+        "transaction_volume": 102,
         "waiver_hits": [
           "4e3fd19f-d1c5-4199-b5b3-728da3705064"
         ],
