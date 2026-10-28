@@ -67,6 +67,22 @@ jobs:
         run: python scripts/build_core_history.py
       - name: Recalculate playoff and championship forecasts
         run: python -m scripts.analytics.weekly_forecast
+      - name: Prevent incomplete projections from replacing published forecast
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          path = Path("app/data/playoff_forecast.json")
+          current = json.loads(path.read_text())
+          if current["models"]["roster_aware"]["status"] != "available" or current["models"]["blended"]["status"] != "available":
+              print("Future roster projections unavailable in this runner; preserving published forecast rather than replacing it with unavailable models.")
+              original = subprocess.run(["git", "show", "HEAD:app/data/playoff_forecast.json"], check=True, capture_output=True, text=True).stdout
+              path.write_text(original)
+              snapshot = Path("data/forecasts") / f"2026-{__import__('datetime').datetime.now(__import__('datetime').timezone.utc).date().isoformat()}-week-{current['completed_through_week']:02d}.json"
+              if snapshot.exists():
+                  snapshot.unlink()
+          PY
       - name: Validate generated analytics
         run: |
           python - <<'PY'
