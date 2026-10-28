@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "generated_at": "2026-10-28T00:55:40.108987+00:00",
+  "generated_at": "2026-10-28T01:08:24.859411+00:00",
   "completed_through_week": 7,
   "projection_coverage": [
     {
@@ -33,7 +33,7 @@
     {
       "week": 9,
       "teams_using_waiver_replacements": 0,
-      "waiver_pool_verified": false,
+      "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -48,7 +48,7 @@
     {
       "week": 10,
       "teams_using_waiver_replacements": 0,
-      "waiver_pool_verified": false,
+      "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -83,7 +83,7 @@
     {
       "week": 11,
       "teams_using_waiver_replacements": 0,
-      "waiver_pool_verified": false,
+      "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -110,7 +110,7 @@
     {
       "week": 12,
       "teams_using_waiver_replacements": 0,
-      "waiver_pool_verified": false,
+      "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [],
       "teams_with_valid_lineups": 14,
@@ -120,7 +120,7 @@
     {
       "week": 13,
       "teams_using_waiver_replacements": 0,
-      "waiver_pool_verified": false,
+      "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -147,7 +147,7 @@
     {
       "week": 14,
       "teams_using_waiver_replacements": 0,
-      "waiver_pool_verified": false,
+      "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
         {
@@ -174,7 +174,7 @@
     {
       "week": 15,
       "teams_using_waiver_replacements": 0,
-      "waiver_pool_verified": false,
+      "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [],
       "teams_with_valid_lineups": 14,
@@ -184,7 +184,7 @@
     {
       "week": 16,
       "teams_using_waiver_replacements": 0,
-      "waiver_pool_verified": false,
+      "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [],
       "teams_with_valid_lineups": 14,
@@ -194,7 +194,7 @@
     {
       "week": 17,
       "teams_using_waiver_replacements": 0,
-      "waiver_pool_verified": false,
+      "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [],
       "teams_with_valid_lineups": 14,
@@ -204,7 +204,7 @@
     {
       "week": 18,
       "teams_using_waiver_replacements": 0,
-      "waiver_pool_verified": false,
+      "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [],
       "teams_with_valid_lineups": 14,
