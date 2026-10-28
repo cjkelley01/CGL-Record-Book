@@ -66,7 +66,7 @@ export function PlayoffForecast() {
           </>
         )}
       </section>
-      <p className="legend">Historical uses completed 2026 scoring averages. Roster-Aware optimizes future legal ESPN-projected lineups. Blended weights historical 40% and roster projections 60%. Models requiring missing projections remain unavailable.</p>
+      <p className="legend">Historical uses completed 2026 scoring averages. Roster-Aware optimizes ESPN-projected regular-season lineups, filling missing starters with the top-three average of current-week free agents. Playoff weeks 15–18 use a modeled carry-forward of the final projected regular-season lineup, not ESPN playoff-week projections. Blended weights historical 40% and roster projections 60%. Models requiring missing projections remain unavailable.</p>
     </>
   );
 }
