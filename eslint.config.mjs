@@ -4,7 +4,7 @@ import hooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 
 export default defineConfig([
-  globalIgnores(["dist-pages/**", ".sites-runtime/**", ".venv/**"]),
+  globalIgnores(["dist-pages/**", ".next/**", ".wrangler/**", ".sites-runtime/**", ".venv/**"]),
   {
     files: ["**/*.{ts,tsx}"],
     extends: [js.configs.recommended, tseslint.configs.recommended],
