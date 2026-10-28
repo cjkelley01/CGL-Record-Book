@@ -168,7 +168,7 @@ def waiver_pool_diagnostics(pool, week, rostered_ids, slots, playing_teams=None)
     return counts
 
 
-def waiver_replacements(pool, week, rostered_ids, slots, playing_teams=None):
+def waiver_replacements(pool, week, rostered_ids, slots, playing_teams=None, *, projection_week=None):
     """Conservative slot-specific estimates from ESPN-confirmed unrostered players.
 
     Use the average projection of the three highest eligible available options
@@ -176,6 +176,7 @@ def waiver_replacements(pool, week, rostered_ids, slots, playing_teams=None):
     """
     if not isinstance(pool, list):
         return []
+    source_week = week if projection_week is None else projection_week
     eligible = []
     for entry in pool:
         if not isinstance(entry, dict):
@@ -190,9 +191,9 @@ def waiver_replacements(pool, week, rostered_ids, slots, playing_teams=None):
         if pid is None or int(pid) in rostered_ids:
             continue
         try:
-            if not is_playable(player, week):
+            if not is_playable(player, source_week):
                 continue
-            points = projection_for_week(player, week)
+            points = projection_for_week(player, source_week)
         except ValueError:
             continue
         if points < 0:
@@ -243,7 +244,14 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
                         if (e.get("playerPoolEntry") or {}).get("player", {}).get("id") or e.get("playerId")}
         pool_path = root / "weeks" / f"{week:02d}" / "free_agents.json"
         pool = json.loads(pool_path.read_text()) if pool_path.exists() else None
-        fallback = waiver_replacements(pool, week, rostered_ids, slots, playing)
+        source_week = week
+        snapshot_path = root / "current_week_free_agents.json"
+        if snapshot_path.exists():
+            snapshot = json.loads(snapshot_path.read_text())
+            source_week = int(snapshot["projection_week"])
+            pool = snapshot["players"]
+        fallback = waiver_replacements(pool, week, rostered_ids, slots, playing,
+                                       projection_week=source_week)
         diagnostics = waiver_pool_diagnostics(pool, week, rostered_ids, slots, playing)
         for tid in means:
             entries = rosters.get(tid)
@@ -266,6 +274,8 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
                 continue
         coverage.append({"week": week, "teams_using_waiver_replacements": replacements_used,
                          "waiver_pool_verified": pool is not None,
+                         "waiver_projection_source_week": source_week if pool is not None else None,
+                         "waiver_estimate_method": "mean_top_three_current_week",
                          "waiver_diagnostics": diagnostics,
                          "teams_requiring_replacements": replacement_teams,
                          "teams_without_valid_lineups": failed_teams,
