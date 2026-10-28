@@ -26,6 +26,9 @@ def fetch_pool(session, league_id, season, week, output):
     entries = response.json()
     if not isinstance(entries, list):
         raise ValueError(f"Unexpected ESPN free-agent response type: {type(entries).__name__}")
+    # Detect servers that silently cap the requested limit at 250.
+    if len(entries) == 250:
+        raise ValueError("ESPN returned exactly 250 players; possible server-side cap")
     if len(entries) >= limit:
         raise ValueError("ESPN waiver response reached requested limit; refusing possibly truncated pool")
     seen = set()
