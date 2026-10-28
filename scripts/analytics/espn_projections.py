@@ -108,6 +108,13 @@ def waiver_pool_diagnostics(pool, week, rostered_ids, slots, playing_teams=None)
     counts = {"total": len(pool) if isinstance(pool, list) else 0,
               "status_confirmed": 0, "unrostered": 0,
               "weekly_projection": 0, "playable": 0,
+              "stat_shapes": {"players_with_stats": 0, "players_without_stats": 0,
+                              "projected_source_records": 0,
+                              "projected_target_week_records": 0,
+                              "projected_other_week_records": 0,
+                              "target_week_missing_total": 0,
+                              "source_ids": {}, "scoring_periods_for_projection": {},
+                              "stat_key_sets": {}},
               "eligible_by_slot": {str(slot): 0 for slot in sorted(set(slots))}}
     for entry in pool if isinstance(pool, list) else []:
         if not isinstance(entry, dict):
@@ -123,6 +130,29 @@ def waiver_pool_diagnostics(pool, week, rostered_ids, slots, playing_teams=None)
         if pid is None or int(pid) in rostered_ids:
             continue
         counts["unrostered"] += 1
+        shape = counts["stat_shapes"]
+        stats = player.get("stats")
+        if not isinstance(stats, list) or not stats:
+            shape["players_without_stats"] += 1
+        else:
+            shape["players_with_stats"] += 1
+            for stat in stats:
+                if not isinstance(stat, dict):
+                    continue
+                key_signature = ",".join(sorted(str(k) for k in stat.keys()))
+                shape["stat_key_sets"][key_signature] = shape["stat_key_sets"].get(key_signature, 0) + 1
+                source = str(stat.get("statSourceId", "missing"))
+                shape["source_ids"][source] = shape["source_ids"].get(source, 0) + 1
+                if stat.get("statSourceId") == 1:
+                    shape["projected_source_records"] += 1
+                    period = str(stat.get("scoringPeriodId", "missing"))
+                    shape["scoring_periods_for_projection"][period] = shape["scoring_periods_for_projection"].get(period, 0) + 1
+                    if stat.get("scoringPeriodId") == week:
+                        shape["projected_target_week_records"] += 1
+                        if not isinstance(stat.get("appliedTotal"), (int, float)):
+                            shape["target_week_missing_total"] += 1
+                    else:
+                        shape["projected_other_week_records"] += 1
         try:
             projection_for_week(player, week)
         except ValueError:
