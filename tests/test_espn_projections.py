@@ -100,7 +100,7 @@ class EspnProjectionsTests(unittest.TestCase):
             result = extract_weekly_means(directory, 2026, [9, 10], [1, 2])
             self.assertEqual(19, result["means"][1][9])
             self.assertFalse(result["ready"])
-            self.assertEqual("missing_file", result["coverage"][1]["status"])
+            self.assertEqual("missing_verified_nfl_schedule", result["coverage"][1]["status"])
 
 
 if __name__ == "__main__":
