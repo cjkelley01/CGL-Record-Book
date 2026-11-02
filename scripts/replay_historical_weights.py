@@ -23,7 +23,7 @@ def replay(team_rows,matchups,min_train):
     by_week=defaultdict(list)
     for g in matchups:
         by_week[(int(g["season"]),int(g["week"]))].append(g)
-    history=defaultdict(list);train=defaultdict(list);out=[];selection=[]
+    history=defaultdict(list);train=defaultdict(lambda:defaultdict(list));out=[];selection=[]
     for season,week in sorted(set(team)|set(by_week)):
         eligible=[]
         for g in by_week[(season,week)]:
