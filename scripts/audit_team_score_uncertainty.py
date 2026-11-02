@@ -31,7 +31,11 @@ def official_scores(payload, week):
     result = {}
     audit = Counter()
     games = payload.get("schedule", [])
-    selected = [g for g in games if g.get("matchupPeriodId") == week]
+    selected = [g for g in games if (
+        g.get("matchupPeriodId") == week
+        or any(str(week) in ((g.get(side) or {}).get("pointsByScoringPeriod") or {})
+               for side in ("home", "away"))
+    )]
     audit["all_schedule_games"] = len(games)
     audit["matching_period_games"] = len(selected)
     for game in selected:
@@ -46,7 +50,9 @@ def official_scores(payload, week):
             val = numeric_periods.get(week)
             source = "pointsByScoringPeriod"
             if val is None:
-                if numeric_periods and len(numeric_periods) > 1:
+                if game.get("matchupPeriodId") != week:
+                    source = "other_period_no_weekly"
+                elif numeric_periods and len(numeric_periods) > 1:
                     source = "multiweek_missing_weekly"
                 else:
                     val = num(obj.get("totalPoints"))
