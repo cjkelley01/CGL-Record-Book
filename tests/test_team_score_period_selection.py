@@ -18,10 +18,10 @@ class ReconciliationTests(unittest.TestCase):
         actual,_=official_scores(payload,17)
         self.assertEqual(actual["2"],(100.0,"pointsByScoringPeriod"))
 
-    def test_does_not_use_other_period_total_for_week_eighteen(self):
+    def test_uses_explicit_week_eighteen_from_multiweek_period(self):
         payload={"schedule":[game(17,2,225,{"17":100.0,"18":125.0})]}
         actual,_=official_scores(payload,18)
-        self.assertEqual(actual,{})
+        self.assertEqual(actual["2"],(125.0,"pointsByScoringPeriod"))
 
     def test_multiweek_missing_explicit_week_fails_closed(self):
         payload={"schedule":[game(17,2,225,{"16":90.0,"18":135.0})]}
