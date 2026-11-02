@@ -21,23 +21,48 @@ def fetch(session,league,season,week):
             last=e;time.sleep(attempt+1)
     raise last
 
-def official_scores(payload,week):
-    result={}
-    for game in payload.get("schedule",[]):
-        for side in ("home","away"):
-            obj=game.get(side) or {}
-            tid=obj.get("teamId")
-            if tid is None:continue
-            # totalPoints is matchup-period total, not necessarily weekly total in 2-week playoffs.
-            # Prefer explicit scoring-period pointsByScoringPeriod.
-            period=obj.get("pointsByScoringPeriod") or {}
-            val=num(period.get(str(week),period.get(week)))
-            source="pointsByScoringPeriod"
+def official_scores(payload, week):
+    """Only consider the requested matchup period; never read an unrelated game.
+
+    For single-week periods, totalPoints is eligible for comparison. For multiweek
+    periods, only explicitly reported week-level points may be used.
+    Non-matching/zero-valued totals are still audited, never silently accepted.
+    """
+    result = {}
+    audit = Counter()
+    games = payload.get("schedule", [])
+    selected = [g for g in games if (
+        g.get("matchupPeriodId") == week
+        or any(str(week) in ((g.get(side) or {}).get("pointsByScoringPeriod") or {})
+               for side in ("home", "away"))
+    )]
+    audit["all_schedule_games"] = len(games)
+    audit["matching_period_games"] = len(selected)
+    for game in selected:
+        for side in ("home", "away"):
+            obj = game.get(side) or {}
+            tid = obj.get("teamId")
+            if tid is None:
+                continue
+            period = obj.get("pointsByScoringPeriod") or {}
+            numeric_periods = {int(k): num(v) for k, v in period.items()
+                               if str(k).isdigit()}
+            val = numeric_periods.get(week)
+            source = "pointsByScoringPeriod"
             if val is None:
-                val=num(obj.get("totalPoints"))
-                source="totalPoints_UNVERIFIED_PERIOD"
-            if val is not None:result[str(tid)]=(val,source)
-    return result
+                if game.get("matchupPeriodId") != week:
+                    source = "other_period_no_weekly"
+                elif numeric_periods and len(numeric_periods) > 1:
+                    source = "multiweek_missing_weekly"
+                else:
+                    val = num(obj.get("totalPoints"))
+                    source = "single_period_totalPoints_CANDIDATE"
+            if val is not None:
+                result[str(tid)] = (val, source)
+                audit["candidate_" + source] += 1
+            else:
+                audit["missing_score"] += 1
+    return result, dict(audit)
 
 def stdev(xs):
     return math.sqrt(sum((x-sum(xs)/len(xs))**2 for x in xs)/(len(xs)-1)) if len(xs)>1 else None
@@ -54,9 +79,9 @@ def main():
     for r in rows:groups[(int(r["season"]),int(r["week"]),r["team_id"])].append(r)
     session=build_session()
     weeks=sorted({(s,w) for s,w,t in groups})
-    official={};fetch_errors=[]
+    official={};fetch_errors=[];source_audit={}
     for season,week in weeks:
-        try:official[(season,week)]=official_scores(fetch(session,args.league_id,season,week),week)
+        try:official[(season,week)],source_audit[f'{season}:{week}']=official_scores(fetch(session,args.league_id,season,week),week)
         except Exception as exc:
             fetch_errors.append({"season":season,"week":week,"error":str(exc)[:180]})
         time.sleep(.1)
@@ -68,7 +93,9 @@ def main():
         actual=sum(num(r["actual"]) or 0 for r in starters)
         off,source=official.get((season,week),{}).get(team,(None,"missing"))
         diff=actual-off if off is not None and not missing else None
-        valid=not missing and off is not None and source=="pointsByScoringPeriod" and abs(diff)<.02
+        valid=(not missing and off is not None
+               and source in ("pointsByScoringPeriod", "single_period_totalPoints_CANDIDATE")
+               and abs(diff)<.02)
         record={"season":season,"week":week,"team_id":team,"starter_count":len(starters),
                 "missing_starter_count":len(missing),"projected":round(projected,4),
                 "reconstructed_actual":round(actual,4),"official":off,"official_source":source,
@@ -94,8 +121,11 @@ def main():
     summary={"team_weeks":len(team_rows),"official_weeks_fetched":len(official),"fetch_errors":fetch_errors,
              "reconciled_team_weeks":sum(r["reconciled"] for r in team_rows),
              "missing_official":sum(r["official"] is None for r in team_rows),
-             "unverified_official_period":sum(r["official_source"]=="totalPoints_UNVERIFIED_PERIOD" for r in team_rows),
+             "unverified_official_period":sum(r["official_source"]=="single_period_totalPoints_CANDIDATE" and not r["reconciled"] for r in team_rows),
+             "source_audit":source_audit,
              "nonmatching_complete":sum(r["reconciliation_delta"] is not None and abs(r["reconciliation_delta"])>=.02 for r in team_rows),
+             "matched_explicit_period":sum(r["reconciled"] and r["official_source"]=="pointsByScoringPeriod" for r in team_rows),
+             "matched_single_period_totals":sum(r["reconciled"] and r["official_source"]=="single_period_totalPoints_CANDIDATE" for r in team_rows),
              "incomplete_starter_rows":sum(r["missing_starter_count"]>0 for r in team_rows),
              "starter_count_distribution":dict(Counter(r["starter_count"] for r in team_rows)),
              "reconciled_error_sd":stdev(all_errors),
