@@ -1,0 +1,43 @@
+name: ESPN Historical Validation and Rolling Backtest (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: 'Historical season:last_week values'
+        required: true
+        default: '2024:18,2025:18,2026:7'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/espn-validation-backtest
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install requests
+      - name: Fetch research-only historical player dataset
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+          SEASONS: ${{ inputs.seasons }}
+        run: python -m scripts.extract_historical_player_data --seasons "$SEASONS"
+      - name: Run chronological projection baseline
+        run: python -m scripts.validate_historical_player_forecasts
+      - name: Upload audit and backtest outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: espn-historical-validation-backtest
+          path: |
+            historical-player-dataset/
+            historical-validation/
+          retention-days: 14
