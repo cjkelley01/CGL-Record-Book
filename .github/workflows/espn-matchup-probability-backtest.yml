@@ -1,0 +1,52 @@
+name: ESPN Historical Matchup Probability Backtest (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: 'Completed historical weeks'
+        required: true
+        default: '2024:18,2025:18,2026:7'
+
+permissions:
+  contents: read
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/matchup-probability-backtest
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install requests
+      - name: Fetch historical rosters
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+          SEASONS: ${{ inputs.seasons }}
+        run: python -m scripts.extract_historical_player_data --seasons "$SEASONS"
+      - name: Reconcile official team scores
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+        run: python -m scripts.audit_team_score_uncertainty
+      - name: Compare chronological matchup probabilities
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+        run: python -m scripts.backtest_matchup_probabilities
+      - name: Save research artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: espn-matchup-probability-backtest
+          path: |
+            historical-player-dataset/
+            team-uncertainty-research/
+            matchup-probability-research/
+          retention-days: 14
