@@ -94,8 +94,9 @@ def simulate(season, means, *, trials=10000, seed=2026, deviation=18.0, playoff_
             s["seed"] += rank
             s["wins"] += w[tid]
             s["seed_counts"][rank] += 1
-        def winner(a, b, week):
-            x, y = score(a, week), score(b, week)
+        def winner(a, b, round_weeks):
+            x = sum(score(a, week) for week in round_weeks)
+            y = sum(score(b, week) for week in round_weeks)
             return a if x > y or (x == y and seeded[a] < seeded[b]) else b
         first = [winner(ordered[2], ordered[5], playoff_weeks[0]),
                  winner(ordered[3], ordered[4], playoff_weeks[0])]
