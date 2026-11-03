@@ -1,0 +1,47 @@
+name: Historical CGL Season Replay (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: 'Historical player seasons'
+        required: true
+        default: '2024:18,2025:18,2026:7'
+permissions:
+  contents: read
+jobs:
+  historical-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install requests
+      - name: Replay leakage tests
+        run: python -m unittest tests.test_replay_historical_seasons tests.test_weekly_forecast -v
+      - name: Historical player extraction
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+          SEASONS: ${{ inputs.seasons }}
+        run: python -m scripts.extract_historical_player_data --seasons "$SEASONS"
+      - name: Reconcile historical projections
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+        run: python -m scripts.audit_team_score_uncertainty
+      - name: Historical season replay
+        run: python -m scripts.replay_historical_seasons
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cgl-historical-season-replay
+          path: |
+            historical-season-replay/
+            team-uncertainty-research/
+          retention-days: 14
