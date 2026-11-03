@@ -63,7 +63,9 @@ def simulate(season, means, *, trials=10000, seed=2026, deviation=18.0, playoff_
         wins[b] += (y > x) + .5 * (x == y)
         points[a] += x
         points[b] += y
-    if len(playoff_weeks) != 3 or any(not round_weeks for round_weeks in playoff_weeks):\n        raise ValueError("Six-team bracket requires three nonempty playoff rounds")\n    weeks = {int(m["matchup_period"]) for m in future} | {week for round_weeks in playoff_weeks for week in round_weeks}
+    if len(playoff_weeks) != 3 or any(not round_weeks for round_weeks in playoff_weeks):
+        raise ValueError("Six-team bracket requires three nonempty playoff rounds")
+    weeks = {int(m["matchup_period"]) for m in future} | {week for round_weeks in playoff_weeks for week in round_weeks}
     for tid in ids:
         for week in weeks:
             if not math.isfinite(means.get(tid, {}).get(week, float("nan"))):
@@ -174,10 +176,12 @@ def main():
     season = next(s for s in history["seasons"] if s["season"] == 2026)
     result = build_forecast(season, args.data_root, trials=args.trials)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, indent=2) + "\n")
+    args.output.write_text(json.dumps(result, indent=2) + "
+")
     snapshot = Path("data/forecasts") / f"2026-{datetime.now(timezone.utc).date().isoformat()}-week-{result['completed_through_week']:02d}.json"
     snapshot.parent.mkdir(parents=True, exist_ok=True)
-    snapshot.write_text(json.dumps(result, indent=2) + "\n")
+    snapshot.write_text(json.dumps(result, indent=2) + "
+")
     print(json.dumps({"week": result["completed_through_week"],
                       "models": {k: v["status"] for k, v in result["models"].items()}}, indent=2))
 
