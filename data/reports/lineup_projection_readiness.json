@@ -24,7 +24,7 @@
     {
       "week": 10,
       "expected_teams": 14,
-      "valid_lineups": 8,
+      "valid_lineups": 7,
       "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
@@ -39,6 +39,10 @@
         {
           "team_id": 5,
           "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 10,
+          "reason": "No legal lineup exists for available players"
         },
         {
           "team_id": 17,
@@ -58,7 +62,7 @@
     {
       "week": 11,
       "expected_teams": 14,
-      "valid_lineups": 8,
+      "valid_lineups": 7,
       "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
@@ -69,6 +73,10 @@
         {
           "team_id": 3,
           "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 10,
+          "reason": "No legal lineup exists for available players"
         },
         {
           "team_id": 13,

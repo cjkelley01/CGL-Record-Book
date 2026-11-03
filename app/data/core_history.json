@@ -26534,7 +26534,7 @@
               "7": 1
             },
             "misc": 0,
-            "moveToActive": 27,
+            "moveToActive": 28,
             "moveToIR": 1,
             "paid": 0.0,
             "teamCharges": 0.0,
@@ -26903,7 +26903,7 @@
               "8": 3
             },
             "misc": 0,
-            "moveToActive": 35,
+            "moveToActive": 37,
             "moveToIR": 1,
             "paid": 0.0,
             "teamCharges": 0.0,
@@ -26985,7 +26985,7 @@
               "8": 2
             },
             "misc": 0,
-            "moveToActive": 29,
+            "moveToActive": 31,
             "moveToIR": 1,
             "paid": 0.0,
             "teamCharges": 0.0,
@@ -52732,10 +52732,10 @@
       {
         "season": 2026,
         "player_cards": 1055,
-        "unique_transactions": 379,
-        "completed_transactions": 379,
+        "unique_transactions": 389,
+        "completed_transactions": 384,
         "duplicate_player_card_references_removed": 111,
-        "activity_feed_topics": 491,
+        "activity_feed_topics": 496,
         "limitations": "Player cards expose completed transactions only; rejected, canceled, and failed historical moves are unavailable."
       }
     ],
@@ -53004,7 +53004,7 @@
         0,
         0,
         0,
-        0,
+        0.0,
         0.9,
         1.0,
         1.0,
@@ -53425,13 +53425,19 @@
                 "player_name": "George Kittle",
                 "position": 4,
                 "contribution": {
-                  "regular_points": 0,
-                  "regular_starts": 0,
+                  "regular_points": 0.0,
+                  "regular_starts": 1,
                   "playoff_points": 0,
                   "playoff_starts": 0,
-                  "total_points": 0,
-                  "total_starts": 0,
-                  "weekly": []
+                  "total_points": 0.0,
+                  "total_starts": 1,
+                  "weekly": [
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    }
+                  ]
                 }
               }
             ],
@@ -53443,12 +53449,12 @@
               }
             ],
             "contribution": {
-              "regular_points": 0,
-              "regular_starts": 0,
+              "regular_points": 0.0,
+              "regular_starts": 1,
               "playoff_points": 0,
               "playoff_starts": 0,
-              "total_points": 0,
-              "total_starts": 0
+              "total_points": 0.0,
+              "total_starts": 1
             }
           }
         ],
@@ -53537,13 +53543,19 @@
                 "player_name": "George Kittle",
                 "subsequent_team": "BK Have It Your Way",
                 "subsequent_contribution": {
-                  "regular_points": 0,
-                  "regular_starts": 0,
+                  "regular_points": 0.0,
+                  "regular_starts": 1,
                   "playoff_points": 0,
                   "playoff_starts": 0,
-                  "total_points": 0,
-                  "total_starts": 0,
-                  "weekly": []
+                  "total_points": 0.0,
+                  "total_starts": 1,
+                  "weekly": [
+                    {
+                      "week": 9,
+                      "stage": "regular_season",
+                      "points": 0.0
+                    }
+                  ]
                 },
                 "next_move_id": "92f1d8fd-6444-491b-b178-f6cc949f06c8"
               }
@@ -53781,21 +53793,16 @@
                 "position": 3,
                 "contribution": {
                   "regular_points": 1.4,
-                  "regular_starts": 7,
+                  "regular_starts": 6,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 1.4,
-                  "total_starts": 7,
+                  "total_starts": 6,
                   "weekly": [
                     {
                       "week": 8,
                       "stage": "regular_season",
                       "points": 1.4
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
                     },
                     {
                       "week": 10,
@@ -53835,11 +53842,11 @@
             ],
             "contribution": {
               "regular_points": 1.4,
-              "regular_starts": 7,
+              "regular_starts": 6,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 1.4,
-              "total_starts": 7
+              "total_starts": 6
             }
           }
         ],
@@ -54172,44 +54179,14 @@
                 "position": 3,
                 "contribution": {
                   "regular_points": 0.0,
-                  "regular_starts": 7,
+                  "regular_starts": 1,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 0.0,
-                  "total_starts": 7,
+                  "total_starts": 1,
                   "weekly": [
                     {
                       "week": 8,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
                       "stage": "regular_season",
                       "points": 0.0
                     }
@@ -54226,11 +54203,11 @@
             ],
             "contribution": {
               "regular_points": 0.0,
-              "regular_starts": 7,
+              "regular_starts": 1,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 0.0,
-              "total_starts": 7
+              "total_starts": 1
             }
           }
         ],
@@ -54267,46 +54244,16 @@
                 "position": 5,
                 "contribution": {
                   "regular_points": 3.0,
-                  "regular_starts": 7,
+                  "regular_starts": 1,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 3.0,
-                  "total_starts": 7,
+                  "total_starts": 1,
                   "weekly": [
                     {
                       "week": 8,
                       "stage": "regular_season",
                       "points": 3.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
-                      "stage": "regular_season",
-                      "points": 0.0
                     }
                   ]
                 }
@@ -54320,21 +54267,16 @@
                 "subsequent_team": "BK Have It Your Way",
                 "subsequent_contribution": {
                   "regular_points": 1.4,
-                  "regular_starts": 7,
+                  "regular_starts": 6,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 1.4,
-                  "total_starts": 7,
+                  "total_starts": 6,
                   "weekly": [
                     {
                       "week": 8,
                       "stage": "regular_season",
                       "points": 1.4
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
                     },
                     {
                       "week": 10,
@@ -54368,11 +54310,11 @@
             ],
             "contribution": {
               "regular_points": 3.0,
-              "regular_starts": 7,
+              "regular_starts": 1,
               "playoff_points": 0,
               "playoff_starts": 0,
               "total_points": 3.0,
-              "total_starts": 7
+              "total_starts": 1
             }
           }
         ],
@@ -55619,46 +55561,16 @@
                 "subsequent_team": "Timberwolves",
                 "subsequent_contribution": {
                   "regular_points": 3.0,
-                  "regular_starts": 7,
+                  "regular_starts": 1,
                   "playoff_points": 0,
                   "playoff_starts": 0,
                   "total_points": 3.0,
-                  "total_starts": 7,
+                  "total_starts": 1,
                   "weekly": [
                     {
                       "week": 8,
                       "stage": "regular_season",
                       "points": 3.0
-                    },
-                    {
-                      "week": 9,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 10,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 11,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 12,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 13,
-                      "stage": "regular_season",
-                      "points": 0.0
-                    },
-                    {
-                      "week": 14,
-                      "stage": "regular_season",
-                      "points": 0.0
                     }
                   ]
                 },
