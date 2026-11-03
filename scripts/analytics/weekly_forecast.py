@@ -176,12 +176,10 @@ def main():
     season = next(s for s in history["seasons"] if s["season"] == 2026)
     result = build_forecast(season, args.data_root, trials=args.trials)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, indent=2) + "
-")
+    args.output.write_text(json.dumps(result, indent=2) + "\n")
     snapshot = Path("data/forecasts") / f"2026-{datetime.now(timezone.utc).date().isoformat()}-week-{result['completed_through_week']:02d}.json"
     snapshot.parent.mkdir(parents=True, exist_ok=True)
-    snapshot.write_text(json.dumps(result, indent=2) + "
-")
+    snapshot.write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps({"week": result["completed_through_week"],
                       "models": {k: v["status"] for k, v in result["models"].items()}}, indent=2))
 
