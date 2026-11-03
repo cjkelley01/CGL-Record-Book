@@ -106,9 +106,7 @@ def simulate(season, means, *, trials=10000, seed=2026, deviation=18.0, playoff_
         for tid in semi:
             stats[tid]["finalist"] += 1
         a, b = semi
-        ax = score(a, 17) + score(a, 18)
-        bx = score(b, 17) + score(b, 18)
-        champ = a if ax > bx or (ax == bx and seeded[a] < seeded[b]) else b
+        champ = winner(a, b, playoff_weeks[2])
         stats[champ]["champion"] += 1
     return {"simulations": trials, "seed": seed,
             "assumptions": {"weekly_score_sd": deviation, "tiebreak": "points_for",
