@@ -70,7 +70,10 @@ def replay(seasons,team_rows,*,cutoffs=(4,7,10,12),trials=2000,weights=(0,.1,.2,
         yr=season["season"];actual=truth(season)
         if actual is None:
             skips.append({"season":yr,"reason":"regular season incomplete"});continue
-        bracket,champion,bracket_reason=historical_bracket(season,actual)\n        if bracket_reason:\n            skips.append({"season":yr,"championship_validation":bracket_reason})\n        regular=[g for g in season["matchups"] if g["stage"]=="regular_season"]
+        bracket,champion,bracket_reason=historical_bracket(season,actual)
+        if bracket_reason:
+            skips.append({"season":yr,"championship_validation":bracket_reason})
+        regular=[g for g in season["matchups"] if g["stage"]=="regular_season"]
         final_week=max(int(g["matchup_period"]) for g in regular)
         ids=[int(t["team_id"]) for t in season["teams"]]
         for cutoff in cutoffs:
@@ -98,7 +101,8 @@ def replay(seasons,team_rows,*,cutoffs=(4,7,10,12),trials=2000,weights=(0,.1,.2,
             for weight in weights:
                 means={tid:{week:weight*(sum(history[tid])/len(history[tid]))+
                           (1-weight)*last[tid] for week in future_weeks} for tid in ids}
-                result=simulate(partial,means,trials=trials,seed=2026+yr*100+cutoff,deviation=deviation,\n                    playoff_weeks=bracket or ((15,),(16,),(17,18)))
+                result=simulate(partial,means,trials=trials,seed=2026+yr*100+cutoff,deviation=deviation,
+                    playoff_weeks=bracket or ((15,),(16,),(17,18)))
                 for t in result["teams"]:
                     tid=t["team_id"]
                     rows.append({"season":yr,"cutoff":cutoff,"team_id":tid,
@@ -108,7 +112,8 @@ def replay(seasons,team_rows,*,cutoffs=(4,7,10,12),trials=2000,weights=(0,.1,.2,
                         "playoff_actual":int(tid in actual["playoffs"]),
                         "bye_actual":int(tid in actual["bye"]),
                         "actual_seed":actual["rank"][tid],
-                        "championship_actual":int(tid==champion) if bracket else None,\n                        "championship_bracket_verified":bool(bracket),
+                        "championship_actual":int(tid==champion) if bracket else None,
+                        "championship_bracket_verified":bool(bracket),
                         "future_projection_source":"last observed completed-week ESPN starter projection (persistence proxy)"})
     return rows,skips
 
@@ -132,7 +137,9 @@ def main():
       "scores_by_weight":{str(w):{"playoffs":metrics([r for r in rows if r["weight"]==w],
           "playoff_probability","playoff_actual"),"byes":metrics([r for r in rows if r["weight"]==w],
           "bye_probability","bye_actual")} for w in sorted({r["weight"] for r in rows})},
-      "championship_scores_by_weight":{str(w):metrics([r for r in rows if r["weight"]==w and r["championship_bracket_verified"]],\n          "championship_probability","championship_actual") for w in sorted({r["weight"] for r in rows})},\n      "skips":skips,
+      "championship_scores_by_weight":{str(w):metrics([r for r in rows if r["weight"]==w and r["championship_bracket_verified"]],
+          "championship_probability","championship_actual") for w in sorted({r["weight"] for r in rows})},
+      "skips":skips,
       "championship_validation":"Scored only where the historical championship has a verified six-team, three-round bracket with matching opening seeds; otherwise excluded.",
       "limitations":["All future projections are prior-week persistence proxies; actual future-week ESPN projections and future rosters are NOT reconstructed.",
        "Multiple cutoffs from the same season are correlated; team rows are not independent trials.",
@@ -141,7 +148,8 @@ def main():
        "Historical championship probabilities are scored only for verified compatible brackets; others are diagnostic simulations.",
        "Only completed historical seasons are scored."]}
     out=Path(a.output);out.mkdir(parents=True,exist_ok=True)
-    (out/"summary.json").write_text(json.dumps(result,indent=2)+"\n")
+    (out/"summary.json").write_text(json.dumps(result,indent=2)+"
+")
     with (out/"team_probabilities.csv").open("w",newline="",encoding="utf-8") as f:
         w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
     print(json.dumps(result,indent=2))
