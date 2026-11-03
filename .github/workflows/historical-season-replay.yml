@@ -22,7 +22,7 @@ jobs:
           python-version: '3.13'
       - run: python -m pip install requests
       - name: Replay leakage tests
-        run: python -m unittest tests.test_replay_historical_seasons tests.test_weekly_forecast -v
+        run: python -m unittest tests.test_replay_historical_seasons tests.test_weekly_forecast tests.test_historical_bracket -v
       - name: Historical player extraction
         env:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
