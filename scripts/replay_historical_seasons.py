@@ -148,8 +148,7 @@ def main():
        "Historical championship probabilities are scored only for verified compatible brackets; others are diagnostic simulations.",
        "Only completed historical seasons are scored."]}
     out=Path(a.output);out.mkdir(parents=True,exist_ok=True)
-    (out/"summary.json").write_text(json.dumps(result,indent=2)+"
-")
+    (out/"summary.json").write_text(json.dumps(result,indent=2)+"\n")
     with (out/"team_probabilities.csv").open("w",newline="",encoding="utf-8") as f:
         w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
     print(json.dumps(result,indent=2))
