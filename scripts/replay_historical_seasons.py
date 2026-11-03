@@ -23,6 +23,43 @@ def truth(season):
     ordered=sorted(ids,key=lambda tid:(-wins[tid],-points[tid],tid))
     return {"playoffs":set(ordered[:6]),"bye":set(ordered[:2]),"rank":{tid:i for i,tid in enumerate(ordered,1)}}
 
+
+def historical_bracket(season,actual):
+    """Accept only a verifiable six-team, three-round historical championship."""
+    games=[g for g in season["matchups"] if g.get("stage")=="championship_playoffs"]
+    if int(season.get("settings",{}).get("playoff_team_count") or 0)!=6:
+        return None,None,"historical playoff field is not six teams"
+    groups=defaultdict(list)
+    for g in games:
+        if g.get("playoff_round") is not None:
+            groups[int(g["playoff_round"])].append(g)
+    if len(groups)!=3:
+        return None,None,"cannot verify three championship rounds"
+    rounds=[]
+    for rnd in sorted(groups):
+        periods={int(p) for g in groups[rnd] for p in g.get("scoring_periods",[])}
+        if not periods:
+            return None,None,"missing playoff scoring periods"
+        rounds.append(tuple(sorted(periods)))
+    if any(set(rounds[i])&set(rounds[j]) for i in range(3) for j in range(i+1,3)):
+        return None,None,"overlapping playoff rounds"
+    if not (max(rounds[0])<min(rounds[1]) and max(rounds[1])<min(rounds[2])):
+        return None,None,"nonchronological playoff rounds"
+    final=groups[max(groups)]
+    if len(final)!=1 or final[0].get("winner") not in ("HOME","AWAY") or not final[0].get("decided"):
+        return None,None,"missing unambiguous completed championship final"
+    champion=int(final[0][final[0]["winner"].lower()+"_team_id"])
+    if champion not in actual["playoffs"]:
+        return None,None,"champion not in reconstructed top six"
+    # Validate actual recorded opening round against 3v6 and 4v5 pairings.
+    rank={v:k for k,v in actual["rank"].items()}
+    expected={frozenset((rank[3],rank[6])),frozenset((rank[4],rank[5]))}
+    observed={frozenset((int(g["home_team_id"]),int(g["away_team_id"]))) for g in groups[min(groups)]
+              if g.get("home_team_id") is not None and g.get("away_team_id") is not None}
+    if observed!=expected:
+        return None,None,"historical opening bracket differs from simulator's seeded bracket"
+    return tuple(rounds),champion,None
+
 def replay(seasons,team_rows,*,cutoffs=(4,7,10,12),trials=2000,weights=(0,.1,.2,.4),deviation=18):
     observed=defaultdict(dict)
     for r in team_rows:
@@ -33,7 +70,7 @@ def replay(seasons,team_rows,*,cutoffs=(4,7,10,12),trials=2000,weights=(0,.1,.2,
         yr=season["season"];actual=truth(season)
         if actual is None:
             skips.append({"season":yr,"reason":"regular season incomplete"});continue
-        regular=[g for g in season["matchups"] if g["stage"]=="regular_season"]
+        bracket,champion,bracket_reason=historical_bracket(season,actual)\n        if bracket_reason:\n            skips.append({"season":yr,"championship_validation":bracket_reason})\n        regular=[g for g in season["matchups"] if g["stage"]=="regular_season"]
         final_week=max(int(g["matchup_period"]) for g in regular)
         ids=[int(t["team_id"]) for t in season["teams"]]
         for cutoff in cutoffs:
@@ -57,11 +94,11 @@ def replay(seasons,team_rows,*,cutoffs=(4,7,10,12),trials=2000,weights=(0,.1,.2,
                 if g["stage"]=="regular_season" and int(g["matchup_period"])>cutoff else g
                 for g in season["matchups"]]}
             future_weeks=set(int(g["matchup_period"]) for g in regular if int(g["matchup_period"])>cutoff)
-            future_weeks.update((15,16,17,18))
+            future_weeks.update(week for round_weeks in (bracket or ((15,),(16,),(17,18))) for week in round_weeks)
             for weight in weights:
                 means={tid:{week:weight*(sum(history[tid])/len(history[tid]))+
                           (1-weight)*last[tid] for week in future_weeks} for tid in ids}
-                result=simulate(partial,means,trials=trials,seed=2026+yr*100+cutoff,deviation=deviation)
+                result=simulate(partial,means,trials=trials,seed=2026+yr*100+cutoff,deviation=deviation,\n                    playoff_weeks=bracket or ((15,),(16,),(17,18)))
                 for t in result["teams"]:
                     tid=t["team_id"]
                     rows.append({"season":yr,"cutoff":cutoff,"team_id":tid,
@@ -71,7 +108,7 @@ def replay(seasons,team_rows,*,cutoffs=(4,7,10,12),trials=2000,weights=(0,.1,.2,
                         "playoff_actual":int(tid in actual["playoffs"]),
                         "bye_actual":int(tid in actual["bye"]),
                         "actual_seed":actual["rank"][tid],
-                        "championship_actual":None,
+                        "championship_actual":int(tid==champion) if bracket else None,\n                        "championship_bracket_verified":bool(bracket),
                         "future_projection_source":"last observed completed-week ESPN starter projection (persistence proxy)"})
     return rows,skips
 
@@ -95,13 +132,13 @@ def main():
       "scores_by_weight":{str(w):{"playoffs":metrics([r for r in rows if r["weight"]==w],
           "playoff_probability","playoff_actual"),"byes":metrics([r for r in rows if r["weight"]==w],
           "bye_probability","bye_actual")} for w in sorted({r["weight"] for r in rows})},
-      "skips":skips,
-      "championship_validation":"NOT SCORED: archived seasons may use different playoff brackets; the 2026 six-team W15/W16/W17-18 bracket is simulated but not compared against incompatible historical champions.",
+      "championship_scores_by_weight":{str(w):metrics([r for r in rows if r["weight"]==w and r["championship_bracket_verified"]],\n          "championship_probability","championship_actual") for w in sorted({r["weight"] for r in rows})},\n      "skips":skips,
+      "championship_validation":"Scored only where the historical championship has a verified six-team, three-round bracket with matching opening seeds; otherwise excluded.",
       "limitations":["All future projections are prior-week persistence proxies; actual future-week ESPN projections and future rosters are NOT reconstructed.",
        "Multiple cutoffs from the same season are correlated; team rows are not independent trials.",
        "Weights are exploratory; no weight selection should be made from these same evaluation outcomes.",
        "Playoff and bye outcomes are computed from final regular-season wins and points for, not ESPN playoff-seed metadata.",
-       "Production simulation assumes 2026 six-team bracket, even when historical league settings differ.",
+       "Historical championship probabilities are scored only for verified compatible brackets; others are diagnostic simulations.",
        "Only completed historical seasons are scored."]}
     out=Path(a.output);out.mkdir(parents=True,exist_ok=True)
     (out/"summary.json").write_text(json.dumps(result,indent=2)+"\n")
