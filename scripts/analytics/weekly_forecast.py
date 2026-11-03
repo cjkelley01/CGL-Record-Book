@@ -43,7 +43,7 @@ def blended_means(historical, roster, historical_weight=0.4):
                   for week in historical[tid]} for tid in historical}
 
 
-def simulate(season, means, *, trials=10000, seed=2026, deviation=18.0):
+def simulate(season, means, *, trials=10000, seed=2026, deviation=18.0, playoff_weeks=((15,), (16,), (17, 18))):
     if trials < 1 or deviation <= 0:
         raise ValueError("Invalid simulation settings")
     ids = [int(t["team_id"]) for t in season["teams"]]
@@ -63,7 +63,9 @@ def simulate(season, means, *, trials=10000, seed=2026, deviation=18.0):
         wins[b] += (y > x) + .5 * (x == y)
         points[a] += x
         points[b] += y
-    weeks = {int(m["matchup_period"]) for m in future} | {15, 16, 17, 18}
+    if len(playoff_weeks) != 3 or any(not round_weeks for round_weeks in playoff_weeks):
+        raise ValueError("Six-team bracket requires three nonempty playoff rounds")
+    weeks = {int(m["matchup_period"]) for m in future} | {week for round_weeks in playoff_weeks for week in round_weeks}
     for tid in ids:
         for week in weeks:
             if not math.isfinite(means.get(tid, {}).get(week, float("nan"))):
@@ -92,24 +94,23 @@ def simulate(season, means, *, trials=10000, seed=2026, deviation=18.0):
             s["seed"] += rank
             s["wins"] += w[tid]
             s["seed_counts"][rank] += 1
-        def winner(a, b, week):
-            x, y = score(a, week), score(b, week)
+        def winner(a, b, round_weeks):
+            x = sum(score(a, week) for week in round_weeks)
+            y = sum(score(b, week) for week in round_weeks)
             return a if x > y or (x == y and seeded[a] < seeded[b]) else b
-        first = [winner(ordered[2], ordered[5], 15),
-                 winner(ordered[3], ordered[4], 15)]
+        first = [winner(ordered[2], ordered[5], playoff_weeks[0]),
+                 winner(ordered[3], ordered[4], playoff_weeks[0])]
         first.sort(key=lambda tid: seeded[tid])
-        semi = [winner(ordered[0], first[1], 16),
-                winner(ordered[1], first[0], 16)]
+        semi = [winner(ordered[0], first[1], playoff_weeks[1]),
+                winner(ordered[1], first[0], playoff_weeks[1])]
         for tid in semi:
             stats[tid]["finalist"] += 1
         a, b = semi
-        ax = score(a, 17) + score(a, 18)
-        bx = score(b, 17) + score(b, 18)
-        champ = a if ax > bx or (ax == bx and seeded[a] < seeded[b]) else b
+        champ = winner(a, b, playoff_weeks[2])
         stats[champ]["champion"] += 1
     return {"simulations": trials, "seed": seed,
             "assumptions": {"weekly_score_sd": deviation, "tiebreak": "points_for",
-                            "bracket": "6 teams; 1-2 byes; W15 quarterfinal, W16 semifinal, W17-18 final"},
+                            "bracket": "6 teams; 1-2 byes; playoff rounds " + str(playoff_weeks)},
             "teams": [{"team_id": tid, "team_name": next(t["team_name"] for t in season["teams"] if int(t["team_id"]) == tid),
                        "playoff_probability": round(stats[tid]["playoffs"] / trials, 4),
                        "bye_probability": round(stats[tid]["bye"] / trials, 4),
