@@ -21,7 +21,7 @@ jobs:
           python-version: '3.13'
       - run: pip install -r requirements.txt
       - name: Validate projection and fallback tests
-        run: python -m unittest tests.test_reference_week_waiver_estimates tests.test_export_remaining_week_projections tests.test_espn_projections -v
+        run: python -m unittest tests.test_reference_week_waiver_estimates tests.test_export_remaining_week_projections tests.test_espn_projections tests.test_optimal_lineup tests.test_week9_seed_matrix -v
       - name: Download ESPN league snapshots
         env:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
@@ -41,9 +41,9 @@ jobs:
         run: python -m scripts.fetch_waiver_pool --start-week 10 --end-week 14
       - name: Export team-only projections and coverage
         run: python -m scripts.export_remaining_week_projections
-      - name: Upload team-only report
+      - name: Simulate both Week-9 seed matrices (200,000 trials each)\n        run: python -m scripts.export_week9_seed_matrix --simulations 200000\n      - name: Upload team-only report
         uses: actions/upload-artifact@v4
         with:
           name: cgl-remaining-week-team-projections
-          path: data/reports/remaining_week_team_projections.json
+          path: |\n            data/reports/remaining_week_team_projections.json\n            data/reports/week9_seed_matrix.json\n            data/reports/week9_seed_matrix.csv
           retention-days: 14
