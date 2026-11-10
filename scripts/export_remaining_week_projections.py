@@ -1,4 +1,4 @@
-"""Export team-only Week 10-14 ESPN projections and explicit readiness diagnostics.
+"""Export team-only Week 10-18 ESPN projections and explicit readiness diagnostics.
 
 Incomplete team-weeks remain null; never invent projections or silently use zero.
 """
@@ -8,7 +8,7 @@ from pathlib import Path
 from scripts.analytics.espn_projections import extract_weekly_means
 
 
-def build_report(data_root=Path("data"), season=2026, weeks=range(10, 15)):
+def build_report(data_root=Path("data"), season=2026, weeks=range(10, 19)):
     root = Path(data_root)
     teams = json.loads((root / "raw" / str(season) / "league" / "mTeam.json").read_text())["teams"]
     names = {
@@ -67,7 +67,7 @@ def main():
     path = Path("data/reports/remaining_week_team_projections.json")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    print(f"Projection coverage: {sum(r['valid_lineups'] for r in report['coverage'])}/70; ready={report['ready']}")
+    print(f"Projection coverage: {sum(r['valid_lineups'] for r in report['coverage'])}/{14 * len(report['weeks'])}; ready={report['ready']}")
     print(f"Report: {path}")
     if not report["ready"]:
         print("WARNING: Incomplete projections; do not publish seed odds from this export.")
