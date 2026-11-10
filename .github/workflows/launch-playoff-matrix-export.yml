@@ -31,21 +31,21 @@ jobs:
         env:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
           ESPN_SWID: ${{ secrets.ESPN_SWID }}
-        run: python -m scripts.fetch_future_rosters --start-week 10 --end-week 14
+        run: python -m scripts.fetch_future_rosters --start-week 10 --end-week 18
       - name: Fetch verified NFL schedule
-        run: python -m scripts.fetch_nfl_schedule --start-week 10 --end-week 14
+        run: python -m scripts.fetch_nfl_schedule --start-week 10 --end-week 18
       - name: Fetch waiver projections
         env:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
           ESPN_SWID: ${{ secrets.ESPN_SWID }}
-        run: python -m scripts.fetch_waiver_pool --start-week 10 --end-week 14
+        run: python -m scripts.fetch_waiver_pool --start-week 10 --end-week 18
       - name: Export team-only projections and coverage
         run: python -m scripts.export_remaining_week_projections
       - name: Freeze Week-9 final scores from authenticated ESPN source
         run: python -m scripts.freeze_week9_history
       - name: Simulate both Week-9 seed matrices (200,000 trials each)
         run: python -m scripts.export_week9_seed_matrix --history data/reports/week9_history_snapshot.json --simulations 200000
-      - name: Simulate championship odds and Week-18 sensitivity (six scenarios)
+      - name: Simulate championship odds from ESPN Weeks 15-18 (six scenarios)
         run: python -m scripts.export_week9_championship_scenarios --simulations 200000
       - name: Upload team-only report
         uses: actions/upload-artifact@v4
