@@ -17,8 +17,8 @@ def build_matrices(history, projections, *, simulations=200000, seed=2026, devia
         raise ValueError("Not a Week-9-frozen historical snapshot; refuse to mix later results")
     if {int(m["matchup_period"]) for m in future} != set(range(10, 15)):
         raise ValueError("Remaining schedule must contain exactly Weeks 10-14")
-    if not projections.get("ready") or projections.get("weeks") != list(range(10, 15)):
-        raise ValueError("Projection report is not complete for Weeks 10-14")
+    if not projections.get("ready") or projections.get("weeks") not in (list(range(10, 15)), list(range(10, 19))):
+        raise ValueError("Projection report must be complete and include Weeks 10-14 (optionally through Week 18)")
     if projections.get("baseline_policy") != "roster_preservation" or projections.get("comparison_policy") != "full_waiver_optimization":
         raise ValueError("Expected dual-policy projection report")
     if len(projections["teams"]) != 14:
