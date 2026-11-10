@@ -20,6 +20,8 @@ jobs:
         with:
           python-version: '3.13'
       - run: pip install -r requirements.txt
+      - name: Validate projection and fallback tests
+        run: python -m unittest tests.test_reference_week_waiver_estimates tests.test_export_remaining_week_projections tests.test_espn_projections -v
       - name: Download ESPN league snapshots
         env:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
