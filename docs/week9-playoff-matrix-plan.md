@@ -20,3 +20,10 @@ Status: planning / no simulated probabilities published from this branch.
 - No missing projections are disguised as ESPN data.
 - Seed matrix rows sum to 100%, playoff qualification equals sum(seeds 1..6), and bye equals sum(seeds 1..2).
 - Reproducible outputs, no production changes until tests pass.
+
+## November 10 first GitHub Actions export
+- Run [42889006172](https://github.com/cjkelley01/CGL-Record-Book/actions/runs/42889006172) succeeded and generated a team-only artifact.
+- Actual legal lineup coverage: 59 of 70 team-weeks. W10: 14/14 (eight waiver estimates), W11: 9/14, W12: 14/14, W13: 10/14, W14: 12/14.
+- Missing: W11 teams 2,3,13,17,20; W13 teams 2,9,14,17; W14 teams 4,19.
+- First correction implemented: after target-week waiver replacement fails, use Week 10 ESPN-projected, status-confirmed free agents as a reference-week estimate for a later week, checking independent NFL target-week schedule and byes. The mean of the three highest eligible reference-week projections is **not** represented as an ESPN target-week forecast, real acquisition, or assured score. Teams using this tier are enumerated in report metadata.
+- This correction is *not yet verified by a completed GitHub Actions run*. The main launcher now runs tests first. Re-run the workflow, examine remaining null entries and fallback counts, then make sensitivity cases before publishing probabilities.
