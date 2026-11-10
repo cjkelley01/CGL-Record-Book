@@ -84,6 +84,27 @@ class EspnProjectionsTests(unittest.TestCase):
         self.assertEqual(len({p["player_id"] for p in selected}), 2)
         self.assertTrue(all(p["projection"] == 15 for p in selected))
 
+    def test_negative_id_rostered_defense_is_not_a_waiver_placeholder(self):
+        # ESPN uses negative IDs for legitimate rostered team defenses.
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "raw" / "2026"
+            (root / "league").mkdir(parents=True)
+            (root / "weeks" / "10").mkdir(parents=True)
+            (root / "nfl_schedule.json").write_text(json.dumps({"10": list(range(1, 27))}))
+            (root / "league" / "mSettings.json").write_text(json.dumps({
+                "settings": {"rosterSettings": {"lineupSlotCounts": {"16": 1, "20": 4}}}
+            }))
+            defense = player(-16034, 8.9, week=10, slots=[16])
+            defense["playerPoolEntry"]["player"]["fullName"] = "Texans D/ST"
+            (root / "weeks" / "10" / "mRoster.json").write_text(json.dumps({
+                "teams": [{"id": 1, "roster": {"entries": [defense]}}]
+            }))
+            result = extract_weekly_means(directory, 2026, [10], [1])
+            starter = result["lineup_audit"][1][10]["starters"][0]
+            self.assertEqual(-16034, starter["player_id"])
+            self.assertEqual("Texans D/ST", starter["player_name"])
+            self.assertFalse(starter["is_hypothetical_waiver"])
+
     def test_complete_week_and_missing_future_week(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory) / "raw" / "2026"
