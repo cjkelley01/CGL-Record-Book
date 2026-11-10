@@ -38,7 +38,7 @@ class ChampionshipScenarioTests(unittest.TestCase):
 
     def test_no_week10_result_leakage(self):
         self.history["seasons"][0]["matchups"][-1]["decided"] = True
-        with self.assertRaisesRegex(ValueError, "Weeks 10-14"):
+        with self.assertRaisesRegex(ValueError, "Expected frozen Week-9 completed results"):
             build_championship_scenarios(self.history, self.projections, simulations=10)
 
 
