@@ -313,7 +313,7 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
                     "method": replacement_method,
                     "starters": [{**starter,
                                   "player_name": names.get(starter["player_id"], "HYPOTHETICAL WAIVER REPLACEMENT"),
-                                  "is_hypothetical_waiver": starter["player_id"] < 0}
+                                  "is_hypothetical_waiver": starter["player_id"] not in names}
                                  for starter in optimized["lineup"]]}
                 means[tid][week] = optimized["projected_points"]
                 successful += 1
