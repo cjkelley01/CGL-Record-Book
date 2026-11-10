@@ -41,6 +41,7 @@ def build_report(data_root=Path("data"), season=2026, weeks=range(10, 15)):
         "teams": [{
             "team_id": tid,
             "team_name": names[tid],
+            "lineup_audit": {str(week): result["lineup_audit"][tid].get(week) for week in weeks},
             "projected_points": {
                 str(week): round(result["means"][tid][week], 2)
                 if week in result["means"][tid] else None for week in weeks
