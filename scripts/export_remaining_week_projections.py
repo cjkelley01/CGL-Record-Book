@@ -37,11 +37,23 @@ def build_report(data_root=Path("data"), season=2026, weeks=range(10, 15)):
         "season": season,
         "weeks": weeks,
         "ready": result["ready"],
+        "baseline_policy": "roster_preservation",
+        "comparison_policy": "full_waiver_optimization",
         "coverage": coverage,
         "teams": [{
             "team_id": tid,
             "team_name": names[tid],
             "lineup_audit": {str(week): result["lineup_audit"][tid].get(week) for week in weeks},
+            "full_optimization_lineup_audit": {str(week): result["optimized_audit"][tid].get(week) for week in weeks},
+            "full_optimization_projected_points": {
+                str(week): round(result["optimized_means"][tid][week], 2)
+                if week in result["optimized_means"][tid] else None for week in weeks
+            },
+            "full_optimization_uplift": {
+                str(week): round(result["optimized_means"][tid][week] - result["means"][tid][week], 2)
+                if week in result["means"][tid] and week in result["optimized_means"][tid] else None
+                for week in weeks
+            },
             "projected_points": {
                 str(week): round(result["means"][tid][week], 2)
                 if week in result["means"][tid] else None for week in weeks
