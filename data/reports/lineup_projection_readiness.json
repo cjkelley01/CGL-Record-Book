@@ -24,45 +24,25 @@
     {
       "week": 10,
       "expected_teams": 14,
-      "valid_lineups": 7,
+      "valid_lineups": 14,
       "waiver_pool_verified": true,
-      "teams_requiring_replacements": [],
-      "teams_without_valid_lineups": [
-        {
-          "team_id": 2,
-          "reason": "No legal lineup: a required position has no eligible player"
-        },
-        {
-          "team_id": 4,
-          "reason": "No legal lineup: a required position has no eligible player"
-        },
-        {
-          "team_id": 5,
-          "reason": "No legal lineup: a required position has no eligible player"
-        },
-        {
-          "team_id": 10,
-          "reason": "No legal lineup exists for available players"
-        },
-        {
-          "team_id": 17,
-          "reason": "No legal lineup: a required position has no eligible player"
-        },
-        {
-          "team_id": 18,
-          "reason": "No legal lineup: a required position has no eligible player"
-        },
-        {
-          "team_id": 19,
-          "reason": "No legal lineup: a required position has no eligible player"
-        }
+      "teams_requiring_replacements": [
+        1,
+        2,
+        4,
+        5,
+        10,
+        17,
+        18,
+        19
       ],
-      "status": "incomplete"
+      "teams_without_valid_lineups": [],
+      "status": "complete"
     },
     {
       "week": 11,
       "expected_teams": 14,
-      "valid_lineups": 7,
+      "valid_lineups": 9,
       "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
@@ -75,20 +55,12 @@
           "reason": "No legal lineup: a required position has no eligible player"
         },
         {
-          "team_id": 10,
-          "reason": "No legal lineup exists for available players"
-        },
-        {
           "team_id": 13,
           "reason": "No legal lineup: a required position has no eligible player"
         },
         {
           "team_id": 17,
           "reason": "No legal lineup exists for available players"
-        },
-        {
-          "team_id": 18,
-          "reason": "No legal lineup: a required position has no eligible player"
         },
         {
           "team_id": 20,
@@ -109,7 +81,7 @@
     {
       "week": 13,
       "expected_teams": 14,
-      "valid_lineups": 11,
+      "valid_lineups": 10,
       "waiver_pool_verified": true,
       "teams_requiring_replacements": [],
       "teams_without_valid_lineups": [
@@ -120,6 +92,10 @@
         {
           "team_id": 9,
           "reason": "No legal lineup: a required position has no eligible player"
+        },
+        {
+          "team_id": 14,
+          "reason": "No legal lineup exists for available players"
         },
         {
           "team_id": 17,
