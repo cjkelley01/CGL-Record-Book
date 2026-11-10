@@ -28,6 +28,8 @@ def build_report(data_root=Path("data"), season=2026, weeks=range(10, 15)):
             "valid_lineups": row.get("teams_with_valid_lineups", 0),
             "expected_teams": row.get("teams_expected", len(names)),
             "teams_using_waiver_replacements": row.get("teams_using_waiver_replacements", 0),
+            "teams_using_cross_week_waiver_estimates": row.get("teams_using_cross_week_waiver_estimates", []),
+            "cross_week_waiver_reference_week": row.get("cross_week_waiver_reference_week"),
             "waiver_projection_source_week": row.get("waiver_projection_source_week"),
             "teams_without_valid_lineups": row.get("teams_without_valid_lineups", []),
         })
