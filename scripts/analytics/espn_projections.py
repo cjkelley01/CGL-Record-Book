@@ -235,6 +235,7 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
     slots = starter_slots(settings)
     means = {int(tid): {} for tid in team_ids}
     coverage = []
+    lineup_audit = {int(tid): {} for tid in team_ids}
     schedule_path = root / "nfl_schedule.json"
     schedule = json.loads(schedule_path.read_text()) if schedule_path.exists() else {}
     for week in weeks:
@@ -280,6 +281,7 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
         cross_week_teams = []
         diagnostics = waiver_pool_diagnostics(pool, week, rostered_ids, slots, playing)
         for tid in means:
+            replacement_method = "roster_only"
             entries = rosters.get(tid)
             if not entries:
                 continue
@@ -292,6 +294,7 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
                         optimized = optimize_lineup(roster_players + fallback, slots)
                         replacements_used += 1
                         replacement_teams.append(tid)
+                        replacement_method = "target_week_waiver_estimate"
                     except ValueError:
                         if not reference_fallback:
                             raise
@@ -299,6 +302,19 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
                         replacements_used += 1
                         replacement_teams.append(tid)
                         cross_week_teams.append(tid)
+                        replacement_method = "reference_week_waiver_estimate"
+                names = {}
+                for entry in entries:
+                    player = (entry.get("playerPoolEntry") or {}).get("player") or {}
+                    pid = player.get("id", entry.get("playerId"))
+                    if pid is not None:
+                        names[int(pid)] = player.get("fullName") or player.get("name") or str(pid)
+                lineup_audit[tid][week] = {
+                    "method": replacement_method,
+                    "starters": [{**starter,
+                                  "player_name": names.get(starter["player_id"], "HYPOTHETICAL WAIVER REPLACEMENT"),
+                                  "is_hypothetical_waiver": starter["player_id"] < 0}
+                                 for starter in optimized["lineup"]]}
                 means[tid][week] = optimized["projected_points"]
                 successful += 1
             except (ValueError, KeyError, TypeError) as exc:
@@ -316,5 +332,5 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
                          "teams_with_valid_lineups": successful,
                          "teams_expected": len(means),
                          "status": "complete" if successful == len(means) else "incomplete"})
-    return {"means": means, "coverage": coverage,
+    return {"means": means, "coverage": coverage, "lineup_audit": lineup_audit,
             "ready": all(row["status"] == "complete" for row in coverage)}
