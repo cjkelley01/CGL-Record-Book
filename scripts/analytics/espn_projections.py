@@ -198,6 +198,20 @@ def waiver_replacements(pool, week, rostered_ids, slots, playing_teams=None, *, 
             continue
         if points < 0:
             continue
+        if source_week != week:
+            # A past-week projection is an estimate, not an ESPN target-week forecast.
+            # Require independent evidence that the NFL team actually plays in
+            # the TARGET week; otherwise a bye/inactive player could fill a slot.
+            pro_team = player.get("proTeamId")
+            if playing_teams is None or pro_team is None:
+                continue
+            try:
+                if int(pro_team) not in playing_teams:
+                    continue
+            except (TypeError, ValueError):
+                continue
+            if player.get("byeWeek") == week:
+                continue
         eligible.append({"player_id": int(pid), "projection": points,
                          "eligible_slots": [int(s) for s in player.get("eligibleSlots", [])]})
     selected = []
@@ -252,6 +266,18 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
             pool = snapshot["players"]
         fallback = waiver_replacements(pool, week, rostered_ids, slots, playing,
                                        projection_week=source_week)
+        # ESPN often omits target-week projections for unrostered players.
+        # A separate, explicitly estimated fallback anchors the same confirmed
+        # waiver candidates to their Week 10 ESPN projection, while requiring
+        # their NFL team to play in the target week. This is NOT a real acquisition.
+        reference_week = min(weeks)
+        reference_pool_path = root / "weeks" / f"{reference_week:02d}" / "free_agents.json"
+        reference_pool = (json.loads(reference_pool_path.read_text())
+                          if reference_week != week and reference_pool_path.exists() else None)
+        reference_fallback = waiver_replacements(
+            reference_pool, week, rostered_ids, slots, playing,
+            projection_week=reference_week) if reference_pool is not None else []
+        cross_week_teams = []
         diagnostics = waiver_pool_diagnostics(pool, week, rostered_ids, slots, playing)
         for tid in means:
             entries = rosters.get(tid)
@@ -262,11 +288,17 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
                 try:
                     optimized = optimize_lineup(roster_players, slots)
                 except ValueError:
-                    if not fallback:
-                        raise
-                    optimized = optimize_lineup(roster_players + fallback, slots)
-                    replacements_used += 1
-                    replacement_teams.append(tid)
+                    try:
+                        optimized = optimize_lineup(roster_players + fallback, slots)
+                        replacements_used += 1
+                        replacement_teams.append(tid)
+                    except ValueError:
+                        if not reference_fallback:
+                            raise
+                        optimized = optimize_lineup(roster_players + reference_fallback, slots)
+                        replacements_used += 1
+                        replacement_teams.append(tid)
+                        cross_week_teams.append(tid)
                 means[tid][week] = optimized["projected_points"]
                 successful += 1
             except (ValueError, KeyError, TypeError) as exc:
@@ -275,7 +307,9 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
         coverage.append({"week": week, "teams_using_waiver_replacements": replacements_used,
                          "waiver_pool_verified": pool is not None,
                          "waiver_projection_source_week": source_week if pool is not None else None,
-                         "waiver_estimate_method": "mean_top_three_current_week",
+                         "waiver_estimate_method": "mean_top_three_current_week_or_reference_week",
+                         "cross_week_waiver_reference_week": reference_week if reference_pool is not None else None,
+                         "teams_using_cross_week_waiver_estimates": cross_week_teams,
                          "waiver_diagnostics": diagnostics,
                          "teams_requiring_replacements": replacement_teams,
                          "teams_without_valid_lineups": failed_teams,
