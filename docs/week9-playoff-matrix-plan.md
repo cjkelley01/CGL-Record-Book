@@ -30,3 +30,14 @@ Status: planning / no simulated probabilities published from this branch.
 
 ## Lineup-level audit requirement
 Every valid team-week now exports slot IDs, player names, projected points, and whether each starter is a hypothetical waiver replacement. The model uses optimized legal lineups, which may differ from ESPN's displayed starters. Before publication, reconcile Week 10 Charley (team 1) against the ESPN displayed ~112 points excluding TE; an expected ~7 point TE waiver estimate implies ~119, not the earlier 124.46. Do not equate the optimized projection with ESPN's current starting lineup. Verify on the next workflow run.
+
+## Dual waiver forecast policies (2026-11-10)
+
+The Week 10 audit showed that an earlier 124.13-point estimate for Charley selected hypothetical TE, K and FLEX options. The engine now calculates **both** policies independently for every team/week:
+
+- **Roster preservation (baseline):** maximize the number of verified rostered starters in a legal lineup, then maximize projected points. This fills unplayable/bye/missing-position gaps with synthetic top-three waiver estimates without replacing a playable rostered kicker/FLEX just to improve points.
+- **Full waiver optimization (upside):** maximize projected points across rostered and hypothetical waiver options; it may replace playable rostered starters. This is a scenario, not a transaction recommendation or guaranteed waiver availability.
+
+The export retains `projected_points` and `lineup_audit` as the baseline for downstream compatibility, and adds `full_optimization_projected_points`, `full_optimization_lineup_audit`, and `full_optimization_uplift`. Audit flags identify synthetic additions by roster membership, not by negative player IDs (real ESPN D/ST IDs can be negative).
+
+**Important model limitations:** synthetic replacements are slot-specific averages of the top three ESPN-confirmed available candidates; they do not represent actual player acquisitions, and independent teams may be modeled using the same candidate pool. Target-week ESPN projections are preferred, while cross-week estimates are marked separately. A projection is not ready if a legal lineup cannot be constructed. Re-run GitHub validation and the manual launcher before relying on the Week 10 comparison or publishing probabilities.
