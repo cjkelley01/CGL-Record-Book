@@ -1,7 +1,6 @@
-"""Exploratory championship sensitivity from the frozen Week-9 snapshot.
+"""Championship scenarios using audited ESPN target-week lineups through Week 18.
 
-Playoff weeks 15-18 are NOT verified ESPN player projections. Explicitly carry
-Week-14 team forecasts forward and stress-test Week-18 rest exposure.
+Week-18 haircuts are hypothetical sensitivities, not player-level rest forecasts.
 """
 import argparse
 import csv
@@ -22,8 +21,8 @@ def build_championship_scenarios(history, projections, *, simulations=200000,
         raise ValueError("Expected frozen Week-9 completed results")
     if {int(m["matchup_period"]) for m in regular if not m.get("decided")} != set(range(10, 15)):
         raise ValueError("Expected exactly Weeks 10-14 undecided")
-    if not projections.get("ready") or projections.get("weeks") != list(range(10, 15)):
-        raise ValueError("Incomplete Week 10-14 projections")
+    if not projections.get("ready") or projections.get("weeks") != list(range(10, 19)):
+        raise ValueError("Incomplete Week 10-18 projections")
     if projections.get("baseline_policy") != "roster_preservation" or projections.get("comparison_policy") != "full_waiver_optimization":
         raise ValueError("Expected two distinct waiver policies")
     ids = {int(t["team_id"]) for t in season["teams"]}
@@ -38,7 +37,7 @@ def build_championship_scenarios(history, projections, *, simulations=200000,
         for team in projections["teams"]:
             tid = int(team["team_id"])
             base[tid] = {}
-            for week in range(10, 15):
+            for week in range(10, 19):
                 value = team[field].get(str(week))
                 if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
                     raise ValueError(f"Invalid {policy} team {tid} Week {week} projection")
@@ -48,9 +47,7 @@ def build_championship_scenarios(history, projections, *, simulations=200000,
                 raise ValueError("Week 18 haircut must be between 0 and 1")
             means = {tid: dict(scores) for tid, scores in base.items()}
             for tid in ids:
-                for week in (15, 16, 17):
-                    means[tid][week] = base[tid][14]
-                means[tid][18] = base[tid][14] * (1 - haircut)
+                means[tid][18] = base[tid][18] * (1 - haircut)
             result = simulate(season, means, trials=simulations, seed=seed,
                               deviation=deviation, playoff_weeks=((15,), (16,), (17, 18)))
             models[f"{policy}__week18_{int(round(haircut * 100)):02d}pct"] = result
@@ -61,10 +58,10 @@ def build_championship_scenarios(history, projections, *, simulations=200000,
             "assumptions": {
                 "playoff_weeks": {"quarterfinal": [15], "semifinal": [16], "final": [17, 18]},
                 "weekly_score_sd": deviation,
-                "playoff_projection_source": "Week-14 team projections carried forward; modeled only, not ESPN Weeks 15-18",
+                "playoff_projection_source": "Audited ESPN target-week roster projections for Weeks 15-18; hypothetical waiver substitutions explicitly marked in lineup audits",
                 "week18_haircuts": list(week18_haircuts),
                 "week18_haircut_scope": "Uniform percentage reduction to all teams' Week-18 projected means; not player-specific rest modeling",
-                "limitations": "Does not account for player injuries, playoff-team-specific NFL rest incentives, acquisitions, or weekly lineup changes. Scenario odds are sensitivity estimates, not validated playoff-week projections."
+                "limitations": "ESPN forecasts may change; roster-preservation and waiver optimization use hypothetical lineup policies, not actual transactions. Week-18 haircut is uniform rather than player-specific rest exposure. NFL rest decisions, injuries and future transactions are uncertain."
             }}
 
 
