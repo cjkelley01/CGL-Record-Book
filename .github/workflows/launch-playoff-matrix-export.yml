@@ -21,7 +21,7 @@ jobs:
           python-version: '3.13'
       - run: pip install -r requirements.txt
       - name: Validate projection and fallback tests
-        run: python -m unittest tests.test_reference_week_waiver_estimates tests.test_export_remaining_week_projections tests.test_espn_projections tests.test_optimal_lineup tests.test_week9_seed_matrix tests.test_freeze_week9_history -v
+        run: python -m unittest tests.test_reference_week_waiver_estimates tests.test_export_remaining_week_projections tests.test_espn_projections tests.test_optimal_lineup tests.test_week9_seed_matrix tests.test_freeze_week9_history tests.test_championship_scenarios -v
       - name: Download ESPN league snapshots
         env:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
@@ -45,6 +45,8 @@ jobs:
         run: python -m scripts.freeze_week9_history
       - name: Simulate both Week-9 seed matrices (200,000 trials each)
         run: python -m scripts.export_week9_seed_matrix --history data/reports/week9_history_snapshot.json --simulations 200000
+      - name: Simulate championship odds and Week-18 sensitivity (six scenarios)
+        run: python -m scripts.export_week9_championship_scenarios --simulations 200000
       - name: Upload team-only report
         uses: actions/upload-artifact@v4
         with:
@@ -54,4 +56,6 @@ jobs:
             data/reports/week9_history_snapshot.json
             data/reports/week9_seed_matrix.json
             data/reports/week9_seed_matrix.csv
+            data/reports/week9_championship_scenarios.json
+            data/reports/week9_championship_scenarios.csv
           retention-days: 14
