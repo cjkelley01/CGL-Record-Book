@@ -41,9 +41,14 @@ jobs:
         run: python -m scripts.fetch_waiver_pool --start-week 10 --end-week 14
       - name: Export team-only projections and coverage
         run: python -m scripts.export_remaining_week_projections
-      - name: Simulate both Week-9 seed matrices (200,000 trials each)\n        run: python -m scripts.export_week9_seed_matrix --simulations 200000\n      - name: Upload team-only report
+      - name: Simulate both Week-9 seed matrices (200,000 trials each)
+        run: python -m scripts.export_week9_seed_matrix --simulations 200000
+      - name: Upload team-only report
         uses: actions/upload-artifact@v4
         with:
           name: cgl-remaining-week-team-projections
-          path: |\n            data/reports/remaining_week_team_projections.json\n            data/reports/week9_seed_matrix.json\n            data/reports/week9_seed_matrix.csv
+          path: |
+            data/reports/remaining_week_team_projections.json
+            data/reports/week9_seed_matrix.json
+            data/reports/week9_seed_matrix.csv
           retention-days: 14
