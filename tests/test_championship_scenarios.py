@@ -19,7 +19,7 @@ class ChampionshipScenarioTests(unittest.TestCase):
                             "comparison_policy": "full_waiver_optimization",
                             "teams": [{"team_id": i,
                                        "projected_points": {str(w): 100 for w in range(10, 19)},
-                                       "full_optimization_projected_points": {str(w): 110 for w in range(10, 15)}}
+                                       "full_optimization_projected_points": {str(w): 110 for w in range(10, 19)}}
                                       for i in range(1, 15)]}
 
     def test_six_scenarios_and_probability_conservation(self):
@@ -39,6 +39,11 @@ class ChampionshipScenarioTests(unittest.TestCase):
     def test_playoff_week_projection_required(self):
         del self.projections["teams"][0]["projected_points"]["18"]
         with self.assertRaisesRegex(ValueError, "Week 18"):
+            build_championship_scenarios(self.history, self.projections, simulations=10)
+
+    def test_full_optimization_playoff_week_projection_required(self):
+        del self.projections["teams"][0]["full_optimization_projected_points"]["17"]
+        with self.assertRaisesRegex(ValueError, "full_waiver_optimization team 1 Week 17"):
             build_championship_scenarios(self.history, self.projections, simulations=10)
 
     def test_no_week10_result_leakage(self):
