@@ -34,6 +34,33 @@ class WeeklyForecastTests(unittest.TestCase):
         self.assertAlmostEqual(sum(t["championship_probability"] for t in result["teams"]), 1, places=2)
         self.assertAlmostEqual(sum(t["final_probability"] for t in result["teams"]), 2, places=2)
 
+    def test_fixed_bracket_does_not_reseed_after_upset(self):
+        teams = [{"team_id": i, "team_name": f"Team {i}"} for i in range(1, 7)]
+        # Distinct standings points lock in seeds #1 through #6.
+        season = {"season": 2026, "teams": teams, "matchups": [
+            {"stage": "regular_season", "decided": True, "matchup_period": 1,
+             "home_team_id": 1, "away_team_id": 2,
+             "home_score": 160, "away_score": 150},
+            {"stage": "regular_season", "decided": True, "matchup_period": 1,
+             "home_team_id": 3, "away_team_id": 4,
+             "home_score": 140, "away_score": 130},
+            {"stage": "regular_season", "decided": True, "matchup_period": 1,
+             "home_team_id": 5, "away_team_id": 6,
+             "home_score": 120, "away_score": 110},
+        ]}
+        # With no variance, #6 upsets #3 and #4 beats #5.
+        # Fixed bracket: #1 faces #4 (loses), #2 faces #6 (wins).
+        # Reseeding would instead pair #1 vs #6 and #2 vs #4.
+        means = {i: {15: 0, 16: 0, 17: 0, 18: 0} for i in range(1, 7)}
+        means[6][15], means[4][15] = 100, 100
+        means[4][16], means[2][16] = 100, 100
+        means[2][17], means[2][18] = 100, 100
+        result = simulate(season, means, trials=1, seed=3, deviation=0.000001)
+        by_id = {t["team_id"]: t for t in result["teams"]}
+        self.assertEqual(by_id[4]["final_probability"], 1)
+        self.assertEqual(by_id[2]["final_probability"], 1)
+        self.assertEqual(by_id[1]["final_probability"], 0)
+
     def test_missing_projection_fails_closed(self):
         with self.assertRaises(ValueError):
             simulate(sample(), {}, trials=10)
