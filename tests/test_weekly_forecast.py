@@ -39,14 +39,14 @@ class WeeklyForecastTests(unittest.TestCase):
         # Distinct standings points lock in seeds #1 through #6.
         season = {"season": 2026, "teams": teams, "matchups": [
             {"stage": "regular_season", "decided": True, "matchup_period": 1,
-             "home_team_id": 1, "away_team_id": 2,
-             "home_score": 160, "away_score": 150},
+             "home_team_id": 1, "away_team_id": 6,
+             "home_score": 160, "away_score": 110},
+            {"stage": "regular_season", "decided": True, "matchup_period": 1,
+             "home_team_id": 2, "away_team_id": 5,
+             "home_score": 150, "away_score": 120},
             {"stage": "regular_season", "decided": True, "matchup_period": 1,
              "home_team_id": 3, "away_team_id": 4,
              "home_score": 140, "away_score": 130},
-            {"stage": "regular_season", "decided": True, "matchup_period": 1,
-             "home_team_id": 5, "away_team_id": 6,
-             "home_score": 120, "away_score": 110},
         ]}
         # With no variance, #6 upsets #3 and #4 beats #5.
         # Fixed bracket: #1 faces #4 (loses), #2 faces #6 (wins).
