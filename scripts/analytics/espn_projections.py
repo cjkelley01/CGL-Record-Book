@@ -198,6 +198,20 @@ def waiver_replacements(pool, week, rostered_ids, slots, playing_teams=None, *, 
             continue
         if points < 0:
             continue
+        if source_week != week:
+            # A past-week projection is an estimate, not an ESPN target-week forecast.
+            # Require independent evidence that the NFL team actually plays in
+            # the TARGET week; otherwise a bye/inactive player could fill a slot.
+            pro_team = player.get("proTeamId")
+            if playing_teams is None or pro_team is None:
+                continue
+            try:
+                if int(pro_team) not in playing_teams:
+                    continue
+            except (TypeError, ValueError):
+                continue
+            if player.get("byeWeek") == week:
+                continue
         eligible.append({"player_id": int(pid), "projection": points,
                          "eligible_slots": [int(s) for s in player.get("eligibleSlots", [])]})
     selected = []
@@ -211,7 +225,7 @@ def waiver_replacements(pool, week, rostered_ids, slots, playing_teams=None, *, 
         # Synthetic projection estimate, not a claimed player acquisition.
         for occurrence in range(slots.count(slot)):
             selected.append({"player_id": -(1000000 + slot * 100 + occurrence), "projection": estimate,
-                             "eligible_slots": [slot]})
+                             "eligible_slots": [slot], "hypothetical_waiver": True})
     return selected
 
 
@@ -221,6 +235,9 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
     slots = starter_slots(settings)
     means = {int(tid): {} for tid in team_ids}
     coverage = []
+    lineup_audit = {int(tid): {} for tid in team_ids}
+    optimized_means = {int(tid): {} for tid in team_ids}
+    optimized_audit = {int(tid): {} for tid in team_ids}
     schedule_path = root / "nfl_schedule.json"
     schedule = json.loads(schedule_path.read_text()) if schedule_path.exists() else {}
     for week in weeks:
@@ -252,22 +269,76 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
             pool = snapshot["players"]
         fallback = waiver_replacements(pool, week, rostered_ids, slots, playing,
                                        projection_week=source_week)
+        # ESPN often omits target-week projections for unrostered players.
+        # A separate, explicitly estimated fallback anchors the same confirmed
+        # waiver candidates to their Week 10 ESPN projection, while requiring
+        # their NFL team to play in the target week. This is NOT a real acquisition.
+        reference_week = min(weeks)
+        reference_pool_path = root / "weeks" / f"{reference_week:02d}" / "free_agents.json"
+        reference_pool = (json.loads(reference_pool_path.read_text())
+                          if reference_week != week and reference_pool_path.exists() else None)
+        reference_fallback = waiver_replacements(
+            reference_pool, week, rostered_ids, slots, playing,
+            projection_week=reference_week) if reference_pool is not None else []
+        cross_week_teams = []
         diagnostics = waiver_pool_diagnostics(pool, week, rostered_ids, slots, playing)
         for tid in means:
+            replacement_method = "roster_only"
             entries = rosters.get(tid)
             if not entries:
                 continue
             try:
                 roster_players = normalized_players(entries, week, skip_missing=True, playing_teams=playing)
-                try:
-                    optimized = optimize_lineup(roster_players, slots)
-                except ValueError:
-                    if not fallback:
-                        raise
-                    optimized = optimize_lineup(roster_players + fallback, slots)
+                # Both policies see the same verified candidate pool. The baseline
+                # minimizes hypothetical additions before maximizing projected points;
+                # the upside policy maximizes points across roster and waiver estimates.
+                # Prefer target-week waiver estimates; use cross-week estimates only
+                # if a legal lineup cannot otherwise be constructed.
+                options = [(roster_players + fallback, "target_week_waiver_estimate")]
+                if reference_fallback:
+                    options.append((roster_players + reference_fallback,
+                                    "reference_week_waiver_estimate"))
+                selected = {}
+                for policy, preserve in (("baseline", True), ("full_optimization", False)):
+                    last_error = None
+                    for candidates, method in options:
+                        try:
+                            solution = optimize_lineup(candidates, slots,
+                                                       prefer_rostered=preserve)
+                            selected[policy] = (solution, method)
+                            break
+                        except ValueError as exc:
+                            last_error = exc
+                    if policy not in selected:
+                        raise last_error or ValueError("No legal lineup for policy")
+                names = {}
+                for entry in entries:
+                    player = (entry.get("playerPoolEntry") or {}).get("player") or {}
+                    pid = player.get("id", entry.get("playerId"))
+                    if pid is not None:
+                        names[int(pid)] = player.get("fullName") or player.get("name") or str(pid)
+                def audit(solution, method):
+                    starters = [{**starter,
+                                 "player_name": names.get(starter["player_id"],
+                                                          "HYPOTHETICAL WAIVER REPLACEMENT"),
+                                 "is_hypothetical_waiver": starter["player_id"] not in names}
+                                for starter in solution["lineup"]]
+                    waiver_count = sum(p["is_hypothetical_waiver"] for p in starters)
+                    return {"method": method if waiver_count else "roster_only",
+                            "hypothetical_waiver_count": waiver_count,
+                            "starters": starters}
+                baseline, baseline_method = selected["baseline"]
+                upside, upside_method = selected["full_optimization"]
+                lineup_audit[tid][week] = audit(baseline, baseline_method)
+                optimized_audit[tid][week] = audit(upside, upside_method)
+                means[tid][week] = baseline["projected_points"]
+                optimized_means[tid][week] = upside["projected_points"]
+                if lineup_audit[tid][week]["hypothetical_waiver_count"]:
                     replacements_used += 1
                     replacement_teams.append(tid)
-                means[tid][week] = optimized["projected_points"]
+                if (baseline_method == "reference_week_waiver_estimate" and
+                        lineup_audit[tid][week]["hypothetical_waiver_count"]):
+                    cross_week_teams.append(tid)
                 successful += 1
             except (ValueError, KeyError, TypeError) as exc:
                 failed_teams.append({"team_id": tid, "reason": str(exc)[:150]})
@@ -275,12 +346,15 @@ def extract_weekly_means(data_root, season, weeks, team_ids):
         coverage.append({"week": week, "teams_using_waiver_replacements": replacements_used,
                          "waiver_pool_verified": pool is not None,
                          "waiver_projection_source_week": source_week if pool is not None else None,
-                         "waiver_estimate_method": "mean_top_three_current_week",
+                         "waiver_estimate_method": "mean_top_three_current_week_or_reference_week",
+                         "cross_week_waiver_reference_week": reference_week if reference_pool is not None else None,
+                         "teams_using_cross_week_waiver_estimates": cross_week_teams,
                          "waiver_diagnostics": diagnostics,
                          "teams_requiring_replacements": replacement_teams,
                          "teams_without_valid_lineups": failed_teams,
                          "teams_with_valid_lineups": successful,
                          "teams_expected": len(means),
                          "status": "complete" if successful == len(means) else "incomplete"})
-    return {"means": means, "coverage": coverage,
+    return {"means": means, "coverage": coverage, "lineup_audit": lineup_audit,
+            "optimized_means": optimized_means, "optimized_audit": optimized_audit,
             "ready": all(row["status"] == "complete" for row in coverage)}

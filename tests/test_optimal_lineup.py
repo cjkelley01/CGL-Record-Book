@@ -3,6 +3,29 @@ from scripts.analytics.optimal_lineup import optimize_lineup
 
 
 class OptimalLineupTests(unittest.TestCase):
+    def test_preservation_fills_only_missing_slots_while_upside_replaces_starters(self):
+        roster = [
+            {"player_id": 1, "projection": 5, "eligible_slots": [17]},
+            {"player_id": 2, "projection": 10, "eligible_slots": [23]},
+        ]
+        waiver = [
+            {"player_id": -1001, "projection": 8, "eligible_slots": [6],
+             "hypothetical_waiver": True},
+            {"player_id": -1002, "projection": 11, "eligible_slots": [17],
+             "hypothetical_waiver": True},
+            {"player_id": -1003, "projection": 15, "eligible_slots": [23],
+             "hypothetical_waiver": True},
+        ]
+        baseline = optimize_lineup(roster + waiver, [17, 23, 6],
+                                   prefer_rostered=True)
+        upside = optimize_lineup(roster + waiver, [17, 23, 6])
+        self.assertEqual({1, 2, -1001},
+                         {p["player_id"] for p in baseline["lineup"]})
+        self.assertEqual({-1001, -1002, -1003},
+                         {p["player_id"] for p in upside["lineup"]})
+        self.assertEqual(23, baseline["projected_points"])
+        self.assertEqual(34, upside["projected_points"])
+
     def test_flex_and_bench_compete_for_best_legal_lineup(self):
         players = [
             {"player_id": 1, "projection": 20, "eligible_slots": [2, 23]},

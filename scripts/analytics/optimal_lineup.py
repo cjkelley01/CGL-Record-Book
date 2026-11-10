@@ -9,7 +9,7 @@ from functools import lru_cache
 NON_STARTER_SLOTS = {20, 21}  # ESPN bench (20) and IR (21); 23 is FLEX
 
 
-def optimize_lineup(players, starting_slots):
+def optimize_lineup(players, starting_slots, *, prefer_rostered=False):
     """Return highest projected legal lineup or raise on missing/incomplete data.
 
     players: [{player_id, projection, eligible_slots, available=True}]
@@ -32,7 +32,8 @@ def optimize_lineup(players, starting_slots):
         if not isinstance(projection, (int, float)) or isinstance(projection, bool):
             raise ValueError("Projection must be numeric")
         if player.get("available", True):
-            clean.append((pid, float(projection), frozenset(player.get("eligible_slots", []))))
+            clean.append((pid, float(projection), frozenset(player.get("eligible_slots", [])),
+                          bool(player.get("hypothetical_waiver", False))))
     if len(clean) < len(starting_slots):
         raise ValueError("Insufficient available players for a legal lineup")
     # Most-constrained slots first reduces search space.
@@ -46,7 +47,7 @@ def optimize_lineup(players, starting_slots):
     @lru_cache(None)
     def solve(slot_index, used):
         if slot_index == len(ordered_slots):
-            return (0.0, ())
+            return (0, 0.0, ())
         best = None
         for i in options[slot_index]:
             if used & (1 << i):
@@ -54,8 +55,9 @@ def optimize_lineup(players, starting_slots):
             rest = solve(slot_index + 1, used | (1 << i))
             if rest is None:
                 continue
-            candidate = (clean[i][1] + rest[0], (i,) + rest[1])
-            if best is None or candidate[0] > best[0]:
+            candidate = (rest[0] - int(clean[i][3]), clean[i][1] + rest[1],
+                         (i,) + rest[2])
+            if best is None or ((candidate[0], candidate[1]) if prefer_rostered else (candidate[1], candidate[0])) > ((best[0], best[1]) if prefer_rostered else (best[1], best[0])):
                 best = candidate
         return best
 
@@ -64,6 +66,6 @@ def optimize_lineup(players, starting_slots):
         raise ValueError("No legal lineup exists for available players")
     assignments = [{"slot_id": slot, "player_id": clean[i][0],
                     "projected_points": round(clean[i][1], 3)}
-                   for (_, slot), i in zip(ordered_slots, answer[1])]
-    return {"projected_points": round(answer[0], 3),
+                   for (_, slot), i in zip(ordered_slots, answer[2])]
+    return {"projected_points": round(answer[1], 3),
             "lineup": assignments}

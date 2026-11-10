@@ -1,0 +1,43 @@
+name: Export remaining-week team projections (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -r requirements.txt
+      - name: Download ESPN league snapshots
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+        run: python scripts/discover_espn_history.py --seasons 2026 --end-week 14
+      - name: Refresh future-week team rosters
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+        run: python -m scripts.fetch_future_rosters --start-week 10 --end-week 14
+      - name: Fetch verified NFL schedule
+        run: python -m scripts.fetch_nfl_schedule --start-week 10 --end-week 14
+      - name: Fetch waiver projections
+        env:
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+        run: python -m scripts.fetch_waiver_pool --start-week 10 --end-week 14
+      - name: Export team-only projections and coverage
+        run: python -m scripts.export_remaining_week_projections
+      - name: Upload team-only report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cgl-remaining-week-team-projections
+          path: data/reports/remaining_week_team_projections.json
+          retention-days: 14
