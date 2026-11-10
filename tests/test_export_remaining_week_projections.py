@@ -1,0 +1,40 @@
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+from scripts.export_remaining_week_projections import build_report
+
+
+class RemainingWeekExportTests(unittest.TestCase):
+    def test_missing_projection_is_null_and_blocks_readiness(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "raw/2026/league"
+            path.mkdir(parents=True)
+            path.joinpath("mTeam.json").write_text(json.dumps({
+                "teams": [{"id": i, "name": f"Team {i}"} for i in range(1, 15)]
+            }))
+            means = {i: {10: float(i)} for i in range(1, 15)}
+            del means[2][10]
+            mock = {"means": means, "ready": False, "coverage": [{
+                "week": 10, "status": "incomplete", "teams_with_valid_lineups": 13,
+                "teams_expected": 14, "teams_without_valid_lineups": [{"team_id": 2, "reason": "no legal lineup"}],
+            }]}
+            with patch("scripts.export_remaining_week_projections.extract_weekly_means", return_value=mock):
+                result = build_report(Path(tmp), weeks=[10])
+            self.assertFalse(result["ready"])
+            self.assertIsNone(result["teams"][1]["projected_points"]["10"])
+            self.assertEqual(13, result["coverage"][0]["valid_lineups"])
+
+    def test_rejects_incomplete_league(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "raw/2026/league"
+            path.mkdir(parents=True)
+            path.joinpath("mTeam.json").write_text('{"teams":[{"id":1,"name":"Only team"}]}')
+            with self.assertRaises(ValueError):
+                build_report(Path(tmp), weeks=[10])
+
+
+if __name__ == "__main__":
+    unittest.main()
