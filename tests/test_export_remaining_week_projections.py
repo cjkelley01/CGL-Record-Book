@@ -17,7 +17,9 @@ class RemainingWeekExportTests(unittest.TestCase):
             }))
             means = {i: {10: float(i)} for i in range(1, 15)}
             del means[2][10]
-            mock = {"means": means, "ready": False, "coverage": [{
+            audit = {i: ({10: {"method": "roster_only", "starters": []}} if i != 2 else {})
+                     for i in range(1, 15)}
+            mock = {"means": means, "lineup_audit": audit, "ready": False, "coverage": [{
                 "week": 10, "status": "incomplete", "teams_with_valid_lineups": 13,
                 "teams_expected": 14, "teams_without_valid_lineups": [{"team_id": 2, "reason": "no legal lineup"}],
             }]}
@@ -26,6 +28,8 @@ class RemainingWeekExportTests(unittest.TestCase):
             self.assertFalse(result["ready"])
             self.assertIsNone(result["teams"][1]["projected_points"]["10"])
             self.assertEqual(13, result["coverage"][0]["valid_lineups"])
+            self.assertIsNone(result["teams"][1]["lineup_audit"]["10"])
+            self.assertEqual("roster_only", result["teams"][0]["lineup_audit"]["10"]["method"])
 
     def test_rejects_incomplete_league(self):
         with tempfile.TemporaryDirectory() as tmp:
