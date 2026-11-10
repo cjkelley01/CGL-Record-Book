@@ -14,11 +14,11 @@ class ChampionshipScenarioTests(unittest.TestCase):
                                  "home_score": 100 if week < 10 else None,
                                  "away_score": 90 if week < 10 else None})
         self.history = {"seasons": [{"season": 2026, "teams": teams, "matchups": matchups}]}
-        self.projections = {"ready": True, "weeks": list(range(10, 15)),
+        self.projections = {"ready": True, "weeks": list(range(10, 19)),
                             "baseline_policy": "roster_preservation",
                             "comparison_policy": "full_waiver_optimization",
                             "teams": [{"team_id": i,
-                                       "projected_points": {str(w): 100 for w in range(10, 15)},
+                                       "projected_points": {str(w): 100 for w in range(10, 19)},
                                        "full_optimization_projected_points": {str(w): 110 for w in range(10, 15)}}
                                       for i in range(1, 15)]}
 
@@ -34,6 +34,11 @@ class ChampionshipScenarioTests(unittest.TestCase):
     def test_missing_week14_projection_is_not_imputed(self):
         self.projections["teams"][0]["projected_points"]["14"] = None
         with self.assertRaisesRegex(ValueError, "Week 14"):
+            build_championship_scenarios(self.history, self.projections, simulations=10)
+
+    def test_playoff_week_projection_required(self):
+        del self.projections["teams"][0]["projected_points"]["18"]
+        with self.assertRaisesRegex(ValueError, "Week 18"):
             build_championship_scenarios(self.history, self.projections, simulations=10)
 
     def test_no_week10_result_leakage(self):
