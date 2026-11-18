@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: research/matchup-probability-backtest
+          ref: main
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
