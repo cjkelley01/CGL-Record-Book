@@ -89,6 +89,7 @@ The forecast compares historical scoring, ESPN roster-aware projections, and a b
 
 ## Project guides
 
+- [Backlog](docs/backlog.md) for proposed changes and priorities
 - [Repository structure](docs/repository-structure.md) for the frontend and Python pipeline
 - [Record-book scope](docs/record-book-scope.md) for historical boundaries and verification rules
 - [Moves That Mattered](docs/moves-that-mattered.md) for transaction methodology
