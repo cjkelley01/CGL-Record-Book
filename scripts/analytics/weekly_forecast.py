@@ -98,11 +98,12 @@ def simulate(season, means, *, trials=10000, seed=2026, deviation=18.0, playoff_
             x = sum(score(a, week) for week in round_weeks)
             y = sum(score(b, week) for week in round_weeks)
             return a if x > y or (x == y and seeded[a] < seeded[b]) else b
-        first = [winner(ordered[2], ordered[5], playoff_weeks[0]),
-                 winner(ordered[3], ordered[4], playoff_weeks[0])]
-        first.sort(key=lambda tid: seeded[tid])
-        semi = [winner(ordered[0], first[1], playoff_weeks[1]),
-                winner(ordered[1], first[0], playoff_weeks[1])]
+        # CGL fixed bracket: #1 faces the #4/#5 winner; #2 faces #3/#6.
+        # Never reseed after the quarterfinals, including after upsets.
+        winner_3_6 = winner(ordered[2], ordered[5], playoff_weeks[0])
+        winner_4_5 = winner(ordered[3], ordered[4], playoff_weeks[0])
+        semi = [winner(ordered[0], winner_4_5, playoff_weeks[1]),
+                winner(ordered[1], winner_3_6, playoff_weeks[1])]
         for tid in semi:
             stats[tid]["finalist"] += 1
         a, b = semi
@@ -110,7 +111,7 @@ def simulate(season, means, *, trials=10000, seed=2026, deviation=18.0, playoff_
         stats[champ]["champion"] += 1
     return {"simulations": trials, "seed": seed,
             "assumptions": {"weekly_score_sd": deviation, "tiebreak": "points_for",
-                            "bracket": "6 teams; 1-2 byes; playoff rounds " + str(playoff_weeks)},
+                            "bracket": "fixed: #1 vs #4/#5 winner; #2 vs #3/#6 winner; playoff rounds " + str(playoff_weeks)},
             "teams": [{"team_id": tid, "team_name": next(t["team_name"] for t in season["teams"] if int(t["team_id"]) == tid),
                        "playoff_probability": round(stats[tid]["playoffs"] / trials, 4),
                        "bye_probability": round(stats[tid]["bye"] / trials, 4),
