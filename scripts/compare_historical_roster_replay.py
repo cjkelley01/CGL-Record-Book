@@ -31,7 +31,9 @@ def compare(seasons, team_rows, player_rows, *, cutoffs=(4,7,10,12), trials=2000
                                      "reconciled":"true", "projected":value}
                                     for tid,value in estimates.items())
     proxy, proxy_skips = replay(seasons, proxy_inputs, cutoffs=cutoffs, trials=trials)
-    paired = {(r["season"],r["cutoff"]) for r in proxy}
+    baseline_cutoffs = {(row["season"], row["cutoff"]) for row in baseline}
+    proxy_cutoffs = {(row["season"], row["cutoff"]) for row in proxy}
+    paired = baseline_cutoffs & proxy_cutoffs
     baseline = [r for r in baseline if (r["season"],r["cutoff"]) in paired]
     proxy = [r for r in proxy if (r["season"],r["cutoff"]) in paired]
     result = {

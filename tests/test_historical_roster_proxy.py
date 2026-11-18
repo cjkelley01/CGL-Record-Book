@@ -1,4 +1,7 @@
 import unittest
+from unittest.mock import patch
+
+from scripts.compare_historical_roster_replay import compare
 from scripts.historical_roster_proxy import cutoff_lineup_estimates
 
 
@@ -10,6 +13,19 @@ def row(week, pid, actual, *, team=1, slot=0):
 
 
 class HistoricalRosterProxyTests(unittest.TestCase):
+    @patch("scripts.compare_historical_roster_replay.summarize")
+    @patch("scripts.compare_historical_roster_replay.replay")
+    def test_comparison_keeps_only_successful_cutoffs_shared_by_both_models(self, replay, _):
+        baseline = [{"season": 2025, "cutoff": 4}, {"season": 2025, "cutoff": 7}]
+        proxy = [{"season": 2025, "cutoff": 7}, {"season": 2025, "cutoff": 10}]
+        replay.side_effect = [(baseline, []), (proxy, [])]
+
+        result, paired_baseline, paired_proxy = compare([], [], [])
+
+        self.assertEqual(result["paired_cutoffs"], [(2025, 7)])
+        self.assertEqual(paired_baseline, [baseline[1]])
+        self.assertEqual(paired_proxy, [proxy[0]])
+
     def test_future_actuals_and_projections_cannot_affect_estimate(self):
         data = [row(1, 11, 10), row(2, 11, 20), row(3, 11, 30),
                 row(4, 11, 999)]

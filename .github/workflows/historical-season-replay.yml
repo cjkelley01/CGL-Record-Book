@@ -29,12 +29,6 @@ jobs:
           ESPN_SWID: ${{ secrets.ESPN_SWID }}
           SEASONS: ${{ inputs.seasons }}
         run: python -m scripts.extract_historical_player_data --seasons "$SEASONS"
-      - name: Extract historical player-week rosters
-        env:
-          ESPN_S2: ${{ secrets.ESPN_S2 }}
-          ESPN_SWID: ${{ secrets.ESPN_SWID }}
-          SEASONS: ${{ inputs.seasons }}
-        run: python -m scripts.extract_historical_player_data --seasons "$SEASONS" --output historical-player-dataset
       - name: Reconcile historical projections
         env:
           ESPN_S2: ${{ secrets.ESPN_S2 }}
