@@ -30,9 +30,9 @@ export function LeaderboardCard({
         <h3>{title}</h3>
         {note && <small>{note}</small>}
       </header>
-      <ol>
+      <ol tabIndex={0} aria-label={title}>
         {rows.map((row) => (
-          <li key={`${row.rank}:$<TeamLink season={row.season}>{row.team_name}</TeamLink>:${row.season ?? "career"}`}>
+          <li key={`${row.rank}:${row.team_name}:${row.season ?? "career"}`}>
             <span>{row.rank}</span>
             <div>
               <b><TeamLink season={row.season} managerId={data.manager_history.standings.find((manager) => manager.manager_name === row.manager_name)?.manager_id}>{row.team_name}</TeamLink></b>

@@ -169,7 +169,7 @@ export default function Home() {
           </section>
         </div>}
 
-        {section === "current" && <div className="page">
+        {section === "current" && <div className="page dashboard-page">
           <CurrentSeason season={currentSeason} />
         </div>}
 
@@ -268,9 +268,9 @@ export default function Home() {
           <MovesThatMattered moves={data.moves} />
         </div>}
 
-        {section === "records" && <div className="page">
+        {section === "records" && <div className="page dashboard-page">
           <PageHead
-            overline="Best, worst & wildest"
+            overline="League history"
             title="The record board"
             text="Consolation games are preserved in season history but excluded here."
           />
@@ -285,7 +285,7 @@ export default function Home() {
               championship-playoff games.
             </p>
           </div>
-          <RecordGroup number="01" name="Regular season">
+          <RecordGroup name="Regular season">
             <RecordCard
               label="Highest score"
               title={regular.highest_weekly_score.team_name}
@@ -323,7 +323,7 @@ export default function Home() {
               value={fmt.format(regular.closest_game.margin)}
             />
           </RecordGroup>
-          <RecordGroup number="02" name="Championship playoffs">
+          <RecordGroup name="Championship playoffs">
             <RecordCard
               label="Highest playoff week"
               title={playoffs.highest_weekly_score.team_name}
@@ -345,7 +345,7 @@ export default function Home() {
               )}
             />
           </RecordGroup>
-          <RecordGroup number="03" name="Two-week championship series">
+          <RecordGroup name="Two-week championship series">
             <RecordCard
               label="Largest series margin"
               title={`${series.largest_margin.home_team_name} / ${series.largest_margin.away_team_name}`}
