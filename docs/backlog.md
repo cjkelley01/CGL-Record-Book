@@ -4,6 +4,7 @@ Track proposed changes here. Each entry should explain the problem and what woul
 
 ## Next
 
+- [ ] **Fix the page tabs and update the site layout.** Some tabs are clipped and cannot be reached by scrolling. Fix navigation first. Every section must be discoverable and reachable on narrow and wide screens using touch, a mouse, or a keyboard. Keep the selected section visible and preserve existing shareable URLs and browser Back/Forward behavior. Verify the first and last tabs on mobile and desktop before making broader layout changes.
 - [ ] **Bring the published playoff forecast up to date.** The forecast on `main` is based on Week 7, while the season refresh continues to update results. Use the [lineup-readiness report](../data/reports/lineup_projection_readiness.json) and [projection-coverage report](../data/reports/forecast_projection_coverage.json) to identify missing inputs. Done when the forecast uses a current completed week with validated lineup coverage, or the site clearly shows why the forecast is held and which week it represents.
 - [ ] **Add a season maintenance runbook.** Document the annual season rollover, routine refresh and deployment checks, how to diagnose a failed refresh or held forecast, and how to recover. Link to the commands in the [README](../README.md).
 - [ ] **Refresh the [repository structure guide](repository-structure.md).** Document the forecast dataset, tracked aggregate reports, and the single GitHub Pages deployment workflow. Keep the guide focused on where code and data live.
@@ -17,5 +18,6 @@ Track proposed changes here. Each entry should explain the problem and what woul
 
 ## Later
 
+- [ ] **Bring the CGL Record Book and Timmy’s Fantasy Football War Room together.** Put league history, analytics, and in-season tools in one place. First review both apps’ features, data sources, access needs, and deployment. Agree with Timmy on shared navigation, where league data is maintained, and how existing Record Book links will keep working. Plan a phased migration before combining the projects.
 - [ ] **Add matchup scenarios and weekly leverage.** Let readers see how selected results change playoff or bye odds once the baseline forecast is current and validated.
 - [ ] **Show forecast history.** Use archived snapshots to show how odds changed by week, with the snapshot date, completed-through week, and model visible.
