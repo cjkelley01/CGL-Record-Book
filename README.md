@@ -12,6 +12,8 @@ Official statistics begin with the **2024 season**. Earlier stories belong to **
 - Moves That Mattered, which measures transaction impact using points scored in starting lineups
 - Playoff, bye, finalist, and championship probabilities from the saved forecast
 
+Overview is the landing page and appears above the Season, History, and Analytics groups. Use the sidebar on desktop or open **Menu** on a smaller screen.
+
 The URL saves the selected section and filters, so you can share a specific season, matchup, manager, or draft view. Use a link from the published site when sharing with the league. Underlined team names open the manager profile for that season’s owner. Shared teams open the first listed owner.
 
 ## Run the website locally
