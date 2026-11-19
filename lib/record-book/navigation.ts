@@ -13,10 +13,14 @@ export function viewLink(values: Record<string, string>) {
   return `#${new URLSearchParams(values)}`;
 }
 
-export function updateView(values: Record<string, string>) {
+export function currentViewLink(values: Record<string, string>) {
   const params = new URLSearchParams(window.location.hash.slice(1));
   for (const [key, value] of Object.entries(values)) params.set(key, value);
-  const hash = `#${params}`;
+  return `#${params}`;
+}
+
+export function updateView(values: Record<string, string>) {
+  const hash = currentViewLink(values);
   if (hash === window.location.hash) return;
   window.history.pushState(null, "", hash);
   window.dispatchEvent(new HashChangeEvent("hashchange"));
