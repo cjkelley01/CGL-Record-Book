@@ -2,8 +2,9 @@ import { Menu, X } from "lucide-react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 
 const groups = [
+  { label: null, pages: [["overview", "Overview"]] },
   { label: "Season", pages: [
-    ["overview", "Overview"], ["current", "2026 Live"],
+    ["current", "2026 Live"],
     ["standings", "Standings"], ["forecast", "Playoff Odds"],
   ] },
   { label: "History", pages: [
@@ -24,8 +25,8 @@ function PageLinks({ section, hrefFor, onNavigate }: NavigationProps & { onNavig
   return (
     <nav aria-label="Record Book pages" className="record-book-links">
       {groups.map(({ label, pages }) => (
-        <div key={label}>
-          <h2>{label}</h2>
+        <div key={label ?? "overview"}>
+          {label && <h2>{label}</h2>}
           <ul>
             {pages.map(([id, title]) => (
               <li key={id}>
