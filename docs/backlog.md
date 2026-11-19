@@ -4,8 +4,6 @@ Track proposed changes here. Each entry should explain the problem and what woul
 
 ## Next
 
-- [ ] **Prototype a shared visual direction.** Apply War Room-inspired dark teal surfaces and warm accents to the Record Book shell while keeping the CGL identity. Use the current-season dashboard and the Records tables to test the layout and readability before changing the remaining pages.
-- [ ] **Bring the published playoff forecast up to date.** The forecast on `main` is based on Week 7, while the season refresh continues to update results. Use the [lineup-readiness report](../data/reports/lineup_projection_readiness.json) and [projection-coverage report](../data/reports/forecast_projection_coverage.json) to identify missing inputs. Done when the forecast uses a current completed week with validated lineup coverage, or the site clearly shows why the forecast is held and which week it represents.
 - [ ] **Add a season maintenance runbook.** Document the annual season rollover, routine refresh and deployment checks, how to diagnose a failed refresh or held forecast, and how to recover. Link to the commands in the [README](../README.md).
 - [ ] **Update the [analytics roadmap](analytics-roadmap.md).** Mark all-play, schedule luck, power rankings, and the published forecast as implemented. Record the remaining work on scenario controls, probability history, and validation, with links back here for actionable changes.
 
@@ -18,7 +16,7 @@ Track proposed changes here. Each entry should explain the problem and what woul
 ## Later
 
 - [ ] **Bring the CGL Record Book and Timmy’s Fantasy Football War Room together.** Put league history, analytics, and in-season tools in one place. Review the remaining features, data contracts, access needs, and deployment with Timmy. [War Room repository](https://github.com/tdkelley2001/fantasy_football). Agree with Timmy on shared navigation, where league data is maintained, and how existing Record Book links will keep working. Plan a phased migration before combining the projects.
-  - Compare League Overview and Playoff Odds first. Agree on the source of official results and test a versioned War Room summary with its model and snapshot date visible.
+  - Compare League Overview and Playoff Odds first. Agree on the source of official results and test a versioned War Room summary with its model and snapshot date visible. Defer changes to the Record Book’s standalone playoff forecast until this comparison establishes which War Room analytics can supply the combined view.
   - Keep public summaries compatible with GitHub Pages. Decide with Timmy how to host and control access to the live tools and background jobs before combining deployments.
 - [ ] **Add matchup scenarios and weekly leverage.** Let readers see how selected results change playoff or bye odds once the baseline forecast is current and validated.
 - [ ] **Show forecast history.** Use archived snapshots to show how odds changed by week, with the snapshot date, completed-through week, and model visible.
