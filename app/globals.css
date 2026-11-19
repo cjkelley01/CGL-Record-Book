@@ -149,44 +149,144 @@ body {
   width: 35px;
   height: 35px;
 }
-.tabs {
-  gap: 0 !important;
+/* Record Book navigation */
+.record-book-layout {
+  --nav-bg: #0d1b21;
+  --nav-line: #29414a;
+  --nav-text: #eef8f5;
+  --nav-muted: #a9c2c1;
+  --nav-accent: #72dec9;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
 }
-.mobile-navigation {
-  display: none;
+#record-book-content {
+  min-width: 0;
+  scroll-margin-top: 56px;
 }
-.tabs > nav {
+.record-book-skip-link {
+  position: fixed;
+  z-index: 30;
+  inset: 8px auto auto 8px;
+  padding: 10px 14px;
+  background: var(--white);
+  color: var(--ink);
+  transform: translateY(calc(-100% - 12px));
+}
+.record-book-skip-link:focus { transform: none; }
+.record-book-sidebar { display: none; }
+.record-book-mobile-bar {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--white);
-  border-bottom: 1px solid var(--line);
-  box-shadow: 0 5px 16px #07182b0f;
-  overflow-x: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 14px;
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  border-bottom: 1px solid var(--nav-line);
+  font-weight: 700;
 }
-.tabs > nav [data-slot="tabs-list"] {
-  height: 54px !important;
-  width: min(1160px, 100%);
-  margin: auto;
-  padding: 0 24px;
-  gap: 34px;
+.record-book-mobile-bar button,
+.record-book-drawer-header button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+  padding: 6px 12px;
+  border: 1px solid var(--nav-line);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
 }
-.tabs > nav [data-slot="tabs-trigger"] {
-  height: 54px;
-  padding: 0 2px;
-  color: #59616b;
-  font-size: 0.83rem;
-  font-weight: 800;
+.record-book-drawer {
+  position: fixed;
+  inset: 0 auto 0 0;
+  margin: 0;
+  width: min(86vw, 320px);
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  border-right: 1px solid var(--nav-line);
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  padding: 0;
+  overflow: hidden;
+}
+.record-book-drawer::backdrop { background: rgb(7 17 22 / 65%); }
+.record-book-drawer-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.record-book-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--nav-line);
+}
+.record-book-drawer-header h2 { margin: 0; font-size: 1rem; }
+.record-book-drawer .record-book-links { overflow-y: auto; }
+.record-book-links {
+  display: grid;
+  align-content: start;
+  gap: 20px;
+  padding: 18px 14px;
+  overscroll-behavior-y: contain;
+}
+.record-book-links h2 {
+  margin: 0 0 6px;
+  padding-inline: 12px;
+  color: var(--nav-muted);
+  font-size: 0.77rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.tabs > nav [data-state="active"] {
-  color: var(--ink);
+.record-book-links ul { list-style: none; padding: 0; margin: 0; }
+.record-book-links a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 0.95rem;
 }
-.tabs > nav [data-slot="tabs-trigger"]:after {
-  background: var(--gold) !important;
-  height: 4px !important;
-  bottom: 0 !important;
+.record-book-links a:hover { background: #192f37; }
+.record-book-links a[aria-current="page"] {
+  color: var(--nav-accent);
+  background: #17363b;
+  box-shadow: inset 3px 0 var(--nav-accent);
+  font-weight: 700;
+}
+.record-book-links a:focus-visible,
+.record-book-mobile-bar button:focus-visible,
+.record-book-drawer-header button:focus-visible {
+  outline: 2px solid var(--nav-accent);
+  outline-offset: -2px;
+}
+@media (min-width: 1100px) {
+  .record-book-layout { grid-template-columns: 220px minmax(0, 1fr); }
+  .record-book-sidebar {
+    display: block;
+    background: var(--nav-bg);
+    border-right: 1px solid var(--nav-line);
+  }
+  .record-book-sidebar .record-book-links {
+    position: sticky;
+    top: 0;
+    max-height: 100dvh;
+    overflow-y: auto;
+  }
+  .record-book-mobile-bar { display: none; }
+  #record-book-content { scroll-margin-top: 0; }
 }
 .page {
   min-height: 70vh;
@@ -694,12 +794,6 @@ footer > svg {
   }
   .seal {
     display: none;
-  }
-  .tabs > nav [data-slot="tabs-list"] {
-    justify-content: flex-start;
-    min-width: max-content;
-    gap: 24px;
-    padding-inline: 20px;
   }
   .lede,
   .season-grid {
@@ -2095,35 +2189,6 @@ footer > svg {
 @media (max-width: 650px) {
   .season-standings-table {
     display: none;
-  }
-  .tabs > nav [data-slot="tabs-list"] {
-    display: none;
-  }
-  .mobile-navigation {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 8px 14px;
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-  .mobile-navigation select {
-    flex: 1;
-    min-width: 0;
-    min-height: 44px;
-    padding: 8px 12px;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    background: var(--paper);
-    color: var(--ink);
-    font-size: 1rem;
-    font-weight: 700;
-  }
-  .mobile-navigation select:focus-visible {
-    outline: 3px solid var(--gold);
-    outline-offset: 2px;
   }
   .season-standings-cards {
     display: grid;

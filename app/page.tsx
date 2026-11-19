@@ -13,30 +13,15 @@ import { RecordGroup } from "@/components/record-book/record-group";
 import { RecordsLeaderboards } from "@/components/record-book/records-leaderboards";
 import { SeasonArchive } from "@/components/record-book/season-archive";
 import { Standings } from "@/components/record-book/standings";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { RecordBookLayout, sectionIds } from "@/components/record-book/record-book-navigation";
 import type { RecordLeaderboards } from "@/lib/record-book/history";
 import { data, fmt, names } from "@/lib/record-book/history";
 import { Crown, History, Shield, Swords, Trophy } from "lucide-react";
-import { updateView, useViewValue } from "@/lib/record-book/navigation";
+import { currentViewLink, useViewValue } from "@/lib/record-book/navigation";
 import { TeamLink } from "@/components/record-book/team-link";
 
-const sections = [
-  ["overview", "Overview"],
-  ["current", "2026 Live"],
-  ["analytics", "Analytics"],
-  ["forecast", "Playoff Odds"],
-  ["champions", "Champions"],
-  ["standings", "Standings"],
-  ["managers", "Managers"],
-  ["head-to-head", "Head-to-Head"],
-  ["drafts", "Drafts"],
-  ["moves", "Moves That Mattered"],
-  ["records", "Records"],
-  ["seasons", "Seasons"],
-] as const;
-
 export default function Home() {
-  const [section] = useViewValue("section", "overview", sections.map(([value]) => value));
+  const [section] = useViewValue("section", "overview", sectionIds);
   const [yearValue, setYear] = useViewValue("season", String([...data.seasons].reverse().find((s) => s.is_complete)!.season), data.seasons.filter((s) => s.is_complete).map((s) => String(s.season)));
   const year = Number(yearValue);
   const managerIds = data.manager_history.standings.map((m) => m.manager_id);
@@ -63,7 +48,7 @@ export default function Home() {
     managerIds.filter((id) => id !== managerAId),
   );
   const currentSeason = data.seasons.find((s) => !s.is_complete);
-  const setSection = (next: string) => updateView({
+  const sectionLink = (next: string) => currentViewLink({
     section: next,
     season: yearValue,
     manager: managerId,
@@ -71,7 +56,11 @@ export default function Home() {
     team2: managerBId,
   });
   return (
-    <main>
+    <div className="record-book">
+      <a className="record-book-skip-link" href="#record-book-content" onClick={(event) => {
+        event.preventDefault();
+        document.getElementById("record-book-content")?.focus();
+      }}>Skip to content</a>
       <header className="site-header">
         <div className="crest">
           <b>CGL</b>
@@ -90,23 +79,8 @@ export default function Home() {
           </span>
         </div>
       </header>
-      <Tabs value={section} onValueChange={setSection} className="tabs">
-        <nav aria-label="Record book sections">
-          <label className="mobile-navigation">
-            Browse
-            <select value={section} onChange={(event) => setSection(event.target.value)}>
-              {sections.map(([value, label]) => (
-                <option key={value} value={value}>{label}</option>
-              ))}
-            </select>
-          </label>
-          <TabsList variant="line">
-            {sections.map(([value, label]) => (
-              <TabsTrigger key={value} value={value}>{label}</TabsTrigger>
-            ))}
-          </TabsList>
-        </nav>
-        <TabsContent value="overview" className="page">
+      <RecordBookLayout section={section} hrefFor={sectionLink}>
+        {section === "overview" && <div className="page">
           <section className="lede">
             <div>
               <p className="eyebrow gold">The books are open</p>
@@ -193,13 +167,13 @@ export default function Home() {
               value={`${fmt.format(regular.largest_margin.margin)} pts`}
             />
           </section>
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="current" className="page">
+        {section === "current" && <div className="page">
           <CurrentSeason season={currentSeason} />
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="champions" className="page">
+        {section === "champions" && <div className="page">
           <PageHead
             overline="The highest honor"
             title="Championship ledger"
@@ -251,17 +225,17 @@ export default function Home() {
               );
             })}
           </div>
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="analytics" className="page">
+        {section === "analytics" && <div className="page">
           <LeagueAnalytics />
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="forecast" className="page">
+        {section === "forecast" && <div className="page">
           <PlayoffForecast />
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="standings" className="page">
+        {section === "standings" && <div className="page">
           <PageHead
             overline="Every season counts"
             title="All-time standings"
@@ -271,30 +245,30 @@ export default function Home() {
             rows={data.manager_history.standings}
             qualificationGames={14}
           />
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="managers" className="page">
+        {section === "managers" && <div className="page">
           <ManagerProfile managerId={managerId} setManagerId={setManagerId} />
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="head-to-head" className="page">
+        {section === "head-to-head" && <div className="page">
           <HeadToHead
             managerAId={managerAId}
             managerBId={managerBId}
             setManagerAId={setManagerAId}
             setManagerBId={setManagerBId}
           />
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="drafts" className="page">
+        {section === "drafts" && <div className="page">
           <DraftHistory managerId={managerId} />
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="moves" className="page">
+        {section === "moves" && <div className="page">
           <MovesThatMattered moves={data.moves} />
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="records" className="page">
+        {section === "records" && <div className="page">
           <PageHead
             overline="Best, worst & wildest"
             title="The record board"
@@ -391,9 +365,9 @@ export default function Home() {
               value={fmt.format(series.highest_combined_score.combined_score)}
             />
           </RecordGroup>
-        </TabsContent>
+        </div>}
 
-        <TabsContent value="seasons" className="page">
+        {section === "seasons" && <div className="page">
           <div className="season-head">
             <PageHead overline="Year by year" title="Season archive" />
             <div className="year-pick">
@@ -411,8 +385,8 @@ export default function Home() {
             </div>
           </div>
           <SeasonArchive key={season.season} season={season} />
-        </TabsContent>
-      </Tabs>
+        </div>}
+      </RecordBookLayout>
       <footer>
         <div className="crest mini">
           <b>CGL</b>
@@ -420,6 +394,6 @@ export default function Home() {
         <p>Official statistical history begins in 2024.</p>
         <Swords />
       </footer>
-    </main>
+    </div>
   );
 }
