@@ -109,82 +109,86 @@ export function CurrentSeason({ season }: { season?: Season }) {
           ))}
         </section>
       ) : null}
-      <div className="section-title compact">
-        <div>
-          <p className="eyebrow">Playoff picture</p>
-          <h2>Current standings</h2>
-        </div>
-        <p>Seeds reflect ESPN&apos;s current league order.</p>
-      </div>
-      <div className="table-shell">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Seed</TableHead>
-              <TableHead>Team</TableHead>
-              <TableHead>Record</TableHead>
-              <TableHead>PF</TableHead>
-              <TableHead>PA</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {standings.map((t) => (
-              <TableRow key={t.team_season_id}>
-                <TableCell className="rank">#{t.playoff_seed}</TableCell>
-                <TableCell>
-                  <strong><TeamLink season={season.season}>{t.team_name}</TeamLink></strong>
-                  <small>{names(t.manager_names)}</small>
-                </TableCell>
-                <TableCell>
-                  {t.regular_season.wins}–{t.regular_season.losses}
-                </TableCell>
-                <TableCell>{fmt.format(t.regular_season.points_for)}</TableCell>
-                <TableCell>
-                  {fmt.format(t.regular_season.points_against)}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-      {season.through_week > 0 && (
-        <>
+      <div className="live-dashboard">
+        <section aria-labelledby="live-standings-heading">
           <div className="section-title compact">
             <div>
-              <p className="eyebrow">Latest completed week</p>
-              <h2>Week {season.through_week} results</h2>
+              <p className="eyebrow">Playoff picture</p>
+              <h2 id="live-standings-heading">Current standings</h2>
             </div>
+            <p>Seeds reflect ESPN&apos;s current league order.</p>
           </div>
-          <section className="score-grid">
-            {latestGames.map((g) => (
-              <article key={g.matchup_key}>
-                <div
-                  className={
-                    (g.winner === "HOME" ? "winner " : "") + "score-side"
-                  }
-                >
-                  <span>
-                    <b><TeamLink season={season.season}>{g.home_team_name}</TeamLink></b>
-                    <small>{names(g.home_manager_names)}</small>
-                  </span>
-                  <strong>{fmt.format(g.home_score ?? 0)}</strong>
-                </div>
-                <div
-                  className={
-                    (g.winner === "AWAY" ? "winner " : "") + "score-side"
-                  }
-                >
-                  <span>
-                    <b><TeamLink season={season.season}>{g.away_team_name}</TeamLink></b>
-                    <small>{names(g.away_manager_names)}</small>
-                  </span>
-                  <strong>{fmt.format(g.away_score ?? 0)}</strong>
-                </div>
-              </article>
-            ))}
+          <div className="table-shell" role="region" aria-labelledby="live-standings-heading" tabIndex={0}>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Seed</TableHead>
+                  <TableHead>Team</TableHead>
+                  <TableHead>Record</TableHead>
+                  <TableHead>PF</TableHead>
+                  <TableHead>PA</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {standings.map((t) => (
+                  <TableRow key={t.team_season_id}>
+                    <TableCell className="rank">#{t.playoff_seed}</TableCell>
+                    <TableCell>
+                      <strong><TeamLink season={season.season}>{t.team_name}</TeamLink></strong>
+                      <small>{names(t.manager_names)}</small>
+                    </TableCell>
+                    <TableCell>
+                      {t.regular_season.wins}–{t.regular_season.losses}
+                    </TableCell>
+                    <TableCell>{fmt.format(t.regular_season.points_for)}</TableCell>
+                    <TableCell>
+                      {fmt.format(t.regular_season.points_against)}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </section>
+        {season.through_week > 0 && (
+          <section aria-labelledby="live-results-heading">
+            <div className="section-title compact">
+              <div>
+                <p className="eyebrow">Latest completed week</p>
+                <h2 id="live-results-heading">Week {season.through_week} results</h2>
+              </div>
+            </div>
+            <section className="score-grid">
+              {latestGames.map((g) => (
+                <article key={g.matchup_key}>
+                  <div
+                    className={
+                      (g.winner === "HOME" ? "winner " : "") + "score-side"
+                    }
+                  >
+                    <span>
+                      <b><TeamLink season={season.season}>{g.home_team_name}</TeamLink></b>
+                      <small>{names(g.home_manager_names)}</small>
+                    </span>
+                    <strong>{fmt.format(g.home_score ?? 0)}</strong>
+                  </div>
+                  <div
+                    className={
+                      (g.winner === "AWAY" ? "winner " : "") + "score-side"
+                    }
+                  >
+                    <span>
+                      <b><TeamLink season={season.season}>{g.away_team_name}</TeamLink></b>
+                      <small>{names(g.away_manager_names)}</small>
+                    </span>
+                    <strong>{fmt.format(g.away_score ?? 0)}</strong>
+                  </div>
+                </article>
+              ))}
+            </section>
           </section>
-        </>
-      )}
+        )}
+      </div>
     </>
   );
 }
