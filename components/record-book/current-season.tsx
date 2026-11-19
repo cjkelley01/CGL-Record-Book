@@ -116,7 +116,6 @@ export function CurrentSeason({ season }: { season?: Season }) {
               <p className="eyebrow">Playoff picture</p>
               <h2 id="live-standings-heading">Current standings</h2>
             </div>
-            <p>Seeds reflect ESPN&apos;s current league order.</p>
           </div>
           <div className="table-shell" role="region" aria-labelledby="live-standings-heading" tabIndex={0}>
             <Table>
@@ -149,6 +148,7 @@ export function CurrentSeason({ season }: { season?: Season }) {
               </TableBody>
             </Table>
           </div>
+          <p className="live-standings-note">Seeds reflect ESPN&apos;s current league order.</p>
         </section>
         {season.through_week > 0 && (
           <section aria-labelledby="live-results-heading">

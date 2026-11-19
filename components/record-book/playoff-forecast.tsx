@@ -48,11 +48,11 @@ export function PlayoffForecast() {
         ) : (
           <>
             <p>{selected.simulations?.toLocaleString()} simulations · Probabilities update with each successful refresh.</p>
-            <div style={{ overflowX: "auto" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+            <div className="analytics-table-wrap" role="region" aria-label="Playoff probabilities" tabIndex={0}>
+              <table className="analytics-table">
                 <thead><tr><th>Team</th><th>Playoffs</th><th>Bye</th><th>Final</th><th>Champion</th><th>Expected seed</th></tr></thead>
                 <tbody>{rows.map(team => (
-                  <tr key={team.team_id} style={{ borderTop: "1px solid currentColor" }}>
+                  <tr key={team.team_id}>
                     <td>{team.team_name}</td>
                     <td>{percent(team.playoff_probability)}</td>
                     <td>{percent(team.bye_probability)}</td>

@@ -169,7 +169,7 @@ export default function Home() {
           </section>
         </div>}
 
-        {section === "current" && <div className="page dashboard-preview">
+        {section === "current" && <div className="page dashboard-page">
           <CurrentSeason season={currentSeason} />
         </div>}
 
@@ -268,7 +268,7 @@ export default function Home() {
           <MovesThatMattered moves={data.moves} />
         </div>}
 
-        {section === "records" && <div className="page dashboard-preview">
+        {section === "records" && <div className="page dashboard-page">
           <PageHead
             overline="League history"
             title="The record board"
